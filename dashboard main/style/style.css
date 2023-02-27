@@ -13,7 +13,7 @@ body {
 }
 
 aside {
-  background-color: green;
+  background-color: rgba(0, 0, 0, 0.028);
   position: fixed;
   width: 25vw;
   height: 100vh;
@@ -62,7 +62,7 @@ aside ul li:after {
 }
 aside ul li:hover:after {
   width: 70%;
-  background: black;
+  background: #f69368;
 }
 aside ul li {
   width: 80%;
@@ -70,7 +70,6 @@ aside ul li {
 }
 
 .cards-container {
-  background-color: blue;
   margin-left: 25vw;
   text-align: center;
   width: 100vw;
@@ -78,13 +77,22 @@ aside ul li {
 }
 .cards-container .money-container {
   width: 70%;
-  background-color: red;
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  letter-spacing: 2px;
+  font-size: normal;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   margin: 0 auto;
   margin-bottom: 2rem;
   border-radius: 15px;
+  border: 1px solid #adadad;
+  background-color: rgba(0, 0, 0, 0.028);
+}
+.cards-container .money-container .profit {
+  color: #3CB371;
 }
 .cards-container h1 {
   margin-bottom: 1rem;
@@ -103,32 +111,34 @@ aside ul li {
   text-transform: capitalize;
 }
 .cards-container .actions ul li {
-  background-color: yellow;
+  background-color: #adadad;
   padding: 0.7rem;
-  border-radius: 15px;
   transition: 0.5s;
 }
+.cards-container .actions ul li a {
+  color: #fff;
+}
 .cards-container .actions ul li:hover {
-  background-color: green;
-  scale: 1.1;
+  background-color: #f69368;
+  border-radius: 15px;
 }
 .cards-container .cards {
-  background-color: purple;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 2rem;
 }
 .cards-container .cards .card {
-  background-color: #f69368;
+  background-color: #adadad;
   width: 10rem;
   height: 5rem;
-  border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
   padding: 0.5rem;
+  transition: 0.5s ease-in-out;
+  cursor: pointer;
 }
 .cards-container .cards .card h5 {
   margin-bottom: 0.7rem;
@@ -144,6 +154,17 @@ aside ul li {
   font-weight: 500;
   letter-spacing: 2px;
   font-size: normal;
+}
+.cards-container .cards .card:hover {
+  background-color: #f69368;
+  border-radius: 10px;
+}
+.cards-container .charts {
+  width: 100%;
+  margin-top: 2rem;
+}
+.cards-container .charts img {
+  width: 300px;
 }
 .cards-container .products {
   padding: 1rem 0;
@@ -167,7 +188,6 @@ aside ul li {
 .cards-container .products .product .product-card {
   width: 150px;
   cursor: pointer;
-  border: 1px solid red;
   margin-bottom: 1rem;
 }
 .cards-container .products .product .product-card p {
@@ -177,37 +197,14 @@ aside ul li {
   font-weight: 200;
   letter-spacing: 2px;
   font-size: 14px;
-  color: #adadad;
+  color: black;
 }
 .cards-container .products .product .product-card img {
   width: 150px;
   margin-bottom: 15px;
 }
-.cards-container .products .product .product-card form {
-  display: flex;
-  justify-content: space-around;
-  align-items: flex-start;
-  align-items: center;
-  width: 100%;
-  border: 1px solid red;
-  height: 3rem;
-  padding-top: 2px;
-}
-.cards-container .products .product .product-card form button {
-  color: #f69368;
-  text-decoration: none;
-  font-family: "Roboto", sans-serif;
-  font-weight: 200;
-  letter-spacing: 2px;
-  font-size: 14px;
-  outline: none;
-  border: none;
-  background-color: transparent;
-  letter-spacing: normal;
-  cursor: pointer;
-}
 .cards-container .products .product .product-card:hover p {
-  color: black;
+  color: #f69368;
   transition: 0.5s ease-in-out;
 }
 .cards-container .products .product form button:hover {
@@ -228,56 +225,12 @@ aside ul li {
   background: #f69368;
 }
 
-@media screen and (max-width: 800px) {
-  header {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-  }
-  header .nav-links {
-    display: none;
-  }
-  header img {
-    height: 30px;
-    margin-right: 4rem;
-  }
-}
-@media screen and (max-width: 700px) {
-  footer {
-    justify-content: center;
-  }
-  footer .newsletter {
-    width: 45vw;
-  }
-  header img {
-    height: 30px;
-    margin-right: 3rem;
-  }
-}
 @media screen and (max-width: 545px) {
-  footer {
-    justify-content: center;
-    height: auto;
+  .money-container {
+    flex-direction: column;
   }
-  footer .footer-links {
-    width: 20vw;
-  }
-  footer .newsletter {
-    width: 65vw;
-  }
-  header {
-    height: 3rem;
-    padding: 5px;
-  }
-  header img {
-    height: 20px;
-  }
-  header .my-cart {
-    width: 5%;
-    font-size: 12px;
-  }
-  .hamburger {
-    top: -5px;
+  aside div .fa-solid {
+    display: none;
   }
 }
 @media screen and (max-width: 365px) {
