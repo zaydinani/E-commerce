@@ -107,12 +107,11 @@ body {
     display: flex;
 }
 
-
 //sidebar
 aside{
-    background-color: $secondary-color;
+    background-color: #f9f9f9;
     position: fixed;
-    width: 25vw;
+    width: 15vw;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -120,6 +119,7 @@ aside{
     text-align: center;
     @include font-serif-titles(14px, 400);
     letter-spacing: normal;
+    transition: 0.5s ease-in-out;
     h1{
         margin-bottom: 1rem;
         @include font-sans-serif-titles(700, normal);
@@ -129,18 +129,16 @@ aside{
         height: 3rem;
         gap: 1rem;
         padding: 1rem;
+        
     }
     ul {
         @include reset-list-styles;
         @include border-bottom-animation-shrinks-black-dash;
-        li{
-            width: 80%;
-            text-align: left;
-        }
     }
 }
+
 .cards-container {
-    margin-left: 25vw;
+    margin-left: 15vw;
     text-align: center;
     width: 100vw;
     padding: 1rem;
@@ -254,27 +252,7 @@ aside{
                     transition: 0.5s ease-in-out;
                 }
             }
-            form{
-                button:hover{
-                    color: red;
-                    transition: 0.5s ease-in-out;
 
-                }
-                button:after {
-                    content: '';
-                    display: block;
-                    margin: auto;
-                    height: 1px;
-                    width: 100%;
-                    background: $orange-color;
-                    transition: width .5s ease, background-color .5s ease;
-                }
-                button:hover:after {
-                    width: 70%;
-                    background: $orange-color;
-                }
-
-            }
 
         }    
     }    
@@ -302,27 +280,32 @@ aside{
 
 
 
+@media screen and (max-width: 900px) { 
 
-@media screen and (max-width: 545px) { 
-    .money-container{
-        flex-direction: column;
-    }
     aside{
+        width: 3rem;
+        h1{
+            display: none;
+        }
+            div{
+                li{
+                    display: none;
+                }
+            }
+    }
+    aside:hover{
+        width: 10rem;
+        z-index: 99;
         div{
-            .fa-solid{
-                display: none;
+            li{
+                display: block;
             }
         }
     }
 }
-@media screen and (max-width: 365px) { 
-
-    header {
-        img{
-            margin-right: 1rem;
-    
-        }
+@media screen and (max-width: 545px) { 
+    .money-container{
+        flex-direction: column;
     }
-
 
 }

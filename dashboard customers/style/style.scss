@@ -125,9 +125,9 @@ body {
 
 //sidebar
 aside{
-    background-color: $secondary-color;
+    background-color: #f9f9f9;
     position: fixed;
-    width: 25vw;
+    width: 15vw;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -135,6 +135,7 @@ aside{
     text-align: center;
     @include font-serif-titles(14px, 400);
     letter-spacing: normal;
+    transition: 0.5s ease-in-out;
     h1{
         margin-bottom: 1rem;
         @include font-sans-serif-titles(700, normal);
@@ -148,12 +149,9 @@ aside{
     ul {
         @include reset-list-styles;
         @include border-bottom-animation-shrinks-black-dash;
-        li{
-            width: 80%;
-            text-align: left;
-        }
     }
 }
+
 .table-customers{
     margin-left: auto;
     text-align: center;
@@ -187,13 +185,30 @@ aside{
 
 
 
-@media screen and (max-width: 545px) { 
+
+@media screen and (max-width: 900px) { 
 
     aside{
+        width: 3rem;
+        h1{
+            display: none;
+        }
+            div{
+                li{
+                    display: none;
+                }
+            }
+    }
+    aside:hover{
+        width: 10rem;
+        z-index: 99;
         div{
-            .fa-solid{
-                display: none;
+            li{
+                display: block;
             }
         }
+    }
+    .table-customers{
+        margin-left: 15vw;
     }
 }

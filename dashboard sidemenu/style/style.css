@@ -12,9 +12,9 @@ body {
 }
 
 aside {
-  background-color: rgba(0, 0, 0, 0.028);
+  background-color: #f9f9f9;
   position: fixed;
-  width: 25vw;
+  width: 15vw;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -25,6 +25,7 @@ aside {
   font-weight: 400;
   letter-spacing: 2px;
   letter-spacing: normal;
+  transition: 0.5s ease-in-out;
 }
 aside h1 {
   margin-bottom: 1rem;
@@ -64,12 +65,24 @@ aside ul li:hover:after {
   background: #f69368;
 }
 aside ul li {
-  width: 80%;
-  text-align: left;
+  width: 100%;
 }
 
-@media screen and (max-width: 545px) {
-  aside div .fa-solid {
+@media screen and (max-width: 900px) {
+  aside {
+    width: 3rem;
+  }
+  aside h1 {
     display: none;
+  }
+  aside div li {
+    display: none;
+  }
+  aside:hover {
+    width: 10rem;
+    z-index: 99;
+  }
+  aside:hover div li {
+    display: block;
   }
 }/*# sourceMappingURL=style.css.map */
