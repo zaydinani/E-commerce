@@ -334,7 +334,6 @@ header {
     @include flex(center, center);
     margin: 0 5rem 2rem;
     color: #fff;
-    border: 1px solid red;
     div{
         h1 {
             margin-bottom: 1rem;
@@ -356,7 +355,6 @@ header {
     width: 100%;
     text-transform: capitalize;
     text-align: center;
-    border: 1px solid red;
 
     h1{
         margin-bottom: 2rem;

@@ -28,7 +28,6 @@ header {
   font-size: 14px;
   position: fixed;
   z-index: 99;
-  border: 1px solid red;
 }
 header ul {
   display: flex;
@@ -122,7 +121,6 @@ header img {
   transition: 0.4s;
   text-align: center;
   padding: 3rem;
-  border: 1px solid red;
 }
 .mobile-nav li {
   list-style-type: none;
@@ -140,7 +138,6 @@ header img {
   flex-direction: column;
   justify-content: space-evenly;
   font-family: "Roboto Slab", serif;
-  border: 1px solid red;
 }
 .mobile-nav ul li:after {
   content: "";
@@ -166,7 +163,6 @@ header img {
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-  border: 1px solid red;
   width: 60%;
   margin: 0 auto;
 }
@@ -302,7 +298,6 @@ header img {
   align-items: center;
   margin: 0 5rem 2rem;
   color: #fff;
-  border: 1px solid red;
   text-align: center;
 }
 .last-section div h1 {
@@ -318,7 +313,6 @@ header img {
 }
 
 footer {
-  border: 1px solid red;
   background-color: #F5F5F5;
   display: flex;
   height: 17rem;
@@ -377,7 +371,6 @@ footer .newsletter {
   font-size: 12px;
   font-weight: 300;
   letter-spacing: 2px;
-  border: 1px solid green;
 }
 footer .newsletter h2 {
   margin-bottom: 1rem;
@@ -454,7 +447,6 @@ footer .newsletter form button {
     font-weight: 900;
     letter-spacing: 2px;
     font-size: 12px;
-    border: 1px solid red;
   }
   .my-cart-container .cart-products .product-info :not(:first-child) {
     text-decoration: none;

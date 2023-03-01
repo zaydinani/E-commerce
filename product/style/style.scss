@@ -117,7 +117,6 @@ header {
     @include font-sans-serif-titles(900, 14px);
     position: fixed;
     z-index: 99;
-    border: 1px solid red;
     ul{
         @include flex(space-evenly, center);
         width: 80%;
@@ -184,7 +183,6 @@ header {
     transition: 0.4s;
     text-align: center;
     padding: 3rem;
-    border: 1px solid red;
 
     ul{
         @include border-bottom-animation;
@@ -195,7 +193,6 @@ header {
         flex-direction: column;
         justify-content: space-evenly;
         font-family: 'Roboto Slab', serif;
-        border: 1px solid red;
     }
 }
 .mobile-nav.is-active{
@@ -205,7 +202,6 @@ header {
 swiper-container {
     width: 100%;
     height: 100%;
-    border: 1px solid red;
     cursor: grab;
 }
   swiper-slide {
@@ -215,7 +211,6 @@ swiper-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid red;
 }
   swiper-slide img {
     display: block;
@@ -229,7 +224,6 @@ swiper-container {
     padding: 4rem 3rem 0;
     display: flex;
     max-height: 100vh;
-    background-color: red;
     .swiper{
         width: 55%
     }
@@ -237,7 +231,6 @@ swiper-container {
         @include flex(center, center);
         flex-direction: column;
         width: 45vw;
-        background-color: green;
         h1{
             @include font-serif-titles(28px, 400);
             font-style: italic;
@@ -270,7 +263,6 @@ swiper-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 1px solid blue;
     .info{
         padding: 5rem 10rem;
         text-align: center;
@@ -305,7 +297,6 @@ swiper-container {
         .card{
             width: 200px;
             cursor: pointer;
-            border: 1px solid red;
             margin-bottom: 1rem;
             p{
                 margin-bottom: 5px;
@@ -320,7 +311,6 @@ swiper-container {
                 @include flex(space-around, flex-start);
                 align-items: center;
                 width: 100%;
-                border: 1px solid red;
                 height: 3rem;
                 padding-top: 2px;
                 button{
@@ -348,7 +338,6 @@ swiper-container {
     @include flex(center, center);
     margin: 0 5rem 2rem;
     color: #fff;
-    border: 1px solid red;
     text-align: center;
     padding: 4rem 1rem;
     div{
@@ -369,7 +358,6 @@ swiper-container {
 
 
 footer{
-    border: 1px solid red;
     background-color: #F5F5F5;
     display: flex;
     height: 17rem;

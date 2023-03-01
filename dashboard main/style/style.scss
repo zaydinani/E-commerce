@@ -228,7 +228,7 @@ aside{
             @include font-sans-serif-titles(200, 44px);
         }
         .product{
-            @include flex(center, flex-start);
+            @include flex(center, center);
             flex-wrap: wrap;
             gap: 2rem;
             .product-card{

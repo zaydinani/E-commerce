@@ -115,7 +115,6 @@ header {
     @include font-sans-serif-titles(900, 14px);
     position: fixed;
     z-index: 99;
-    border: 1px solid red;
     ul{
         @include flex(space-evenly, center);
         width: 80%;
@@ -183,7 +182,6 @@ header {
     transition: 0.4s;
     text-align: center;
     padding: 3rem;
-    border: 1px solid red;
 
     ul{
         @include border-bottom-animation;
@@ -194,7 +192,6 @@ header {
         flex-direction: column;
         justify-content: space-evenly;
         font-family: 'Roboto Slab', serif;
-        border: 1px solid red;
     }
 }
 .mobile-nav.is-active{
@@ -331,7 +328,6 @@ header {
     @include flex(center, center);
     margin: 0 5rem 2rem;
     color: #fff;
-    border: 1px solid red;
     text-align: center;
     div{
         h1 {
@@ -375,7 +371,6 @@ header {
 
 
 footer{
-    border: 1px solid red;
     background-color: #F5F5F5;
     display: flex;
     height: 17rem;

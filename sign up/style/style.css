@@ -28,7 +28,6 @@ header {
   font-size: 14px;
   position: fixed;
   z-index: 99;
-  border: 1px solid red;
 }
 header ul {
   display: flex;
@@ -123,7 +122,6 @@ header img {
   transition: 0.4s;
   text-align: center;
   padding: 3rem;
-  border: 1px solid red;
 }
 .mobile-nav li {
   list-style-type: none;
@@ -141,7 +139,6 @@ header img {
   flex-direction: column;
   justify-content: space-evenly;
   font-family: "Roboto Slab", serif;
-  border: 1px solid red;
 }
 .mobile-nav ul li:after {
   content: "";
@@ -314,7 +311,6 @@ header img {
 }
 
 footer {
-  border: 1px solid red;
   background-color: #F5F5F5;
   display: flex;
   height: 17rem;

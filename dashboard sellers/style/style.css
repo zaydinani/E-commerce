@@ -67,7 +67,7 @@ aside ul li:hover:after {
 }
 
 .table-customers {
-  margin-left: 20vw;
+  margin-left: 17vw;
   text-align: center;
 }
 .table-customers h1 {
@@ -93,6 +93,47 @@ aside ul li:hover:after {
 }
 .table-customers table thead {
   background-color: #f69368;
+}
+
+.add-seller button {
+  background: black;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 1rem;
+  width: 7rem;
+  letter-spacing: 2px;
+  margin-top: 2rem;
+  transition: 0.5s ease-in-out;
+}
+.add-seller button:hover {
+  border-radius: 15px;
+  color: black;
+  background-color: #f69368;
+}
+
+.action button {
+  background: none;
+  border: none;
+  color: #f69368;
+  cursor: pointer;
+}
+.action button:hover {
+  color: red;
+  transition: 0.5s ease-in-out;
+}
+.action button:after {
+  content: "";
+  display: block;
+  margin: auto;
+  height: 1px;
+  width: 100%;
+  background: #f69368;
+  transition: width 0.5s ease, background-color 0.5s ease;
+}
+.action button:hover:after {
+  width: 70%;
+  background: red;
 }
 
 @media screen and (max-width: 900px) {

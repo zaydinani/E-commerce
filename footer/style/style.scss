@@ -107,35 +107,108 @@ body {
 }
 
 
-
-.last-section{
-    background-color: #9aa8b1;
-    @include flex(center, center);
-    margin: 0 5rem 2rem;
-    color: #fff;
-    text-align: center;
-    padding: 4rem 1rem;
-    div{
-        h1 {
-            margin-bottom: 1rem;
+footer{
+    background-color: #F5F5F5;
+    display: flex;
+    height: 17rem;
+    padding: 2rem 2rem 0 2rem;
+    .footer-links {
+        width: 14vw;
+        display: flex;
+        margin-right: 2rem;
+        flex-direction: column;
+        justify-content: space-between;
+        @include reset-list-styles();
+        @include font-serif-titles(16px, 400);
+        ul {
+            height: 70%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            @include border-bottom-animation;
         }
-        p {
-            color: #fff;
+        .icons{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            height: 2rem;
+            .fa-brands{
+                font-size: 20px;
+            }
         }
     }
-    img{
-        height: 70px;
-        width: 70px;
-        margin: auto;
+    .newsletter {
+        width: 60vw;
+        @include font-serif-titles(12px, 300);
+        h2{
+            margin-bottom: 1rem;
+        }
+        p{
+            margin-bottom: 2rem;
+            color: $grey-color;
+            font-style: italic;
+        }
+        form{
+            input{
+                border: none;
+                background-color: transparent;
+                border-bottom: 1px solid black;
+                margin: 0;
+                padding: 10px;
+            }
+            button{
+                background-color: transparent;
+                border: none;
+                border-bottom: 1px solid black;
+                margin: 0;
+                padding: 10px;
+
+            }
+        }
+
     }
 }
 
 
+
+
+
+
+
+
+
+@media screen and (max-width: 940px) { 
+
+
+    footer{
+        justify-content: center;
+        .newsletter {
+            width: 60vw;
+            }
+    }
+}  
+@media screen and (max-width: 545px) { 
+
+    footer{
+        justify-content: center;
+        height: auto;
+        .footer-links {
+            width: 20vw;
+        }
+        .newsletter {
+            width: 65vw;
+        }
+    }
+
+}
 @media screen and (max-width: 365px) { 
 
-    .last-section{
-        margin: 0 2rem 2rem;
-
+    header {
+        img{
+            margin-right: 1rem;
+    
+        }
     }
+
 
 }

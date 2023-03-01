@@ -155,7 +155,7 @@ aside{
 
 
 .table-customers{
-    margin-left: 20vw;
+    margin-left: 17vw;
     text-align: center;
     h1{
         padding: 1rem;
@@ -183,7 +183,55 @@ aside{
     
 
 }    
+.add-seller{
+    button{
+        background: black;
+        border: none;
+        color: white;
+        cursor: pointer;
+        padding: 1rem;
+        width: 7rem;
+        letter-spacing: 2px;
+        margin-top: 2rem;
+        transition: 0.5s ease-in-out;
+    }
+    button:hover{
+        border-radius: 15px;
+        color: black;
+        background-color: $orange-color;
+    }
 
+}
+.action{
+        button{
+            background: none;
+            border: none;
+            color: $orange-color;
+            cursor: pointer;
+        }
+        button:hover{
+            color: red;
+            transition: 0.5s ease-in-out;
+
+        }
+        button:after {
+            content: '';
+            display: block;
+            margin: auto;
+            height: 1px;
+            width: 100%;
+            background: $orange-color;
+            transition: width .5s ease, background-color .5s ease;
+        }
+        button:hover:after {
+            width: 70%;
+            background: red;
+        }
+
+}
+
+
+    
 
 
 
