@@ -1,0 +1,48 @@
+/* COLORS*/
+/*FUNCTIONS*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.table-customers {
+  margin-left: 17vw;
+  text-align: center;
+}
+.table-customers h1 {
+  padding: 1rem;
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  letter-spacing: 2px;
+  font-size: normal;
+}
+.table-customers table {
+  width: 75vw;
+  background-color: #ffffff;
+  border-collapse: collapse;
+  border-width: 2px;
+  color: #000000;
+}
+.table-customers table td, .table-customers table th {
+  border-width: 1px;
+  border-color: #f69368;
+  border-style: solid;
+  padding: 3px;
+}
+.table-customers table thead {
+  background-color: #f69368;
+}
+
+@media screen and (max-width: 900px) {
+  .table-customers {
+    margin-left: 15vw;
+  }
+}/*# sourceMappingURL=dash-customers.css.map */

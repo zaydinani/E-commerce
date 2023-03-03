@@ -1,0 +1,196 @@
+/* COLORS*/
+/*FUNCTIONS*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* cart container*/
+.my-cart-container {
+  padding-top: 5rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  width: 60%;
+  margin: 0 auto;
+  /*product cart */
+  /* actions*/
+  /* total price*/
+}
+.my-cart-container .cart {
+  width: 100%;
+  text-align: center;
+}
+.my-cart-container .cart h1 {
+  font-family: "Roboto Slab", serif;
+  font-size: 38px;
+  font-weight: 300;
+  letter-spacing: 2px;
+  margin-bottom: 1rem;
+}
+.my-cart-container .cart a {
+  background-color: black;
+  display: block;
+  color: white;
+  height: 2.5rem;
+  padding-top: 10px;
+  text-transform: uppercase;
+  width: 100%;
+  text-decoration: none;
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+  font-weight: 900;
+  letter-spacing: 2px;
+  font-size: 14px;
+}
+.my-cart-container .cart-products {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 1rem 0;
+  border-bottom: 1px solid grey;
+}
+.my-cart-container .cart-products img {
+  height: 15rem;
+}
+.my-cart-container .cart-products .product-info {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  flex-direction: column;
+  height: 10rem;
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+  font-weight: 900;
+  letter-spacing: 2px;
+  font-size: 14px;
+}
+.my-cart-container .cart-products .product-info :not(:first-child) {
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+  font-weight: 200;
+  letter-spacing: 2px;
+  font-size: 14px;
+}
+.my-cart-container .cart-products .shipping {
+  color: #f69368;
+}
+.my-cart-container .counter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.my-cart-container .counter h4 {
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+  font-weight: 200;
+  letter-spacing: 2px;
+  font-size: 14px;
+}
+.my-cart-container .counter input {
+  width: 10px;
+  border: 0;
+}
+.my-cart-container .counter span {
+  display: block;
+  font-size: 25px;
+  padding: 0 10px;
+  cursor: pointer;
+  color: #f69368;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+.my-cart-container .action {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+  font-weight: 200;
+  letter-spacing: 2px;
+  font-size: 14px;
+}
+.my-cart-container .action a {
+  color: black;
+}
+.my-cart-container .total div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+  font-weight: 200;
+  letter-spacing: 2px;
+  font-size: 14px;
+  padding: 1rem 0;
+}
+.my-cart-container .total p {
+  text-align: center;
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+  font-weight: 200;
+  letter-spacing: 2px;
+  font-size: 12px;
+  margin: 1rem 1rem;
+  color: red;
+  letter-spacing: 0px;
+}
+
+.titles {
+  padding: 2rem 3rem;
+}
+
+@media screen and (max-width: 700px) {
+  .my-cart-container {
+    width: 80%;
+  }
+}
+@media screen and (max-width: 545px) {
+  .my-cart-container .cart-products img {
+    height: 7rem;
+  }
+  .my-cart-container .cart-products .product-info {
+    text-decoration: none;
+    font-family: "Roboto", sans-serif;
+    font-weight: 900;
+    letter-spacing: 2px;
+    font-size: 12px;
+  }
+  .my-cart-container .cart-products .product-info :not(:first-child) {
+    text-decoration: none;
+    font-family: "Roboto", sans-serif;
+    font-weight: 200;
+    letter-spacing: 2px;
+    font-size: 10px;
+  }
+  .my-cart-container .cart-products .counter h4 {
+    text-decoration: none;
+    font-family: "Roboto", sans-serif;
+    font-weight: 200;
+    letter-spacing: 2px;
+    font-size: 10px;
+  }
+  .my-cart-container .action {
+    text-decoration: none;
+    font-family: "Roboto", sans-serif;
+    font-weight: 200;
+    letter-spacing: 2px;
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 365px) {
+  .counter {
+    flex-direction: column;
+  }
+
+}/*# sourceMappingURL=cart.css.map */

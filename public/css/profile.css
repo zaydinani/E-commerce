@@ -1,0 +1,106 @@
+/* COLORS*/
+/*FUNCTIONS*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+
+/* profile container*/
+.profile {
+  padding: 5rem 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Roboto", sans-serif;
+  /* personal info container*/
+  /* form */
+}
+.profile h1 {
+  margin-bottom: 1rem;
+  letter-spacing: 2px;
+}
+.profile .info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+  border: 1px solid #adadad;
+  background-color: #ededed;
+}
+.profile .info h2 {
+  margin: 1rem 0;
+  text-align: center;
+  letter-spacing: 2px;
+}
+
+.profile .info form button {
+  background-color: black;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  width: 100%;
+  height: 2rem;
+  cursor: pointer;
+  transition: all 0.5s;
+  margin-bottom: 1rem;
+}
+.profile .info form button:hover {
+  background-color: #f69368;
+  border-color: #f69368;
+}
+.profile .info form .delete {
+  background-color: rgb(255, 69, 69);
+  border: none;
+}
+.profile .form {
+  position: relative;
+  min-width: 20rem;
+  height: 3rem;
+  margin-bottom: 1rem;
+}
+.profile .form__input {
+  min-width: 100%;
+  height: 90%;
+  border: 1px solid black;
+  font-family: inherit;
+  font-size: inherit;
+  outline: none;
+  padding: 1rem;
+  background: none;
+}
+.profile .form__input:hover {
+  border-color: #f69368;
+}
+.profile .form__input:focus {
+  border-color: #f69368;
+}
+.profile .form__label {
+  position: absolute;
+  left: 1rem;
+  top: -0.5rem;
+  padding: 0 0.5rem;
+  color: black;
+  cursor: text;
+  background-color: #ededed;
+  font-style: italic;
+}
+
+@media screen and (max-width: 700px) {
+  .profile .info {
+    width: 80%;
+  }
+
+}
+@media screen and (max-width: 545px) {
+  .profile .info {
+    width: 98%;
+  }
+}

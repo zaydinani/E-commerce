@@ -1,0 +1,141 @@
+/* COLORS*/
+/*FUNCTIONS*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.products {
+  margin-left: 15vw;
+  padding: 1rem 0;
+  text-align: center;
+}
+.products h1 {
+  margin-bottom: 2rem;
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+  font-weight: 200;
+  letter-spacing: 2px;
+  font-size: 44px;
+}
+.products .product {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+.products .product .product-card {
+  width: 150px;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+.products .product .product-card p {
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+  font-weight: 200;
+  letter-spacing: 2px;
+  font-size: 12px;
+  color: black;
+}
+.products .product .product-card .info {
+  margin-top: 0.2rem;
+  padding: 0.5rem;
+  border: 1px solid #f69368;
+}
+.products .product .product-card img {
+  width: 150px;
+  margin-bottom: 15px;
+}
+.products .product form button {
+  background: none;
+  border: none;
+  color: #f69368;
+  cursor: pointer;
+}
+.products .product form button:hover {
+  color: red;
+  transition: 0.5s ease-in-out;
+}
+.products .product form button:after {
+  content: "";
+  display: block;
+  margin: auto;
+  height: 1px;
+  width: 100%;
+  background: #f69368;
+  transition: width 0.5s ease, background-color 0.5s ease;
+}
+.products .product form button:hover:after {
+  width: 70%;
+  background: red;
+}
+.products .actions {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  margin-bottom: 2rem;
+}
+.products .actions form button {
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+  font-weight: 200;
+  letter-spacing: 2px;
+  font-size: 18px;
+  color: white;
+  background-color: #f69368;
+  padding: 1rem;
+  transition: 0.5s ease-in-out;
+}
+.products .actions form button li {
+  list-style-type: none;
+}
+.products .actions form button li a {
+  color: black;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+.products .actions form button:hover {
+  border-radius: 15px;
+  color: white;
+}
+.products .actions form button:hover:after {
+  width: 70%;
+  background: white;
+}
+.products .actions .view-category {
+  border: 1px solid #f69368;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 0 auto;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background-color: #f9f9f9;
+}
+.products .actions .view-category label {
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+  font-weight: 200;
+  letter-spacing: 2px;
+  font-size: 12px;
+}
+.products .actions .view-category select {
+  padding: 0.5rem;
+}
+.products .actions .view-category button {
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  background-color: #adadad;
+}
+
+@media screen and (max-width: 900px) {
+  .products {
+    margin-left: 10vw;
+  }
+}/*# sourceMappingURL=dash-products.css.map */
