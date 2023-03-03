@@ -1,0 +1,313 @@
+
+
+/* COLORS*/
+$main-color: #fff;
+$secondary-color: rgba(0,0,0,.028);
+$grey-color: #adadad;
+$orange-color: #f69368;
+
+/*FUNCTIONS*/ 
+@mixin reset-list-styles {
+    li {
+        list-style-type: none;
+        a{
+            color: black;
+            text-decoration: none;
+            text-transform: capitalize;
+        }
+    }
+}
+@mixin flex($justify-content, $align-items) {
+    display: flex;
+    justify-content: $justify-content;
+    align-items:  $align-items;
+}
+@mixin border-bottom-animation {
+    li:after {
+        content: '';
+        display: block;
+        margin: auto;
+        height: 2px;
+        width: 0px;
+        background: transparent;
+        transition: width .5s ease, background-color .5s ease;
+    }
+    li:hover:after {
+        width: 100%;
+        background: black;
+    }
+}
+@mixin border-bottom-animation-shrinks-black-dash {
+    li:after {
+        content: '';
+        display: block;
+        height: 2px;
+        width: 100%;
+        background: black;
+        margin-top: 0.8rem;
+        transition: width .5s ease, background-color .5s ease;
+    }
+    li:hover:after {
+        width: 70%;
+        background: $orange-color;
+    }
+}
+@mixin border-bottom-animation-shrinks-white {
+    li:after {
+        content: '';
+        display: block;
+        margin: auto;
+        height: 2px;
+        width: 100%;
+        background: white;
+        transition: width .5s ease, background-color .5s ease;
+    }
+    li:hover:after {
+        width: 70%;
+        background: white;
+    }
+}
+@mixin border-bottom-animation-white {
+    li:after {
+        content: '';
+        display: block;
+        margin: auto;
+        height: 2px;
+        width: 0px;
+        background: transparent;
+        transition: width .5s ease, background-color .5s ease;
+    }
+    li:hover:after {
+        width: 100%;
+        background: white;
+    }
+}
+@mixin font-serif-titles($font-size, $font-weight) {
+    font-family: 'Roboto Slab', serif;
+    font-size: $font-size;
+    font-weight: $font-weight;
+    letter-spacing: 2px;
+
+}
+@mixin font-sans-serif-titles($font-weight, $font-size) {
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: $font-weight;
+    letter-spacing: 2px;
+    font-size: $font-size;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+//sidebar
+aside{
+    background-color: #f9f9f9;
+    position: fixed;
+    width: 15vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding-top: 2rem;
+    text-align: center;
+    @include font-serif-titles(14px, 400);
+    letter-spacing: normal;
+    transition: 0.5s ease-in-out;
+    h1{
+        margin-bottom: 1rem;
+        @include font-sans-serif-titles(700, normal);
+    }
+    div{
+        @include flex(flex-start, center);
+        height: 3rem;
+        gap: 1rem;
+        padding: 1rem;
+        
+    }
+    ul {
+        @include reset-list-styles;
+        @include border-bottom-animation-shrinks-black-dash;
+    }
+}
+//cards container
+.cards-container {
+    margin-left: 15vw;
+    text-align: center;
+    width: 100vw;
+    padding: 1rem;
+    //budgets-container
+    .money-container{
+        width: 70%;
+        @include font-sans-serif-titles(700, normal);
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        margin: 0 auto;
+        margin-bottom: 2rem;
+        border-radius: 15px;
+        border: 1px solid $grey-color;
+        background-color: $secondary-color;
+        .profit{
+            color: #3CB371;
+        }
+    }
+    h1{
+        margin-bottom: 1rem;
+        @include font-sans-serif-titles(700, normal);
+
+    }
+    //button actions
+    .actions{
+        @include reset-list-styles;
+        ul{            
+            li{
+                background-color: $grey-color;
+                padding: 0.7rem;
+                transition: 0.5s;
+                a{
+                    color: #fff;
+                }
+            }
+            li:hover{
+                background-color: $orange-color;
+                border-radius: 15px;
+            }
+        }
+    }
+    //widget container
+    .cards{
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 2rem;
+        .card{
+            background-color: $grey-color;
+            width: 10rem;
+            height: 5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: space-between;
+            padding: 0.5rem;
+            transition: 0.5s ease-in-out;
+            cursor: pointer;
+            h5{
+                margin-bottom: 0.7rem;
+                @include font-sans-serif-titles(100, normal);
+            }
+            h1{
+                @include font-sans-serif-titles(500, normal);
+
+            }
+        }
+        .card:hover{
+            background-color: $orange-color;
+            border-radius: 10px;
+
+        }
+    }
+    //charts
+    .charts{
+        width: 100%;
+        margin-top: 2rem;
+        img{
+            width: 300px;
+        }
+    }
+    //best selling products and low on stock products
+    .products{
+        padding: 1rem 0;
+        text-align: center;
+        h1{
+            margin-bottom: 2rem;
+            @include font-sans-serif-titles(200, 44px);
+        }
+        .product{
+            @include flex(center, center);
+            flex-wrap: wrap;
+            gap: 2rem;
+            .product-card{
+                width: 150px;
+                cursor: pointer;
+                margin-bottom: 1rem;
+                p{
+                    margin-bottom: 5px;
+                    @include font-sans-serif-titles(200, 14px);
+                    color: black;
+                }
+                img {
+                    width: 150px;
+                    margin-bottom: 15px;
+                }
+
+            }
+            .product-card:hover{
+                p{
+                    color: $orange-color;
+                    transition: 0.5s ease-in-out;
+                }
+            }
+
+
+        }    
+    }    
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//responsive 
+@media screen and (max-width: 900px) { 
+
+    aside{
+        width: 3rem;
+        h1{
+            display: none;
+        }
+            div{
+                li{
+                    display: none;
+                }
+            }
+    }
+    aside:hover{
+        width: 10rem;
+        z-index: 99;
+        div{
+            li{
+                display: block;
+            }
+        }
+    }
+}
+@media screen and (max-width: 545px) { 
+    .money-container{
+        flex-direction: column;
+    }
+
+}

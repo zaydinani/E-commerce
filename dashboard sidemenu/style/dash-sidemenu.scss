@@ -1,0 +1,126 @@
+
+
+/* COLORS*/
+$main-color: #fff;
+$secondary-color: rgba(0,0,0,.028);
+$grey-color: #adadad;
+$orange-color: #f69368;
+
+/*FUNCTIONS*/ 
+@mixin reset-list-styles {
+    li {
+        list-style-type: none;
+        a{
+            color: black;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+    }
+}
+@mixin flex($justify-content, $align-items) {
+    display: flex;
+    justify-content: $justify-content;
+    align-items:  $align-items;
+}
+
+@mixin border-bottom-animation-shrinks-black-dash {
+    li:after {
+        content: '';
+        display: block;
+        height: 2px;
+        width: 100%;
+        background: black;
+        margin-top: 0.8rem;
+        transition: width .5s ease, background-color .5s ease;
+    }
+    li:hover:after {
+        width: 70%;
+        background: $orange-color;
+    }
+}
+
+@mixin font-serif-titles($font-size, $font-weight) {
+    font-family: 'Roboto Slab', serif;
+    font-size: $font-size;
+    font-weight: $font-weight;
+    letter-spacing: 2px;
+
+}
+@mixin font-sans-serif-titles($font-weight, $font-size) {
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: $font-weight;
+    letter-spacing: 2px;
+    font-size: $font-size;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+    padding: 0;
+}
+
+//sidebar
+aside{
+    background-color: #f9f9f9;
+    position: fixed;
+    width: 15vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding-top: 2rem;
+    text-align: center;
+    @include font-serif-titles(14px, 400);
+    letter-spacing: normal;
+    transition: 0.5s ease-in-out;
+    //signed in admin name
+    h1{
+        margin-bottom: 1rem;
+        @include font-sans-serif-titles(700, normal);
+    }
+    div{
+        @include flex(flex-start, center);
+        height: 3rem;
+        gap: 1rem;
+        padding: 1rem;
+        
+    }
+    //sidebar links
+    ul {
+        @include reset-list-styles;
+        @include border-bottom-animation-shrinks-black-dash;
+        li{
+            width: 100%;
+        }
+    }
+}
+
+
+
+//responsive
+@media screen and (max-width: 900px) { 
+
+    aside{
+        width: 3rem;
+        h1{
+            display: none;
+        }
+            div{
+                li{
+                    display: none;
+                }
+            }
+    }
+    aside:hover{
+        width: 10rem;
+        z-index: 99;
+        div{
+            li{
+                display: block;
+            }
+        }
+    }
+}

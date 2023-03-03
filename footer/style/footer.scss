@@ -1,0 +1,220 @@
+
+
+/* COLORS*/
+$main-color: #fff;
+$secondary-color: rgba(0,0,0,.028);
+$grey-color: #adadad;
+$orange-color: #f69368;
+
+/*FUNCTIONS*/ 
+@mixin reset-list-styles {
+    li {
+        list-style-type: none;
+        a{
+            color: black;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+    }
+}
+@mixin flex($justify-content, $align-items) {
+    display: flex;
+    justify-content: $justify-content;
+    align-items:  $align-items;
+}
+@mixin border-bottom-animation {
+    li:after {
+        content: '';
+        display: block;
+        margin: auto;
+        height: 2px;
+        width: 0px;
+        background: transparent;
+        transition: width .5s ease, background-color .5s ease;
+    }
+    li:hover:after {
+        width: 100%;
+        background: black;
+    }
+}
+@mixin border-bottom-animation-shrinks-black {
+    li:after {
+        content: '';
+        display: block;
+        margin: auto;
+        height: 2px;
+        width: 100%;
+        background: black;
+        transition: width .5s ease, background-color .5s ease;
+    }
+    li:hover:after {
+        width: 70%;
+        background: black;
+    }
+}
+@mixin border-bottom-animation-shrinks-white {
+    li:after {
+        content: '';
+        display: block;
+        margin: auto;
+        height: 2px;
+        width: 100%;
+        background: white;
+        transition: width .5s ease, background-color .5s ease;
+    }
+    li:hover:after {
+        width: 70%;
+        background: white;
+    }
+}
+@mixin border-bottom-animation-white {
+    li:after {
+        content: '';
+        display: block;
+        margin: auto;
+        height: 2px;
+        width: 0px;
+        background: transparent;
+        transition: width .5s ease, background-color .5s ease;
+    }
+    li:hover:after {
+        width: 100%;
+        background: white;
+    }
+}
+@mixin font-serif-titles($font-size, $font-weight) {
+    font-family: 'Roboto Slab', serif;
+    font-size: $font-size;
+    font-weight: $font-weight;
+    letter-spacing: 2px;
+
+}
+@mixin font-sans-serif-titles($font-weight, $font-size) {
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: $font-weight;
+    letter-spacing: 2px;
+    font-size: $font-size;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/*footer*/ 
+footer{
+    background-color: #F5F5F5;
+    display: flex;
+    height: 17rem;
+    padding: 2rem 2rem 0 2rem;
+    /*footer links*/ 
+    .footer-links {
+        width: 14vw;
+        display: flex;
+        margin-right: 2rem;
+        flex-direction: column;
+        justify-content: space-between;
+        @include reset-list-styles();
+        @include font-serif-titles(16px, 400);
+        ul {
+            height: 70%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            @include border-bottom-animation;
+        }
+        /*social icons*/ 
+        .icons{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            height: 2rem;
+            .fa-brands{
+                font-size: 20px;
+            }
+        }
+    }
+    /*newsletter*/ 
+    .newsletter {
+        width: 60vw;
+        @include font-serif-titles(12px, 300);
+        h2{
+            margin-bottom: 1rem;
+        }
+        p{
+            margin-bottom: 2rem;
+            color: $grey-color;
+            font-style: italic;
+        }
+        /*newsletter form*/ 
+        form{
+            /*input*/ 
+            input{
+                border: none;
+                background-color: transparent;
+                border-bottom: 1px solid black;
+                margin: 0;
+                padding: 10px;
+            }
+            /*submit button */ 
+            button{
+                background-color: transparent;
+                border: none;
+                border-bottom: 1px solid black;
+                margin: 0;
+                padding: 10px;
+
+            }
+        }
+
+    }
+}
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 940px) { 
+
+
+    footer{
+        justify-content: center;
+        .newsletter {
+            width: 60vw;
+            }
+    }
+}  
+@media screen and (max-width: 545px) { 
+
+    footer{
+        justify-content: center;
+        height: auto;
+        .footer-links {
+            width: 20vw;
+        }
+        .newsletter {
+            width: 65vw;
+        }
+    }
+
+}
+@media screen and (max-width: 365px) { 
+
+    header {
+        img{
+            margin-right: 1rem;
+    
+        }
+    }
+
+
+}
