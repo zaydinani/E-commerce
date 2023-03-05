@@ -294,22 +294,27 @@ header {
     
 }
 /*carousel card*/
-.card{
-    width: 200px;
-    cursor: pointer;
 
-    p{
-        margin-bottom: 5px;
-        @include font-sans-serif-titles(200, 14px);
-        color: $grey-color;
-    }
-    img {
+a{
+    text-decoration: none;
+    .card{
         width: 200px;
-        margin-bottom: 15px;
+        cursor: pointer;
         
-
-    }
+        p{
+            margin-bottom: 5px;
+            @include font-sans-serif-titles(200, 14px);
+            color: $grey-color;
+            
+        }
+        img {
+            width: 200px;
+            margin-bottom: 15px;
+            
     
+        }
+        
+    }
 }
 
 /*workers pic*/

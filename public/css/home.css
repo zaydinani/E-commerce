@@ -327,11 +327,14 @@ header img {
 }
 
 /*carousel card*/
-.card {
+a {
+  text-decoration: none;
+}
+a .card {
   width: 200px;
   cursor: pointer;
 }
-.card p {
+a .card p {
   margin-bottom: 5px;
   text-decoration: none;
   font-family: "Roboto", sans-serif;
@@ -340,7 +343,7 @@ header img {
   font-size: 14px;
   color: #adadad;
 }
-.card img {
+a .card img {
   width: 200px;
   margin-bottom: 15px;
 }
