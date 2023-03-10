@@ -2,7 +2,7 @@ const express = require('express');
 
 const adminController = require('../controllers/admin');
 router = express.Router();
-
+//dashboard routes
 router.get('/dash', adminController.getDashboard);
 router.get('/dash/admin', adminController.getAdminDashboard);
 router.get('/dash/customers', adminController.getCustomersDashboard);

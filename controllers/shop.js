@@ -1,3 +1,4 @@
+// user shop pages routes
 exports.getHome = (req, res, next) => {
     res.render('home', {
         pageTitle: 'Home',

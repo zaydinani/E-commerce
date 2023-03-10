@@ -1,3 +1,4 @@
+//user authentication and registration routes
 exports.getSignUp = (req, res, next) => {
     res.render('sign-up', {
         pageTitle: 'Sign Up',
