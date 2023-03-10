@@ -186,6 +186,7 @@ header img {
   }
   header img {
     height: 30px;
+    margin: 0 auto;
   }
   header .sign-in {
     display: none;

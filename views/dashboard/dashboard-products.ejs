@@ -1,19 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="resources/Dragons Trails-dark-favicon.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <!--swipper-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
-    
-
-
+    <%- include('../include/header.ejs') %>
 
     <link rel="stylesheet" href="/css/dash-products.css">
     <title></title>
@@ -21,7 +6,7 @@
 <body>
 
     <!--include side bar-->
-
+    <%- include('./dashboard-sidemenu') %>
 
 
     <!--products container-->
@@ -50,8 +35,8 @@
         <div class="product">
             <!--product card-->
             <div class="product-card">
-                <a style="text-decoration: none;" href="../product-page.ejs">
-                    <img src="/public/pictures/wood monitor 2.png" alt="">
+                <a style="text-decoration: none;" href="/product">
+                    <img src="/pictures/wood monitor 2.png" alt="">
                     <p>Wood Monitor Stand</p>
                     <div style="display: flex; flex-wrap: wrap; justify-content: space-between;" class="info">
                         <div style="display: flex; justify-content: space-between; width: 100%;">

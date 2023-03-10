@@ -1,20 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="resources/Dragons Trails-dark-favicon.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <!--swipper-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
-    
-
-
-
+    <%- include('../include/header.ejs') %>
     <link rel="stylesheet" href="/css/dash-sidemenu.css">
     <title></title>
 </head>
@@ -28,36 +12,36 @@
             <!-- return home link-->
             <div>
                 <i class="fa-solid fa-house"></i>
-                <li><a href="../home.ejs">home</a></li>
+                <li><a href="/">home</a></li>
             </div>
             <!--main dash page-->
             <div>
                 <i class="fa-solid fa-gauge-high"></i>
-                <li><a href="../dashboard/dashboard-main.ejs">dashboard</a></li>
+                <li><a href="/dash">dashboard</a></li>
             </div>
             <!--customers-->
             <div>
                 <i class="fa-solid fa-person-rays"></i>
-                <li><a href="../dashboard/dash-customers.ejs">customers</a></li>
+                <li><a href="/dash/customers">customers</a></li>
             </div>
             <!--sellers-->
             <div>
                 <i class="fa-solid fa-people-group"></i>
-                <li><a href="../dashboard/dashboard-sellers.ejs">sellers</a></li>
+                <li><a href="/dash/sellers">sellers</a></li>
             </div>
             <!--products-->
             <div>
                 <i class="fa-solid fa-store"></i>
-                <li><a href="../dashboard/dashboard-products.ejs">products</a></li>
+                <li><a href="/dash/products">products</a></li>
             </div>
             <!--orders-->
             <div>
                 <i class="fa-solid fa-chart-line"></i>
-                <li><a href="../dashboard/dashboard-orders.ejs">orders</a></li>
+                <li><a href="/dash/orders">orders</a></li>
             </div>
             <div>
                 <i class="fa-solid fa-lock"></i>
-                <li><a href="../dashboard/dashboard-admins.ejs">admins</a></li>
+                <li><a href="/dash/admin">admins</a></li>
             </div>
         </ul>
     </aside>
