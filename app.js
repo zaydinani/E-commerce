@@ -3,12 +3,6 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
-// getting database schema from models folder
-const user = require('./models/user');
-const admin = require('./models/admin');
-const product = require('./models/product');
-
-
 // setting views engine and views directory
 const app = express();
 app.set('view engine', 'ejs');
@@ -19,17 +13,14 @@ const shopRoutes = require('./routes/shop');
 const adminRoutes = require('./routes/admin');
 const authRoutes = require('./routes/auth');
 
-//usong public directory
+//using public directory
 app.use(bodyParser.urlencoded({ extended:false }));
 app.use(express.static(path.join(__dirname, 'public')));
-
 
 // using routes
 app.use(shopRoutes);
 app.use(adminRoutes);
 app.use(authRoutes);
-
-
 
 // connecting to mongodb database
 mongoose.connect(`mongodb://127.0.0.1/grovemade`)
@@ -40,8 +31,12 @@ mongoose.connect(`mongodb://127.0.0.1/grovemade`)
     console.log(err)}
 );
 
-
-
 //choosing port and starting server
 const port = 3000;
 app.listen(port, () => console.log(`Server is running on port ${port}`));
+
+
+
+
+
+

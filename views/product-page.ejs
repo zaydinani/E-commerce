@@ -5,73 +5,74 @@
 <body>
     <!--! include nav here-->
     <%- include('include/nav-bar') %>
+    <div>
+        <!--! product container-->
+        <div class="product">
+            <!--! product pictures swipper-->
+            <div class="swiper">
+                <!-- Swiper -->
+                <swiper-container class="mySwiper" pagination="true">
+                    <swiper-slide>
+                        <img src="/pictures/monitor.png" alt="">
+                    </swiper-slide>
+                    <swiper-slide>
+                        <img src="/pictures/monitor.png" alt="">
+                    </swiper-slide>
+                    <swiper-slide>
+                        <img src="/pictures/monitor.png" alt="">
+                    </swiper-slide>
+                </swiper-container>
+            </div>
+            <!--! information and action button-->
+            <div>
+                <h1>wood monitor stand</h1>
+                <h3>$150</h3>
+                <form action="">
+                    <button>add to cart</button>
+                </form>
+            </div>
+        </div>
+        <!--! description-->
+        <div class="descrition">
+            <div class="info">
+                <h1>elevate your work</h1>
+                <p>The Grovemade Monitor Stand is a graceful ergonomic boost for your posture and your desktop, bringing your monitor to eye level while you work. Constructed from premium molded plywood, it supports up to 200 pounds, while its minimal footprint provides ample space below to stow your desktop accessories.</p>
+            </div>
+            <!--! second picture swipper-->
+            <div class="second-swiper">
+                <swiper-container class="mySwiper" navigation="true" >
+                    <swiper-slide>
+                        <img src="/pictures/desk.png" alt="">
+                    </swiper-slide>
+                    <swiper-slide>
+                        <img src="/pictures/desk.png" alt="">
+                    </swiper-slide>
+                    <swiper-slide>
+                        <img src="/pictures/desk.png" alt="">
+                    </swiper-slide>
+                </swiper-container>
+            </div>
+        </div>
 
-    <!--! product container-->
-    <div class="product">
-        <!--! product pictures swipper-->
-        <div class="swiper">
-            <!-- Swiper -->
-            <swiper-container class="mySwiper" pagination="true">
-                <swiper-slide>
-                    <img src="/pictures/monitor.png" alt="">
-                </swiper-slide>
-                <swiper-slide>
-                    <img src="/pictures/monitor.png" alt="">
-                </swiper-slide>
-                <swiper-slide>
-                    <img src="/pictures/monitor.png" alt="">
-                </swiper-slide>
-            </swiper-container>
-        </div>
-        <!--! information and action vutton-->
-        <div>
-            <h1>wood monitor stand</h1>
-            <h3>$150</h3>
-            <form action="">
-                <button>add to cart</button>
-            </form>
+        <!--! more products-->
+        <div class="more">
+            <div>
+                <h1>shop collection</h1>
+            </div>
+            <div class="products">
+                <a style="text-decoration: none;" href="">
+                    <div class="card">
+                        <img src="/pictures/wood monitor 2.png">
+                        <p>Wood Monitor Stand</p>
+                        <p>$250</p>
+                        <div>
+                    </div>
+                </a>
+            </div>
         </div>
     </div>
-    <!--! description-->
-    <div class="descrition">
-        <div class="info">
-            <h1>elevate your work</h1>
-            <p>The Grovemade Monitor Stand is a graceful ergonomic boost for your posture and your desktop, bringing your monitor to eye level while you work. Constructed from premium molded plywood, it supports up to 200 pounds, while its minimal footprint provides ample space below to stow your desktop accessories.</p>
-        </div>
-        <!--! second picture swipper-->
-        <div class="second-swiper">
-            <swiper-container class="mySwiper" navigation="true" >
-                <swiper-slide>
-                    <img src="/pictures/desk.png" alt="">
-                </swiper-slide>
-                <swiper-slide>
-                    <img src="/pictures/desk.png" alt="">
-                </swiper-slide>
-                <swiper-slide>
-                    <img src="/pictures/desk.png" alt="">
-                </swiper-slide>
-            </swiper-container>
-        </div>
-    </div>
-
-    <!--! more products-->
-    <div class="more">
-        <div>
-            <h1>shop collection</h1>
-        </div>
-        <div class="products">
-            <a style="text-decoration: none;" href="">
-                <div class="card">
-                    <img src="/pictures/wood monitor 2.png">
-                    <p>Wood Monitor Stand</p>
-                    <p>$250</p>
-                    <div>
-                </div>
-            </a>
-        </div>
-    </div>
-<!--! include blue section here-->
-<%- include('include/blue-section') %>
+    <!--! include blue section here-->
+    <%- include('include/blue-section') %>
 
     <!--! include footer here-->
     <%- include('include/footer') %>

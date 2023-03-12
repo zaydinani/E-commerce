@@ -73,6 +73,7 @@ header .nav-links {
 }
 header img {
   height: 30px;
+  margin: 0 auto;
 }
 
 /*!--------------------------hamburger menu--------------------*/
@@ -186,7 +187,9 @@ header img {
   }
   header img {
     height: 30px;
-    margin: 0 auto;
+    right: 2rem;
+    top: 1rem;
+    position: absolute;
   }
   header .sign-in {
     display: none;
