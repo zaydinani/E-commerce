@@ -22,6 +22,10 @@ const deskPadsSchema = new mongoose.Schema({
             required: true
         }
     ],
+    description : {
+        type: String,
+        required: true
+    },
     priceBought : {
         type: Number,
         required: true
