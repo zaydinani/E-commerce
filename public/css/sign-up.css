@@ -10,7 +10,14 @@ body {
   margin: 0;
   padding: 0;
 }
-
+#error{
+  color : red;
+  padding: 1rem 0;
+  margin-top: 1rem;
+  border: 1px solid red;
+  text-align: center;
+  background-color: rgb(255, 205, 205);
+}
 /*container*/
 .container {
   padding: 5rem 4rem;
@@ -23,7 +30,7 @@ body {
   /*form container*/
 }
 .container .section {
-  width: 50%;
+  width: 40%;
   text-align: center;
   background-color: #9aa8b1;
   display: flex;

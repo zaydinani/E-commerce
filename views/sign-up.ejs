@@ -22,26 +22,29 @@
         <div class="form-controle">
             <h1>sign up</h1>
             <!--! form-->
-            <form action="">
+            <form action="/sign-up" method="post">
                 <div>
                     <div class="form">
-                        <input type="text" id="form" class="form__input" autocomplete="off" placeholder=" ">
+                        <input type="text" id="form" class="form__input" autocomplete="off" placeholder=" " name="name" required>
                         <label for="name" class="form__label">name</label>
                     </div>
                     <div class="form">
-                        <input type="email" id="form" class="form__input" autocomplete="off" placeholder=" ">
+                        <input type="email" id="form" class="form__input" autocomplete="off" placeholder=" " name="email" required>
                         <label for="email" class="form__label">Email</label>
                     </div>
                     <div class="form">
-                        <input type="password" id="form" class="form__input" autocomplete="off" placeholder=" ">
+                        <input type="password" id="form" class="form__input" autocomplete="off" placeholder=" " name="password" required>
                         <label for="password" class="form__label">password</label>
                     </div>
                     <div class="form">
-                        <input type="password" id="form" class="form__input" autocomplete="off" placeholder=" ">
+                        <input type="password" id="form" class="form__input" autocomplete="off" placeholder=" " name="confirmPassword" required>
                         <label for="password" class="form__label">confirm password</label>
                     </div>
-                    <button>submit</button>
+                    <button type="submit">submit</button>
                 </div>
+                <% if ( errMsg ) { %>
+                    <h2 id="error"><%= errMsg %></h2>
+                <% } %>
             </form>
         </div>
     </div>

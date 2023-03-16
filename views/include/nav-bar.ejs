@@ -31,13 +31,17 @@
            <!-- <a href="/dash">dashboard</a> -->
         </div>
         <div class="sign-up">
+            <!--sign up or log out-->
             <ul>
-                <!--sign up or log out-->
-                <li class="sign-in"><a href="/sign-up">sign up</a></li>
-                <li class="sign-in"><a href="/sign-in">sign in</a></li>
+                <% if ( isLoggedIn ) { %>
+                    <li class="sign-in"><a href="/profile">profile</a></li>
+                    <li class="sign-in"><a href="/cart">cart</a></li>
+                <% } else { %>
+                    <li class="sign-in"><a href="/sign-up">sign up</a></li>
+                    <li class="sign-in"><a href="/sign-in">sign in</a></li>
+                <% } %>
             </ul>
         </div>
-
     </header>
     <script defer src="/javascript/nav.js"></script>
 </body>
