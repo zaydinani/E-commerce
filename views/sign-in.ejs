@@ -21,19 +21,22 @@
         <!--! form-->
         <div class="form-controle">
             <h1>sign in</h1>
-            <form action="">
+            <form action="/sign-in" method="post">
                 <div>
                     <div class="form">
-                        <input type="email" id="form" class="form__input" autocomplete="off" placeholder=" ">
+                        <input type="email" id="form" class="form__input" autocomplete="off" placeholder=" " name="email">
                         <label for="email" class="form__label">Email</label>
                     </div>
                     <div class="form">
-                        <input type="password" id="form" class="form__input" autocomplete="off" placeholder=" ">
+                        <input type="password" id="form" class="form__input" autocomplete="off" placeholder=" " name="password">
                         <label for="password" class="form__label">password</label>
                     </div>
-                    <button>sign in</button>
-                </div>
-            </form>
+                    <button type="submit">sign in</button>
+                </form>
+                <% if ( errMsg ) { %>
+                    <h2 id="error"><%= errMsg %></h2>
+                <% } %>
+            </div>
         </div>
     </div>
 
