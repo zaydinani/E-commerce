@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema({
             type : String,
             required : false
         },
-        neighborhood : {
+        street : {
             type : String,
             required : false
         },
@@ -29,10 +29,6 @@ const userSchema = new mongoose.Schema({
         },
         apartmentNumber : {
             type : Number,
-            required : false
-        },
-        street : {
-            type : String,
             required : false
         },
     },

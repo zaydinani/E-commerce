@@ -4,8 +4,8 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const mongodbStore = require('connect-mongodb-session')(session);
+const flash = require('connect-flash'); 
 const mongodbUrl = 'mongodb://127.0.0.1/grovemade';
-/* const flash = require('connect-flash'); */
 
 const app = express();
 // storing sessions into my database
@@ -29,9 +29,9 @@ app.use(session({
     store: store
 }))
 
-/* using flash
+//using flash
 app.use(flash());
-*/
+
 
 // getting routes from routes file
 const shopRoutes = require('./routes/shop');

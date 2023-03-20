@@ -10,7 +10,71 @@ body {
   margin: 0;
   padding: 0;
 }
+#success{
+  color : green;
+  padding: 1rem;
+  margin-top: 1rem;
+  border: 1px solid green;
+  text-align: center;
+  background-color: rgb(167, 255, 167);
+}
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
 
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  text-align: center;
+  padding: 20px;
+  border: 1px solid #888;
+  width: fit-content;
+  font-size: 24px;
+}
+.modal-content p {
+  padding-bottom: 1rem;
+  text-transform: capitalize;
+  font-family: "Roboto", sans-serif;
+}
+.modal-content .delete {
+  background-color: rgb(255, 69, 69);
+  padding: 1rem;
+  color: white;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
+  transition: 0.5s ease-in-out;
+  text-transform: capitalize;
+}
+.modal-content .delete:hover {
+  border-radius: 15px;
+}
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
 
 /* profile container*/
 .profile {
@@ -56,9 +120,17 @@ body {
   background-color: #f69368;
   border-color: #f69368;
 }
-.profile .info form .delete {
+#myBtn {
   background-color: rgb(255, 69, 69);
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  min-width: 20rem;
+  height: 2rem;
+  cursor: pointer;
   border: none;
+  margin-bottom: 1rem;
+
 }
 .profile .form {
   position: relative;
@@ -91,6 +163,41 @@ body {
   cursor: text;
   background-color: #ededed;
   font-style: italic;
+}
+
+
+
+.scale-up-top {
+	-webkit-animation: scale-up-top 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+	        animation: scale-up-top 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+}
+@-webkit-keyframes scale-up-top {
+  0% {
+    -webkit-transform: scale(0.5);
+            transform: scale(0.5);
+    -webkit-transform-origin: 50% 0%;
+            transform-origin: 50% 0%;
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    -webkit-transform-origin: 50% 0%;
+            transform-origin: 50% 0%;
+  }
+}
+@keyframes scale-up-top {
+  0% {
+    -webkit-transform: scale(0.5);
+            transform: scale(0.5);
+    -webkit-transform-origin: 50% 0%;
+            transform-origin: 50% 0%;
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    -webkit-transform-origin: 50% 0%;
+            transform-origin: 50% 0%;
+  }
 }
 
 @media screen and (max-width: 700px) {
