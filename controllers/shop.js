@@ -41,13 +41,6 @@ exports.getFaq = (req, res, next) => {
         isLoggedIn: req.session.isLoggedIn
     })
 }
-exports.getProfile = (req, res, next) => {
-    res.render('profile', {
-        pageTitle: 'profile',
-        path: '/profile',
-        isLoggedIn: req.session.isLoggedIn
-    })
-}
 exports.getWishlist = (req, res, next) => {
     res.render('wishlist', {
         pageTitle: 'wishlist',

@@ -11,6 +11,60 @@ body {
   padding: 0;
 }
 
+
+.dropbtn {
+  color: white;
+  padding: 16px;
+  border: none;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content form  {
+  display: flex;
+  align-items: center;
+  
+}
+.dropdown-content form i {
+  font-size: 24px;
+  margin-left: 1rem;
+}
+.dropdown-content form button {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  width: 80%;
+  cursor: pointer;
+  background-color: #fff;
+  border: none;
+}
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+.dropdown-content a:hover {background-color: #f69368;}
+
+.dropdown-content form button:hover {background-color: #f69368;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
 /* navigation styles*/
 header {
   height: 4rem;
@@ -136,6 +190,17 @@ header img {
   text-decoration: none;
   text-transform: uppercase;
 }
+.mobile-nav form button {
+  color: black;
+  text-decoration: none;
+  text-transform: uppercase;
+  border: none;
+  background-color: transparent;
+  font-family: "Roboto Slab", serif;
+  font-weight: 800;
+  font-size: 14px;
+  cursor: pointer;
+}
 .mobile-nav ul {
   height: 50vh;
   width: 40vw;
@@ -158,11 +223,22 @@ header img {
   width: 100%;
   background: black;
 }
-
+.mobile-nav form button:after {
+  content: "";
+  display: block;
+  margin: auto;
+  height: 2px;
+  width: 0px;
+  background: transparent;
+  transition: width 0.5s ease, background-color 0.5s ease;
+}
+.mobile-nav form button:hover:after {
+  width: 100%;
+  background: black;
+}
 .mobile-nav.is-active {
   left: 0rem;
 }
-
 /*? media queries*/
 /*?1st one just for hamburger menu*/
 @media screen and (min-width: 800px) {

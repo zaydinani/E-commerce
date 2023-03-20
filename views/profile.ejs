@@ -12,46 +12,63 @@
         <!--! personal info container-->
         <div class="info">
             <h2>personal information</h2>
-            <form action="">
+            <form action="/user/info" method="post">
                 <div>
                     <div class="form">
-                        <input type="text" id="form" class="form__input" autocomplete="off" placeholder=" ">
+                        <input type="text" id="form" class="form__input" autocomplete="off" name="name"  value="<%= userData.name %>" required>
                         <label for="name" class="form__label">full name*</label>
                     </div>
                     <div class="form">
-                        <input type="email" id="form" class="form__input" autocomplete="off" placeholder=" ">
+                        <input type="email" id="form" class="form__input" autocomplete="off" name="email" value="<%= userData.email %>" required>
                         <label for="email" class="form__label">Email*</label>
                     </div>
-                    <div class="form">
-                        <input type="password" id="form" class="form__input" autocomplete="off" placeholder=" ">
-                        <label for="password" class="form__label">password*</label>
-                    </div>
+
                     <h2>shipping information</h2>
                     <div class="form">
-                        <input type="text" id="form" class="form__input" autocomplete="off" placeholder=" ">
+                        <input type="text" id="form" class="form__input" autocomplete="off" name="city" value="<%= userData.address.city %>" required>
                         <label for="adress" class="form__label">city address*</label>
                     </div>
                     <div class="form">
-                        <input type="text" id="form" class="form__input" autocomplete="off" placeholder=" ">
+                        <input type="text" id="form" class="form__input" autocomplete="off" name="street" value="<%= userData.address.street %>" required>
                         <label for="adress" class="form__label">street address*</label>
                     </div>
                     <div class="form">
-                        <input type="text" id="form" class="form__input" autocomplete="off" placeholder=" ">
-                        <label for="adress" class="form__label">Apartment address*</label>
+                        <input type="text" id="form" class="form__input" autocomplete="off" name="building" value="<%= userData.address.building %>" required>
+                        <label for="adress" class="form__label">building*</label>
+                    </div>
+                    <div class="form">
+                        <input type="text" id="form" class="form__input" autocomplete="off" name="apartment" value="<%= userData.address.apartmentNumber %>" required>
+                        <label for="adress" class="form__label">Apartment number*</label>
                     </div>
                 </div>
                 <!--! action-->
-                <button>save changes</button>
-                <button>sign out</button>
-                <button class="delete">delete account</button>
+                <div>
+                    <button type="submit">save changes</button>
+                </div>
             </form>
+            <button id="myBtn" class="delete">delete account</button>
+            <% if (successMessage) { %>
+                <h2 id="success"><%= successMessage %></h2>
+            <% } %>
         </div>
     </div>
+    
+<!-- The Modal -->
+<div id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content scale-up-top">
+        <span class="close">&times;</span>
+        <p>are you sure you want to delete your account?</p>
+        <form action="/delete/account" method="post">
+            <button type="submit" class="delete">delete account</button>
+        </form>
+    </div>
+</div>
 
 
-
-    <!--! include footer here-->
+    <!--! include footer here -->
     <%- include('include/footer') %>
+    <script src="/javascript/profile.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/a5df376e05.js" crossorigin="anonymous"></script>
 </body>

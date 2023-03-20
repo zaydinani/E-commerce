@@ -11,17 +11,34 @@
         </button>
         <nav class="mobile-nav" id="mobile-nav">
             <ul>
-                <li><a href="/sign-up">sign up</a></li>
-                <li><a href="/sign-in">sign in</a></li>
-                <li><a href="/products">desk pads</a></li>
-                <li><a href="/products">laptop stands</a></li>
-                <li><a href="/dash">dashboard</a></li>
+                <% if ( isLoggedIn ) { %>
+                    <li><a href="/cart">cart</a></li>
+                    <li><a href="/profile">profile</a></li>
+                    <form action="/sign-out" method="post">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                        <button type="submit">sign out</button>
+                    </form>
+                    <li><a href="/products">desk pads</a></li>
+                    <li><a href="/products">laptop stands</a></li>
+                <% } else { %>
+                    <li><a href="/sign-up">sign up</a></li>
+                    <li><a href="/sign-in">sign in</a></li>
+                    <li><a href="/products">desk pads</a></li>
+                    <li><a href="/products">laptop stands</a></li>
+                <% } %>
             </ul>
         </nav>
         <div class="nav-links">
             <ul >
                 <li id="explore-hover" class="scale-in-hor-center"><a href="/">home</a></li>
-                <li id="shop-hover" class="scale-in-hor-center"><a href="/products">shop</a></li>
+                <div class="dropdown">
+                    <li id="shop-hover" class="scale-in-hor-center"><a href="/products">shop</a></li>
+                    <div class="dropdown-content">
+                      <a href="#">Link 1</a>
+                      <a href="#">Link 2</a>
+                      <a href="#">Link 3</a>
+                    </div>
+                  </div>
             </ul>
         </div>
         <div>
@@ -34,7 +51,15 @@
             <!--sign up or log out-->
             <ul>
                 <% if ( isLoggedIn ) { %>
-                    <li class="sign-in"><a href="/profile">profile</a></li>
+                    <div class="dropdown">
+                        <li class="sign-in dropbtn"><a href="/profile">profile</a></li>
+                        <div class="dropdown-content">
+                            <form action="/sign-out" method="post">
+                                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                                <button type="submit">sign out</button>
+                            </form>
+                        </div>
+                    </div>
                     <li class="sign-in"><a href="/cart">cart</a></li>
                 <% } else { %>
                     <li class="sign-in"><a href="/sign-up">sign up</a></li>
