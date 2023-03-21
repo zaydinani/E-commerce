@@ -1,6 +1,5 @@
 const userModel = require('../models/user')
 const bcrypt = require('bcryptjs');
-const { response } = require('express');
 //user authentication and registration routes
 //! GET ROUTES
 exports.getSignUp = (req, res, next) => {
@@ -13,7 +12,6 @@ exports.getSignUp = (req, res, next) => {
     res.render('sign-up', {
         pageTitle: 'Sign Up',
         path: '/sign-up',
-        isLoggedIn: req.session.isLoggedIn,
         errorMessage: message
     });
 }
@@ -27,7 +25,6 @@ exports.getSignIn = (req, res, next) => {
     res.render('sign-in', {
         pageTitle: 'Sign In',
         path: '/sign-in',
-        isLoggedIn: req.session.isLoggedIn,
         errorMessage: message
     });
 }
@@ -45,7 +42,6 @@ exports.getProfile = (req, res, next) => {
         res.render('profile', {
             pageTitle: 'profile',
             path: '/profile',
-            isLoggedIn: req.session.isLoggedIn,
             successMessage: message,
             userData: userData
         })

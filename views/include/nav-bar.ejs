@@ -15,6 +15,7 @@
                     <li><a href="/cart">cart</a></li>
                     <li><a href="/profile">profile</a></li>
                     <form action="/sign-out" method="post">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                         <i class="fa-solid fa-arrow-right-from-bracket"></i>
                         <button type="submit">sign out</button>
                     </form>
@@ -55,6 +56,7 @@
                         <li class="sign-in dropbtn"><a href="/profile">profile</a></li>
                         <div class="dropdown-content">
                             <form action="/sign-out" method="post">
+                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                                 <i class="fa-solid fa-arrow-right-from-bracket"></i>
                                 <button type="submit">sign out</button>
                             </form>

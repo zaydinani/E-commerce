@@ -178,7 +178,7 @@ body {
 
 /* swipers carousel*/
 .swiper {
-  height: 400px;
+  height: 600px;
   width: 90%;
 }
 
@@ -187,7 +187,7 @@ a {
   text-decoration: none;
 }
 a .card {
-  width: 200px;
+  width: 400px;
   cursor: pointer;
 }
 a .card p {
@@ -200,7 +200,7 @@ a .card p {
   color: #adadad;
 }
 a .card img {
-  width: 200px;
+  width: 400px;
   margin-bottom: 15px;
 }
 

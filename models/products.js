@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 //creating product schema
-const deskPadsSchema = new mongoose.Schema({
+const productsSchema = new mongoose.Schema({
     name : {
         type: String,
         required: true
@@ -23,6 +23,10 @@ const deskPadsSchema = new mongoose.Schema({
         }
     ],
     description : {
+        type: String,
+        required: true
+    },
+    category : {
         type: String,
         required: true
     },
@@ -53,4 +57,4 @@ const deskPadsSchema = new mongoose.Schema({
     },
 })
 
-module.exports = mongoose.model('DeskPads', deskPadsSchema);
+module.exports = mongoose.model('products', productsSchema);

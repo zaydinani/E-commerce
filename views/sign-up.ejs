@@ -23,6 +23,7 @@
             <h1>sign up</h1>
             <!--! form-->
             <form action="/sign-up" method="post">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                 <div>
                     <div class="form">
                         <input type="text" id="form" class="form__input" autocomplete="off" placeholder=" " name="name" required>

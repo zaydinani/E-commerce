@@ -22,6 +22,7 @@
         <div class="form-controle">
             <h1>sign in</h1>
             <form action="/sign-in" method="post">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                 <div>
                     <div class="form">
                         <input type="email" id="form" class="form__input" autocomplete="off" placeholder=" " name="email">

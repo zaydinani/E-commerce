@@ -51,101 +51,25 @@
         <p>See What's Trending Right Now</p>
     </div>
   <!-- Swiper -->
-  <div class="swiper mySwiper ">
-    <div class="swiper-wrapper ">
-      <div class="swiper-slide ">
-        <!--swiper cards-->
-            <a href="/product">
-                <div class="card">
-                    <img src="/pictures/wood monitor 2.png" alt="">
-                    <p>Wood Monitor Stand</p>
-                    <p>$250</p>
-                </div>
-            </a>
-        </div>
-        <div class="swiper-slide ">
-            <!--swiper cards-->
-                <a href="/product">
-                    <div class="card">
-                        <img src="/pictures/wood monitor 2.png" alt="">
-                        <p>Wood Monitor Stand</p>
-                        <p>$250</p>
+    <div class="swiper mySwiper ">
+        <% if (prods.length > 0) { %>
+            <div class="swiper-wrapper ">
+                <% for (let products of prods) { %>
+                    <div class="swiper-slide ">
+                        <!--swiper cards-->
+                        <a href="/product">
+                            <div class="card">
+                                <img src="<%= products.mainImagesPath[0] %>" alt="">
+                                <p><%= products.name %></p>
+                                <p>$<%= products.priceSold %></p>
+                            </div>
+                        </a>
                     </div>
-                </a>
+                <% } %>
             </div>
-            <div class="swiper-slide ">
-                <!--swiper cards-->
-                    <a href="/product">
-                        <div class="card">
-                            <img src="/pictures/wood monitor 2.png" alt="">
-                            <p>Wood Monitor Stand</p>
-                            <p>$250</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="swiper-slide ">
-                    <!--swiper cards-->
-                    <a href="/product">
-                        <div class="card">
-                            <img src="/pictures/wood monitor 2.png" alt="">
-                            <p>Wood Monitor Stand</p>
-                            <p>$250</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="swiper-slide ">
-                    <!--swiper cards-->
-                    <a href="/product">
-                        <div class="card">
-                            <img src="/pictures/wood monitor 2.png" alt="">
-                            <p>Wood Monitor Stand</p>
-                            <p>$250</p>
-                        </div>
-                    </a>
-                </div>
-      
-                <div class="swiper-slide ">
-                    <!--swiper cards-->
-                    <a href="/product">
-                        <div class="card">
-                            <img src="/pictures/wood monitor 2.png" alt="">
-                            <p>Wood Monitor Stand</p>
-                            <p>$250</p>
-                        </div>
-                    </a>
-                </div>
-      
-                <div class="swiper-slide ">
-                <!--swiper cards-->
-                    <a href="/product">
-                        <div class="card">
-                            <img src="/pictures/wood monitor 2.png" alt="">
-                            <p>Wood Monitor Stand</p>
-                            <p>$250</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="swiper-slide ">
-                <!--swiper cards-->
-                    <a href="/product">
-                        <div class="card">
-                            <img src="/pictures/wood monitor 2.png" alt="">
-                            <p>Wood Monitor Stand</p>
-                            <p>$250</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="swiper-slide ">
-                <!--swiper cards-->
-                    <a href="/product">
-                        <div class="card">
-                            <img src="/pictures/wood monitor 2.png" alt="">
-                            <p>Wood Monitor Stand</p>
-                            <p>$250</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
+        <% } else { %>
+            <h1>no products found</h1>
+        <% } %>
         <div class="swiper-pagination"></div>
     </div>
 
