@@ -1,5 +1,6 @@
 const userModel = require('../models/user')
 const bcrypt = require('bcryptjs');
+const NodeMailer = require('../classes/nodemailer');
 //user authentication and registration routes
 //! GET ROUTES
 exports.getSignUp = (req, res, next) => {
@@ -73,6 +74,16 @@ exports.postSignUp = (req, res, next) => {
                     password: hashedPassword,
                     cart: {items: []},
                 });
+                let nodeMailer = new NodeMailer();
+                let to = email
+                let subject = 'sign up'
+                let htmlContent =  `
+                    <body style="background-color: black;">
+                        <h1 style="color: green;">welcome to grovemade mr: ${name}</h1> 
+                        <p style="color: red;">we happy that you sign up with us</p>
+                    </body>
+                `
+                nodeMailer.sendMail(to, subject, htmlContent)
                 console.log(user)
                 res.redirect('/sign-in')
                 return user.save()

@@ -346,13 +346,28 @@ footer .newsletter form button {
     margin-right: 4rem;
   }
 }
+@media screen and (max-width: 980px) {
+  /* swipers carousel*/
+  a .card  {
+    width: 300px;
+  }
+  a .card img {
+    width: 300px;
+  }
+  .swiper {
+    height: 450px;
+  }
+}
 @media screen and (max-width: 800px) {
   /* swipers carousel*/
-  .card {
-    width: 150px;
+  a .card  {
+    width: 200px;
   }
-  .card img {
-    width: 150px;
+  a .card img {
+    width: 200px;
+  }
+  .swiper {
+    height: 350px;
   }
 }
 @media screen and (max-width: 700px) {
@@ -376,17 +391,17 @@ footer .newsletter form button {
     height: 15rem;
     margin: auto;
   }
-  .card {
+  a .card {
     width: 100px;
   }
-  .card p {
+  a .card p {
     font-size: 12px;
   }
-  .card img {
+  a .card img {
     width: 100px;
   }
   .swiper {
-    height: 300px;
+    height: 250px;
   }
   .titles {
     padding: 2rem 3rem;
@@ -451,7 +466,7 @@ footer .newsletter form button {
     font-weight: 500;
     letter-spacing: 2px;
   }
-  .card p {
+  a .card p {
     text-decoration: none;
     font-family: "Roboto", sans-serif;
     font-weight: 100;
@@ -475,15 +490,6 @@ footer .newsletter form button {
   }
   header img {
     margin-right: 1rem;
-  }
-  .card {
-    width: 80px;
-  }
-  .card p {
-    font-size: 10px;
-  }
-  .card img {
-    width: 80px;
   }
   .last-section {
     margin: 0 2rem 2rem;
