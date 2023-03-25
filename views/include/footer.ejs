@@ -24,9 +24,10 @@
         <div class="newsletter">
             <h2>newsletter signup</h2>
             <p>Sign up to our Newsletter to hear about new product releases, learn about our design process, and everything else going on behind the scenes at Grovemade.</p>
-            <form action="">            
-                <input  placeholder="enter your email adress" type="text">
-                <button>submit</button>
+            <form action="/subscribe" method="post">      
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">      
+                <input placeholder="enter your email adress" type="text" name="email">
+                <button type="submit">submit</button>
             </form>
         </div>
     </footer>
