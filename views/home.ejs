@@ -32,7 +32,7 @@
             <div>
                 <h1>laptop stands</h1>
                 <ul>
-                    <li><a href="/products">learn more</a></li>
+                    <li><a href="/laptopStands">learn more</a></li>
                 </ul>
             </div>
         </div>
@@ -41,7 +41,7 @@
             <div>
                 <h1>deskpads</h1>
                 <ul>
-                    <li><a href="/products">learn more</a></li>
+                    <li><a href="/deskPads">learn more</a></li>
                 </ul>
             </div>
         </div>   
@@ -57,7 +57,7 @@
                 <% for (let products of prods) { %>
                     <div class="swiper-slide ">
                         <!--swiper cards-->
-                        <a href="/product">
+                        <a href="/product/<%= products._id %>">
                             <div class="card">
                                 <img src="<%= products.mainImagesPath[0] %>" alt="">
                                 <p><%= products.name %></p>

@@ -9,11 +9,17 @@ const router = express.Router();
 //? user shop routes
 router.get('/', shopController.getHome);
 router.get('/products', shopController.getProducts);
-router.get('/product', shopController.getProduct);
 router.get('/cart', isLoggedIn,shopController.getCart);
 router.get('/contact-us', shopController.getContactUs);
 router.get('/faq', shopController.getFaq);
 router.get('/wishlist', isLoggedIn,shopController.getWishlist);
+
+
+router.get('/laptopStands', shopController.getLaptopStands);
+router.get('/deskPads', shopController.getDeskPads);
+router.get('/product/:productId', shopController.getProduct);
+
+
 
 
 //! POST ROUTES

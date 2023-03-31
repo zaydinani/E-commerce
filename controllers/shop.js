@@ -15,18 +15,68 @@ exports.getHome = (req, res, next) => {
         })
     }).catch(err => console.error(err));
 }
+
 exports.getProducts = (req, res, next) => {
-    res.render('products-page', {
-        pageTitle: 'products',
-        path: '/products',
-    })
+    productModel.find({})
+    .then(products => {
+        res.render('products-page', {
+            pageTitle: 'products',
+            path: '/products',
+            prods: products
+        })
+    }).catch(err => console.error(err));
 }
+
+exports.getLaptopStands = (req, res, next) => {
+    categories = ['laptop stand', 'laptop riser', 'macBook dock']
+    productModel.find({category: { $in: categories}})
+    .then(products => {
+        res.render('products-page', {
+            pageTitle: 'LaptopStands',
+            path: '/products',
+            prods: products
+        })
+    }).catch(err => console.error(err));
+}
+
+exports.getDeskPads = (req, res, next) => {
+    productModel.find({category: 'deskPad'})
+    .then(products => {
+        res.render('products-page', {
+            pageTitle: 'LaptopStands',
+            path: '/products',
+            prods: products
+        })
+    }).catch(err => console.error(err));
+}
+
 exports.getProduct = (req, res, next) => {
-    res.render('product-page', {
-        pageTitle: 'product',
-        path: '/product',
-    })
+    const productId = req.params.productId;
+    console.log('productId:' + productId);
+    productModel.findById(productId)
+    .then(product => {
+        console.log(product.mainImagesPath)
+        const category = product.category
+        productModel.find({ category: category, _id:{ $ne: productId}}).limit(3)
+        .then(similarProduct => {
+            res.render('product-page', {
+                pageTitle: 'product',
+                path: '/product',
+                prod: product,
+                similarProds: similarProduct
+            })
+        }).catch(err => console.error(err));
+    }).catch(err => console.error(err));
 }
+
+
+
+
+
+
+
+
+
 exports.getCart = (req, res, next) => {
     res.render('cart', {
         pageTitle: 'cart',

@@ -12,21 +12,17 @@
             <div class="swiper">
                 <!-- Swiper -->
                 <swiper-container class="mySwiper" pagination="true">
-                    <swiper-slide>
-                        <img src="/pictures/monitor.png" alt="">
-                    </swiper-slide>
-                    <swiper-slide>
-                        <img src="/pictures/monitor.png" alt="">
-                    </swiper-slide>
-                    <swiper-slide>
-                        <img src="/pictures/monitor.png" alt="">
-                    </swiper-slide>
+                    <% for (let i = 0; i < prod.mainImagesPath.length; i++) { %>
+                        <swiper-slide>
+                            <img src="<%= prod.mainImagesPath[i] %>" alt="">
+                        </swiper-slide>
+                    <% } %>
                 </swiper-container>
             </div>
             <!--! information and action button-->
             <div>
-                <h1>wood monitor stand</h1>
-                <h3>$150</h3>
+                <h1><%= prod.name %></h1>
+                <h3>$<%= prod.priceSold %></h3>
                 <form action="">
                     <button>add to cart</button>
                 </form>
@@ -36,44 +32,37 @@
         <div class="descrition">
             <div class="info">
                 <h1>elevate your work</h1>
-                <p>The Grovemade Monitor Stand is a graceful ergonomic boost for your posture and your desktop, bringing your monitor to eye level while you work. Constructed from premium molded plywood, it supports up to 200 pounds, while its minimal footprint provides ample space below to stow your desktop accessories.</p>
+                <p><%= prod.description %></p>
             </div>
             <!--! second picture swipper-->
             <div class="second-swiper">
                 <swiper-container class="mySwiper" navigation="true" >
-                    <swiper-slide>
-                        <img src="/pictures/desk.png" alt="">
-                    </swiper-slide>
-                    <swiper-slide>
-                        <img src="/pictures/desk.png" alt="">
-                    </swiper-slide>
-                    <swiper-slide>
-                        <img src="/pictures/desk.png" alt="">
-                    </swiper-slide>
+                    <% for (let i = 0; i < prod.secondaryImagesPath.length; i++) { %>
+                        <swiper-slide>
+                            <img src="<%= prod.secondaryImagesPath[i] %>" alt="">
+                        </swiper-slide>
+                    <% } %>
                 </swiper-container>
             </div>
         </div>
-
         <!--! more products-->
         <div class="more">
-            <div>
-                <h1>shop collection</h1>
-            </div>
-            <div class="products">
-                <a style="text-decoration: none;" href="">
-                    <div class="card">
-                        <img src="/pictures/wood monitor 2.png">
-                        <p>Wood Monitor Stand</p>
-                        <p>$250</p>
-                        <div>
-                    </div>
-                </a>
+            <h1>shop similar</h1>
+            <div style="display: flex;flex-direction: row;" class="products">
+                <% for (let products of similarProds) { %>
+                    <a style="text-decoration: none;" href="/product/<%= products._id %>">
+                        <div class="card">
+                            <img src="<%= products.mainImagesPath[0] %>" alt="">
+                            <p><%= products.name %></p>
+                            <p>$<%= products.priceSold %></p>
+                        </div>
+                    </a>
+                <% } %>
             </div>
         </div>
     </div>
     <!--! include blue section here-->
     <%- include('include/blue-section') %>
-
     <!--! include footer here-->
     <%- include('include/footer') %>
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-element-bundle.min.js"></script>
