@@ -23,9 +23,15 @@
             <div>
                 <h1><%= prod.name %></h1>
                 <h3>$<%= prod.priceSold %></h3>
-                <form action="">
-                    <button>add to cart</button>
+                <% if (isLoggedIn) { %>
+                <form action="/add-to-cart" method="post">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <input type="hidden" name="productId" value="<%= prod._id %>">
+                    <button type="submit">add to cart</button>
                 </form>
+                <% } else { %>
+                    <p>you need to <a href="/sign-in">sign in</a> or <a href="/sign-up">sign up</a> to add product to cart</p>
+                <% } %>
             </div>
         </div>
         <!--! description-->

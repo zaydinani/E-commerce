@@ -25,4 +25,11 @@ router.get('/product/:productId', shopController.getProduct);
 //! POST ROUTES
 //? subscribe to newsletter in footer
 router.post('/subscribe', shopController.postSubscribe);
+//? add product to cart
+router.post('/add-to-cart', isLoggedIn, shopController.postAddToCart);
+//? delete product from cart
+router.post('/deleteProductCart', isLoggedIn, shopController.postDeleteFromCart);
+//? checkout 
+router.post('/checkout', isLoggedIn, shopController.postCheckout)
+
 module.exports = router;

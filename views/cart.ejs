@@ -10,45 +10,57 @@
     <div class="my-cart-container">
         <div class="cart">
             <h1>my cart</h1>
-            <a href="">continue to check out</a>
+            <form action="/checkout" method="post">
+                <button type="submit" class="check">continue to check out</button>
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            </form>
         </div>
         <!--! product cart-->
-        <div class="cart-products">
-            <img src="/pictures/wood monitor 2.png" alt="">
-            <div class="product-info">
-                <h4>wood monitor stand</h4>
-                <h4>material: walnut</h4>
-                <div class="counter">
-                    <h4>quantity:</h4>
-                    <span class="down" onclick="decreaseCount(event, this)">
-                        -
-                    </span>
-                    <input type="text" value="1">
-                    <span class="up" onclick="increaseCount(event, this)">
-                        +
-                    </span>
+        <% if (products.length > 0) { %>
+            <% for (let product of products) { %>
+                <div class="cart-products">
+                    <img src="<%= product.productId.mainImagesPath[0] %>" alt="">
+                    <div class="product-info">
+                        <h4><%= product.productId.name %></h4>
+                        <h4>material: <%= product.productId.material %></h4>
+                        <div class="counter">
+                            <h4>quantity:</h4>
+                            <span class="down" onclick="decreaseCount(event, this)">
+                                -
+                            </span>
+                            <input type="text" name="quantity" value="<%= product.quantity %>">
+                            <span class="up" onclick="increaseCount(event, this)">
+                                +
+                            </span>
+                        </div>
+                        <h4 class="shipping">ships by 2/27/2023</h4>
+                    </div>
+                    <!--! actions-->
+                    <div class="action">
+                        <h4>$<%= product.productId.priceSold %></h4>
+                        <form action="/deleteProductCart" method="post">
+                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                            <input type="hidden" name="productId" value="<%= product.productId._id %>">
+                            <button type="submit" style="border: none; border-bottom: 1px solid black; background: none; cursor: pointer;">remove</button>
+                        </form>
+                    </div>
                 </div>
-                <h4 class="shipping">ships by 2/27/2023</h4>
-            </div>
-            <!--! actions-->
-            <div class="action">
-                <h4>$155</h4>
-                <a href="">remove</a>
-            </div>
-        </div>
+            <% } %>
+        <% } else { %>
+            <h1 class="no" style="margin: 2rem;">no products in your cart</h1>
+        <% } %>
         <!--! total price-->
         <div class="total">
             <div>
-                <h2>total $355</h2>
+                <h2>total $<%= totalPrice %></h2>
             </div>
         </div>
     </div>
-<!--! include blue section here-->
-<%- include('include/blue-section') %>
-
-<!--! include footer here-->
-<%- include('include/footer') %>
-    <script defer src="../public/javascript/cart.js"></script>
+    <!--! include blue section here-->
+    <%- include('include/blue-section') %>
+    <!--! include footer here-->
+    <%- include('include/footer') %>
+    <script defer src="/javascript/cart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/a5df376e05.js" crossorigin="anonymous"></script>
 </body>

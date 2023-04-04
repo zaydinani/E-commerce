@@ -1,8 +1,11 @@
 const productModel = require('../models/products')
 const subscribersModel = require('../models/subscribers')
+const userModel = require('../models/user')
+const orderModel = require('../models/order')
 const NodeMailer = require('../classes/nodemailer');
 
 //! GET ROUTES
+
 //? user shop pages routes
 exports.getHome = (req, res, next) => {
     productModel.aggregate([{ $sample: {size:7}}])
@@ -16,6 +19,7 @@ exports.getHome = (req, res, next) => {
     }).catch(err => console.error(err));
 }
 
+//? fetch all products
 exports.getProducts = (req, res, next) => {
     productModel.find({})
     .then(products => {
@@ -27,6 +31,7 @@ exports.getProducts = (req, res, next) => {
     }).catch(err => console.error(err));
 }
 
+//? fetch laptop stands products page
 exports.getLaptopStands = (req, res, next) => {
     categories = ['laptop stand', 'laptop riser', 'macBook dock']
     productModel.find({category: { $in: categories}})
@@ -38,7 +43,7 @@ exports.getLaptopStands = (req, res, next) => {
         })
     }).catch(err => console.error(err));
 }
-
+//? fetch desk pads products page
 exports.getDeskPads = (req, res, next) => {
     productModel.find({category: 'deskPad'})
     .then(products => {
@@ -50,6 +55,7 @@ exports.getDeskPads = (req, res, next) => {
     }).catch(err => console.error(err));
 }
 
+//? fetch the product user click on on product page
 exports.getProduct = (req, res, next) => {
     const productId = req.params.productId;
     console.log('productId:' + productId);
@@ -57,14 +63,16 @@ exports.getProduct = (req, res, next) => {
     .then(product => {
         console.log(product.mainImagesPath)
         const category = product.category
+        console.log(product.quantity)
         productModel.find({ category: category, _id:{ $ne: productId}}).limit(3)
         .then(similarProduct => {
-            res.render('product-page', {
-                pageTitle: 'product',
-                path: '/product',
-                prod: product,
-                similarProds: similarProduct
-            })
+                res.render('product-page', {
+                    pageTitle: 'product',
+                    path: '/product',
+                    prod: product,
+                    similarProds: similarProduct,
+                });
+            
         }).catch(err => console.error(err));
     }).catch(err => console.error(err));
 }
@@ -78,11 +86,33 @@ exports.getProduct = (req, res, next) => {
 
 
 exports.getCart = (req, res, next) => {
-    res.render('cart', {
-        pageTitle: 'cart',
-        path: '/cart',
+    req.user
+    .populate({
+        path: 'cart.items.productId',
+        model: 'products'
     })
+    .then(user => {
+        const Products = user.cart.items
+        let totalPrice = 0;
+        for (let i = 0; i < Products.length; i++) {
+            const product = Products[i].productId;
+            const quantity = Products[i].quantity;
+            const price = product.priceSold;
+            totalPrice += quantity * price;
+        }
+        console.log(totalPrice);
+        console.log(Products)
+        res.render('cart', {
+            pageTitle: 'cart',
+            path: '/cart',
+            products: Products,
+            totalPrice: totalPrice
+        })
+    }).catch(err => console.error(err))
 }
+
+
+
 exports.getContactUs = (req, res, next) => {
     res.render('contact-us', {
         pageTitle: 'contact-us',
@@ -105,6 +135,7 @@ exports.getWishlist = (req, res, next) => {
 
 
 //! POST ROUTES
+
 //? subscribe to newsletter
 exports.postSubscribe = (req, res, next) => {
     const email = req.body.email
@@ -134,3 +165,89 @@ exports.postSubscribe = (req, res, next) => {
         }
     }).catch(err => console.log(err))
 }
+
+//? add products to cart
+exports.postAddToCart = (req, res, next) => {
+    const productId = req.body.productId
+    console.log(productId)
+    productModel.findById(productId)
+    .then(product => {
+        return req.user.addToCart(product)
+    })
+    .then(result => {
+        console.log(result)
+        res.redirect('/cart')
+    })
+    .catch(err => {
+        console.log(err)
+    })
+}
+
+//? delete products from cart
+exports.postDeleteFromCart = (req, res, next) => {
+    const productId = req.body.productId
+    console.log(productId)
+    req.user.removeFromCart(productId)
+    .then((result) => {
+        res.redirect('back')
+        console.log('Product:' + productId + ' deleted successfully from cart')
+    })
+    .catch((err) => {
+        console.log(err)
+    })
+};
+
+//? checkout
+exports.postCheckout = (req, res, next) => {
+    req.user
+    .populate(
+        'cart.items.productId'
+    )
+    .then(user => {
+        console.log(user.cart.items)
+        const Products = user.cart.items.map(i => {
+            return {
+                quantity: i.quantity, 
+                product: { ...i.productId._doc }
+            }
+        })
+        const productUpdates = Products.map(item => {
+            return productModel.findByIdAndUpdate(
+                item.product._id,
+                { $inc: { quantity: -item.quantity, sold: item.quantity  }}
+            )
+        })
+        return Promise.all(productUpdates)
+        .then(() => {
+            const order = new orderModel({
+                user: {
+                    email: req.user.email,
+                    userId: req.user
+                },
+                products: Products
+            })
+            let nodeMailer = new NodeMailer();
+            let to = req.user.email
+            let subject = 'purchase'
+            let htmlContent =  `
+                <body style="background-color: black;">
+                    <h1 style="color: green;">thank you for bying from grovemade</h1> 
+                    <h2 style="color: red;">your purchase id is: ${order._id}</h2>
+                </body>
+            `
+            nodeMailer.sendMail(to, subject, htmlContent)
+            console.log('email for purchase successfully sent')
+            return order.save()
+        })
+    })
+    .then(result => {
+        return req.user.clearCart()
+    })
+    .then(() => {
+        res.redirect('back')
+    })
+    .catch(err => console.log(err))
+};
+
+
+ 
