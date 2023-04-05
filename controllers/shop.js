@@ -72,7 +72,6 @@ exports.getProduct = (req, res, next) => {
                     prod: product,
                     similarProds: similarProduct,
                 });
-            
         }).catch(err => console.error(err));
     }).catch(err => console.error(err));
 }
@@ -86,6 +85,12 @@ exports.getProduct = (req, res, next) => {
 
 
 exports.getCart = (req, res, next) => {
+    let message = req.flash('error');
+    if (message.length > 0) {
+        message = message[0]
+    } else {
+        message = null;
+    }
     req.user
     .populate({
         path: 'cart.items.productId',
@@ -100,14 +105,21 @@ exports.getCart = (req, res, next) => {
             const price = product.priceSold;
             totalPrice += quantity * price;
         }
+        accountId = req.session.user
+        userModel.findById(accountId)
+        .then(userData => {
+            res.render('cart', {
+                pageTitle: 'cart',
+                path: '/cart',
+                products: Products,
+                totalPrice: totalPrice,
+                errorMessage: message,
+                userData: userData
+            })
+        }).catch(err => console.log(err))
+        console.log(accountId)
         console.log(totalPrice);
         console.log(Products)
-        res.render('cart', {
-            pageTitle: 'cart',
-            path: '/cart',
-            products: Products,
-            totalPrice: totalPrice
-        })
     }).catch(err => console.error(err))
 }
 
@@ -117,6 +129,12 @@ exports.getContactUs = (req, res, next) => {
     res.render('contact-us', {
         pageTitle: 'contact-us',
         path: '/contact-us',
+    })
+}
+exports.getThankYou = (req, res, next) => {
+    res.render('thank-you', {
+        pageTitle: 'thank-you',
+        path: '/thank-you',
     })
 }
 exports.getFaq = (req, res, next) => {
@@ -199,6 +217,11 @@ exports.postDeleteFromCart = (req, res, next) => {
 
 //? checkout
 exports.postCheckout = (req, res, next) => {
+    if (req.user.cart.items.length === 0) {
+        console.log('empty cart')
+        req.flash('error', 'your cart is empty add a product to checkout')
+        return res.redirect('back')
+    }
     req.user
     .populate(
         'cart.items.productId'
@@ -244,7 +267,7 @@ exports.postCheckout = (req, res, next) => {
         return req.user.clearCart()
     })
     .then(() => {
-        res.redirect('back')
+        res.redirect('/thank-you')
     })
     .catch(err => console.log(err))
 };

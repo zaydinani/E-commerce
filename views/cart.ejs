@@ -10,10 +10,7 @@
     <div class="my-cart-container">
         <div class="cart">
             <h1>my cart</h1>
-            <form action="/checkout" method="post">
-                <button type="submit" class="check">continue to check out</button>
-                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-            </form>
+            <button id="myBtn">continue to check out</button>
         </div>
         <!--! product cart-->
         <% if (products.length > 0) { %>
@@ -49,10 +46,34 @@
         <% } else { %>
             <h1 class="no" style="margin: 2rem;">no products in your cart</h1>
         <% } %>
+        <% if ( errorMessage ) { %>
+            <h2 id="error"><%= errorMessage %></h2>
+        <% } %>
         <!--! total price-->
         <div class="total">
             <div>
                 <h2>total $<%= totalPrice %></h2>
+            </div>
+        </div>
+    </div>
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content scale-up-top">
+            <span class="close">&times;</span>
+            <div class="modal-container">
+                <h1>please confirm is this is the address you want us to send products to ?</h1>
+                <div class="address" >
+                    <h2>name: <%= userData.name %></h2>
+                    <h2>city: <%= userData.address.city %></h2>
+                    <h2>street: <%= userData.address.street %></h2>
+                    <h2>building: <%= userData.address.building %></h2>
+                    <h2>apartment: <%= userData.address.apartmentNumber %></h2>
+                </div>
+                <form action="/checkout" method="post">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <button type="submit" class="check">yes send products to this address</button>
+                </form>
+                <a href="/profile">no i want to update my information</a>
             </div>
         </div>
     </div>

@@ -23,12 +23,15 @@
             <div>
                 <h1><%= prod.name %></h1>
                 <h3>$<%= prod.priceSold %></h3>
-                <% if (isLoggedIn) { %>
-                <form action="/add-to-cart" method="post">
-                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                    <input type="hidden" name="productId" value="<%= prod._id %>">
-                    <button type="submit">add to cart</button>
-                </form>
+                <% if (prod.quantity === 0) { %>
+                    <p>this product is out of stock</p>
+
+                <% } else if (isLoggedIn) { %>
+                    <form action="/add-to-cart" method="post">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <input type="hidden" name="productId" value="<%= prod._id %>">
+                        <button type="submit">add to cart</button>
+                    </form>
                 <% } else { %>
                     <p>you need to <a href="/sign-in">sign in</a> or <a href="/sign-up">sign up</a> to add product to cart</p>
                 <% } %>

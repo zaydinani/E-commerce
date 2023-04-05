@@ -11,6 +11,7 @@ router.get('/', shopController.getHome);
 router.get('/products', shopController.getProducts);
 router.get('/cart', isLoggedIn,shopController.getCart);
 router.get('/contact-us', shopController.getContactUs);
+router.get('/thank-you', shopController.getThankYou);
 router.get('/faq', shopController.getFaq);
 router.get('/wishlist', isLoggedIn,shopController.getWishlist);
 

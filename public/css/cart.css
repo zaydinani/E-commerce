@@ -10,7 +10,94 @@ body {
   margin: 0;
   padding: 0;
 }
+.check{
+  background-color: black;
+  display: block;
+  color: white;
+  height: 2.5rem;
+  text-transform: uppercase;
+  width: 100%;
+  font-family: "Roboto", sans-serif;
+  font-weight: 900;
+  letter-spacing: 2px;
+  font-size: 14px;
+  transition: 0.5s ease-in-out;
+  border: none;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+}
+.check:hover{
+  background-color: #f69368;
+  color: #000;
+}
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+.address{
+  padding: 1rem;
+  font-family: "Roboto Slab", serif;
+  font-weight: 300;
+}
+.address h2{
+  padding: 0.5rem;
+}
+.modal-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  font-family: "Roboto Slab", serif;
+  font-weight: 300;
+}
+.modal-container h1{
+  text-align: center;
+}
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
 
+
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+#error{
+  color : red;
+  padding: 1rem ;
+  margin-top: 1rem;
+  border: 1px solid red;
+  text-align: center;
+  background-color: rgb(255, 205, 205);
+  font-family: "Roboto Slab", serif;
+
+}
 /* cart container*/
 .my-cart-container {
   padding-top: 5rem;
@@ -41,7 +128,7 @@ body {
   font-weight: 300;
   letter-spacing: 2px;
 }
-.my-cart-container .cart form button {
+.my-cart-container .cart button {
   background-color: black;
   display: block;
   color: white;
@@ -52,6 +139,12 @@ body {
   font-weight: 900;
   letter-spacing: 2px;
   font-size: 14px;
+  transition: 0.5s ease-in-out;
+  border: none;
+}
+.my-cart-container .cart button:hover {
+  background-color: #f69368;
+  color: #000;
 }
 .my-cart-container .cart-products {
   display: flex;
