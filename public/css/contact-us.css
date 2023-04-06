@@ -95,7 +95,14 @@ body {
   align-items: center;
   flex-direction: column;
 }
-
+#success{
+  color : green;
+  padding: 1rem;
+  margin-top: 1rem;
+  border: 1px solid green;
+  text-align: center;
+  background-color: rgb(167, 255, 167);
+}
 .form {
   position: relative;
   min-width: 20rem;
@@ -111,7 +118,7 @@ body {
   border: 1px solid black;
   font-family: inherit;
   font-size: inherit;
-  color: white;
+  color: black;
   outline: none;
   padding: 1rem;
   background: none;

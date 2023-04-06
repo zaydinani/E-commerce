@@ -6,7 +6,7 @@ const NodeMailer = require('../classes/nodemailer');
 
 //! GET ROUTES
 
-//? user shop pages routes
+//? GET user shop pages routes
 exports.getHome = (req, res, next) => {
     productModel.aggregate([{ $sample: {size:7}}])
     .then(products => {
@@ -19,7 +19,7 @@ exports.getHome = (req, res, next) => {
     }).catch(err => console.error(err));
 }
 
-//? fetch all products
+//? GET fetch all products
 exports.getProducts = (req, res, next) => {
     productModel.find({})
     .then(products => {
@@ -31,7 +31,7 @@ exports.getProducts = (req, res, next) => {
     }).catch(err => console.error(err));
 }
 
-//? fetch laptop stands products page
+//? GET fetch laptop stands products page
 exports.getLaptopStands = (req, res, next) => {
     categories = ['laptop stand', 'laptop riser', 'macBook dock']
     productModel.find({category: { $in: categories}})
@@ -43,7 +43,8 @@ exports.getLaptopStands = (req, res, next) => {
         })
     }).catch(err => console.error(err));
 }
-//? fetch desk pads products page
+
+//? GET fetch desk pads products page
 exports.getDeskPads = (req, res, next) => {
     productModel.find({category: 'deskPad'})
     .then(products => {
@@ -55,7 +56,7 @@ exports.getDeskPads = (req, res, next) => {
     }).catch(err => console.error(err));
 }
 
-//? fetch the product user click on on product page
+//? GET fetch the product user click on on product page
 exports.getProduct = (req, res, next) => {
     const productId = req.params.productId;
     console.log('productId:' + productId);
@@ -76,14 +77,7 @@ exports.getProduct = (req, res, next) => {
     }).catch(err => console.error(err));
 }
 
-
-
-
-
-
-
-
-
+//? GET fetch products in cart page
 exports.getCart = (req, res, next) => {
     let message = req.flash('error');
     if (message.length > 0) {
@@ -123,26 +117,39 @@ exports.getCart = (req, res, next) => {
     }).catch(err => console.error(err))
 }
 
-
-
+//? GET contact us 
 exports.getContactUs = (req, res, next) => {
+    let message = req.flash('success');
+    if (message.length > 0) {
+        message = message[0]
+    } else {
+        message = null;
+    }
     res.render('contact-us', {
         pageTitle: 'contact-us',
         path: '/contact-us',
+        successMessage: message,
+
     })
 }
+
+//? GET thank you page
 exports.getThankYou = (req, res, next) => {
     res.render('thank-you', {
         pageTitle: 'thank-you',
         path: '/thank-you',
     })
 }
+
+//? GET faq
 exports.getFaq = (req, res, next) => {
     res.render('faq', {
         pageTitle: 'faq',
         path: '/faq',
     })
 }
+
+//? GET wishlist
 exports.getWishlist = (req, res, next) => {
     res.render('wishlist', {
         pageTitle: 'wishlist',
@@ -154,7 +161,7 @@ exports.getWishlist = (req, res, next) => {
 
 //! POST ROUTES
 
-//? subscribe to newsletter
+//? POST subscribe to newsletter
 exports.postSubscribe = (req, res, next) => {
     const email = req.body.email
     console.log(email)
@@ -184,7 +191,7 @@ exports.postSubscribe = (req, res, next) => {
     }).catch(err => console.log(err))
 }
 
-//? add products to cart
+//? POST add products to cart
 exports.postAddToCart = (req, res, next) => {
     const productId = req.body.productId
     console.log(productId)
@@ -201,7 +208,7 @@ exports.postAddToCart = (req, res, next) => {
     })
 }
 
-//? delete products from cart
+//? POST delete products from cart
 exports.postDeleteFromCart = (req, res, next) => {
     const productId = req.body.productId
     console.log(productId)
@@ -215,7 +222,7 @@ exports.postDeleteFromCart = (req, res, next) => {
     })
 };
 
-//? checkout
+//? POST checkout
 exports.postCheckout = (req, res, next) => {
     if (req.user.cart.items.length === 0) {
         console.log('empty cart')
@@ -272,5 +279,24 @@ exports.postCheckout = (req, res, next) => {
     .catch(err => console.log(err))
 };
 
-
- 
+//? POST contact us form
+exports.getContactForm = (req, res, next) => {
+    const name = req.body.name;
+    const bodySubject = req.body.subject;
+    const message = req.body.message;
+    const receivedEmail = 'zaydinani@protonmail.com';
+    console.log(name, bodySubject, message)
+    let nodeMailer = new NodeMailer();
+    let to = receivedEmail;
+    let subject = bodySubject
+    let htmlContent =  `
+        <body style="background-color: black;">
+            <h1 style="color: green;">this is an email sent from grovemade contact us page</h1> 
+            <h2 style="color: red;">${message}</h2>
+        </body>
+    `
+    nodeMailer.sendMail(to, subject, htmlContent)
+    console.log('email from contact us successfully sent')
+    req.flash('success', 'your email have been sent successfully')
+    return res.redirect('back')
+}

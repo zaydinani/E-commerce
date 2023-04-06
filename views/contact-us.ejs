@@ -48,23 +48,27 @@
     <!--! contact us form-->
     <div class="form-controle">
         <h1>contact</h1>
-        <form action="">
+        <form action="/contact/form" method="post">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
             <div>
                 <div class="form">
-                    <input type="text" id="form" class="form__input" autocomplete="off" placeholder=" ">
+                    <input type="text" name="name" id="form" class="form__input" autocomplete="off" placeholder=" ">
                     <label for="name" class="form__label">name</label>
                 </div>
                 <div class="form">
-                    <input type="text" id="form" class="form__input" autocomplete="off" placeholder=" ">
-                    <label for="email" class="form__label">Email</label>
+                    <input type="text" name="subject" id="form" class="form__input" autocomplete="off" placeholder=" ">
+                    <label for="email" class="form__label">subject</label>
                 </div>
                 <div class="form">
-                    <input type="text" id="message" class="form__input" autocomplete="off" placeholder=" ">
+                    <input type="text" name="message" id="message" class="form__input" autocomplete="off" placeholder=" ">
                     <label for="email" class="form__label">message</label>
                 </div>
-                <button>submit</button>
+                <button type="submit">submit</button>
             </div>
         </form>
+        <% if (successMessage) { %>
+            <h2 id="success"><%= successMessage %></h2>
+        <% } %>
     </div>
 
     <!--! include blue section here-->
