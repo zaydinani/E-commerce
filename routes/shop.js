@@ -14,14 +14,9 @@ router.get('/contact-us', shopController.getContactUs);
 router.get('/thank-you', shopController.getThankYou);
 router.get('/faq', shopController.getFaq);
 router.get('/wishlist', isLoggedIn,shopController.getWishlist);
-
-
 router.get('/laptopStands', shopController.getLaptopStands);
 router.get('/deskPads', shopController.getDeskPads);
 router.get('/product/:productId', shopController.getProduct);
-
-
-
 
 //! POST ROUTES
 //? POST subscribe to newsletter in footer
@@ -34,4 +29,5 @@ router.post('/deleteProductCart', isLoggedIn, shopController.postDeleteFromCart)
 router.post('/checkout', isLoggedIn, shopController.postCheckout)
 //? POST contact us form 
 router.post('/contact/form', shopController.getContactForm)
+
 module.exports = router;

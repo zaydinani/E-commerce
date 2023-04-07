@@ -1,0 +1,41 @@
+    <%- include('include/header.ejs') %>
+
+    <link rel="stylesheet" href="/css/profile.css">
+    <title>profile</title>
+</head>
+<body>
+    <!--! include nav here-->
+    <%- include('include/nav-bar') %>
+    <!--! profile container-->
+    <div class="profile">
+        <h1>password reset</h1>
+        <h2 style="text-align: center; padding-bottom: 1rem;">write your email and we well send you a link to change your password</h2>
+        <!--! personal info container-->
+        <div class="info" style="padding-top: 1rem;">
+            <form action="/email-reset" method="post">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <div>
+                    <div class="form">
+                        <input type="text" id="form" class="form__input" autocomplete="off" name="email"  value="" required>
+                        <label for="email" class="form__label">email*</label>
+                    </div>
+
+                </div>
+                <!--! action-->
+                <div>
+                    <button type="submit">send</button>
+                </div>
+            </form>
+            <% if ( errorMessage ) { %>
+                <h2 id="error"><%= errorMessage %></h2>
+            <% } %>
+        </div>
+    </div>
+    
+
+    <!--! include footer here -->
+    <script src="/javascript/profile.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/a5df376e05.js" crossorigin="anonymous"></script>
+</body>
+</html>

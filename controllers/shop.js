@@ -5,7 +5,6 @@ const orderModel = require('../models/order')
 const NodeMailer = require('../classes/nodemailer');
 
 //! GET ROUTES
-
 //? GET user shop pages routes
 exports.getHome = (req, res, next) => {
     productModel.aggregate([{ $sample: {size:7}}])
@@ -18,7 +17,6 @@ exports.getHome = (req, res, next) => {
         })
     }).catch(err => console.error(err));
 }
-
 //? GET fetch all products
 exports.getProducts = (req, res, next) => {
     productModel.find({})
@@ -30,7 +28,6 @@ exports.getProducts = (req, res, next) => {
         })
     }).catch(err => console.error(err));
 }
-
 //? GET fetch laptop stands products page
 exports.getLaptopStands = (req, res, next) => {
     categories = ['laptop stand', 'laptop riser', 'macBook dock']
@@ -43,7 +40,6 @@ exports.getLaptopStands = (req, res, next) => {
         })
     }).catch(err => console.error(err));
 }
-
 //? GET fetch desk pads products page
 exports.getDeskPads = (req, res, next) => {
     productModel.find({category: 'deskPad'})
@@ -55,7 +51,6 @@ exports.getDeskPads = (req, res, next) => {
         })
     }).catch(err => console.error(err));
 }
-
 //? GET fetch the product user click on on product page
 exports.getProduct = (req, res, next) => {
     const productId = req.params.productId;
@@ -76,7 +71,6 @@ exports.getProduct = (req, res, next) => {
         }).catch(err => console.error(err));
     }).catch(err => console.error(err));
 }
-
 //? GET fetch products in cart page
 exports.getCart = (req, res, next) => {
     let message = req.flash('error');
@@ -116,7 +110,6 @@ exports.getCart = (req, res, next) => {
         console.log(Products)
     }).catch(err => console.error(err))
 }
-
 //? GET contact us 
 exports.getContactUs = (req, res, next) => {
     let message = req.flash('success');
@@ -132,7 +125,6 @@ exports.getContactUs = (req, res, next) => {
 
     })
 }
-
 //? GET thank you page
 exports.getThankYou = (req, res, next) => {
     res.render('thank-you', {
@@ -140,7 +132,6 @@ exports.getThankYou = (req, res, next) => {
         path: '/thank-you',
     })
 }
-
 //? GET faq
 exports.getFaq = (req, res, next) => {
     res.render('faq', {
@@ -148,7 +139,6 @@ exports.getFaq = (req, res, next) => {
         path: '/faq',
     })
 }
-
 //? GET wishlist
 exports.getWishlist = (req, res, next) => {
     res.render('wishlist', {
@@ -156,11 +146,7 @@ exports.getWishlist = (req, res, next) => {
         path: '/wishlist',
     })
 }
-
-
-
 //! POST ROUTES
-
 //? POST subscribe to newsletter
 exports.postSubscribe = (req, res, next) => {
     const email = req.body.email
@@ -190,7 +176,6 @@ exports.postSubscribe = (req, res, next) => {
         }
     }).catch(err => console.log(err))
 }
-
 //? POST add products to cart
 exports.postAddToCart = (req, res, next) => {
     const productId = req.body.productId
@@ -207,7 +192,6 @@ exports.postAddToCart = (req, res, next) => {
         console.log(err)
     })
 }
-
 //? POST delete products from cart
 exports.postDeleteFromCart = (req, res, next) => {
     const productId = req.body.productId
@@ -221,7 +205,6 @@ exports.postDeleteFromCart = (req, res, next) => {
         console.log(err)
     })
 };
-
 //? POST checkout
 exports.postCheckout = (req, res, next) => {
     if (req.user.cart.items.length === 0) {
@@ -278,7 +261,6 @@ exports.postCheckout = (req, res, next) => {
     })
     .catch(err => console.log(err))
 };
-
 //? POST contact us form
 exports.getContactForm = (req, res, next) => {
     const name = req.body.name;

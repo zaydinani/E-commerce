@@ -1,8 +1,10 @@
 const userModel = require('../models/user')
 const bcrypt = require('bcryptjs');
+const crypto = require('crypto');
 const NodeMailer = require('../classes/nodemailer');
 //user authentication and registration routes
 //! GET ROUTES
+//? GET sign up
 exports.getSignUp = (req, res, next) => {
     let message = req.flash('error');
     if (message.length > 0) {
@@ -16,6 +18,7 @@ exports.getSignUp = (req, res, next) => {
         errorMessage: message
     });
 }
+//? GET sign in
 exports.getSignIn = (req, res, next) => {
     let message = req.flash('error');
     if (message.length > 0) {
@@ -29,6 +32,7 @@ exports.getSignIn = (req, res, next) => {
         errorMessage: message
     });
 }
+//? GET user profile
 exports.getProfile = (req, res, next) => {
     let message = req.flash('success');
     if (message.length > 0) {
@@ -48,8 +52,44 @@ exports.getProfile = (req, res, next) => {
         })
     }).catch(err => console.log(err))
 }
-//! POST ROUTES
-//? user sign up function
+//? GET reset password
+exports.getNewPassword = (req, res, next) => {
+    const token = req.params.token
+    userModel.findOne({ resetToken: token, resetTokenExpiration: {$gt: Date.now()}})
+    .then(user => {
+        let errorMessage = req.flash('error');
+        if (errorMessage.length > 0) {
+            errorMessage = errorMessage[0]
+        } else {
+            errorMessage = null;
+        }
+        res.render('password-reset', {
+            pageTitle: 'password reset',
+            path: '/password-reset',
+            errorMessage: errorMessage,
+            userId: user._id.toString(),
+            passwordToken: token
+        });
+    })
+    .catch(err => console.log(err))
+
+}
+//? GET write email to send password reset
+exports.getEmailResetPassword = (req, res, next) => {
+    let errorMessage = req.flash('error');
+    if (errorMessage.length > 0) {
+        errorMessage = errorMessage[0]
+    } else {
+        errorMessage = null;
+    }
+    res.render('email-resit',{
+        pageTitle: 'email password reset',
+        path: '/email-resit',
+        errorMessage: errorMessage,
+    })
+}
+//! POST ROUTES 
+//? POST user sign up function
 exports.postSignUp = (req, res, next) => {
     const name = req.body.name
     const email = req.body.email
@@ -95,7 +135,7 @@ exports.postSignUp = (req, res, next) => {
         console.log(err)
     })
 };
-//? user sign in function 
+//? POST user sign in function 
 exports.postSignIn = (req, res, next) => {
     const email = req.body.email
     const password = req.body.password
@@ -126,14 +166,14 @@ exports.postSignIn = (req, res, next) => {
             console.log(err)
         });
 }
-//? user sign out
+//? POST user sign out
 exports.postSignOut = (req, res, next) => {
     req.session.destroy(err => {
         console.log('user signed out')
         res.redirect('/')
     })
 }
-//? user delete account 
+//? POST user delete account 
 exports.postDeleteAccount = (req, res, next) => {
     accountId = req.session.user
     userModel.findByIdAndDelete({_id: accountId})
@@ -149,7 +189,7 @@ exports.postDeleteAccount = (req, res, next) => {
 
 }
 
-//? user update account info
+//? POST user update account info
 exports.postUpdateUserInfo = (req, res, next) => {
     const name = req.body.name
     const email = req.body.email
@@ -178,4 +218,75 @@ exports.postUpdateUserInfo = (req, res, next) => {
         console.log(err)
     })
 
+}
+//? POST send email to reset password
+exports.postEmailResetPassword = (req, res, next) => {
+    crypto.randomBytes(32, (err, buffer) => {
+        if (err) {
+            console.log(err)
+            return res.redirect('/email-resit')
+        }
+        const token = buffer.toString('hex')
+        userModel.findOne({email: req.body.email})
+        .then(user => {
+            if (!user) {
+                req.flash('error', 'no email found')
+                return res.redirect('back')
+            }
+            user.resetToken = token
+            user.resetTokenExpiration = Date.now() + 3600000
+            return user.save()
+        })
+        .then(result => {
+            res.redirect('/')
+            let nodeMailer = new NodeMailer();
+            let to = req.body.email
+            let subject = 'password reset'
+            let htmlContent =  `
+                <body style="background-color: black;">
+                    <h1 style="color: green;">you requested a password reset </h1>
+                    <P>click this link to change your password <a href="http://localhost:3000/password-reset/${token}">link</a></P> 
+                </body>
+            `
+            nodeMailer.sendMail(to, subject, htmlContent)
+        })
+        .catch(err => {
+            console.log(err)
+        });
+    })
+}
+
+//? POST reset new password
+exports.postNewPassword = (req, res, next) => {
+    const newPassword = req.body.password
+    const userId = req.body.userId
+    const passwordToken = req.body.passwordToken
+    let resetUser;
+    console.log(userId)
+    console.log(newPassword)
+    console.log(passwordToken)
+
+    userModel.findOne({
+        resetToken: passwordToken, 
+        resetTokenExpiration: 
+        {
+            $gt: Date.now()
+        },
+            _id: userId
+        
+    })
+    .then(user => {
+        resetUser = user
+        return bcrypt.hash(newPassword, 12)
+    })
+    .then(hashedPassword => {
+        resetUser.password = hashedPassword
+        resetUser.resetToken = undefined
+        resetUser.resetTokenExpiration = undefined
+        return resetUser.save()
+    })
+    .then(result => {
+        res.redirect('/sign-in')
+    })
+    .catch(err => console.log(err))
 }
