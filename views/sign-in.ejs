@@ -21,7 +21,7 @@
         <!--! form-->
         <div class="form-controle">
             <h1>sign in</h1>
-            <form action="/sign-in" method="post">
+            <form action= <%= admin ? '/dash/signIn' : "/sign-in" %> method="post">
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                 <div>
                     <div class="form">
@@ -32,7 +32,7 @@
                         <input type="password" id="form" class="form__input" autocomplete="off" placeholder=" " name="password">
                         <label for="password" class="form__label">password</label>
                     </div>
-                    <button type="submit">sign in</button>
+                    <button type="submit"><%=admin? 'admin log in' : 'log in'%></button>
                     <a style="padding-top: 1rem;" href="/email-reset">forgot password</a>
                 </form>
                 <% if ( errorMessage ) { %>

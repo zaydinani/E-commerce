@@ -15,7 +15,8 @@ exports.getSignUp = (req, res, next) => {
     res.render('sign-up', {
         pageTitle: 'Sign Up',
         path: '/sign-up',
-        errorMessage: message
+        errorMessage: message,
+        admin: false
     });
 }
 //? GET sign in
@@ -29,7 +30,9 @@ exports.getSignIn = (req, res, next) => {
     res.render('sign-in', {
         pageTitle: 'Sign In',
         path: '/sign-in',
-        errorMessage: message
+        errorMessage: message,
+        admin: false
+
     });
 }
 //? GET user profile
@@ -48,7 +51,8 @@ exports.getProfile = (req, res, next) => {
             pageTitle: 'profile',
             path: '/profile',
             successMessage: message,
-            userData: userData
+            userData: userData,
+            admin: false
         })
     }).catch(err => console.log(err))
 }
@@ -150,6 +154,7 @@ exports.postSignIn = (req, res, next) => {
             .then(doMatch => {
                 if (doMatch) {
                 req.session.isLoggedIn = true;
+                req.session.isAdmin = false;
                 req.session.user = user._id;
                 return req.session.save(err => {
                     res.redirect('/')

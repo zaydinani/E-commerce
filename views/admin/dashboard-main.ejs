@@ -24,42 +24,32 @@
             <!--total users-->
             <div class="card">
                 <h5>total users</h5>
-                <h1>255</h1>
+                <h1><%= allUsersCount %></h1>
             </div>
             <!--new users-->
             <div class="card">
                 <h5>new users</h5>
-                <h1>+15</h1>
+                <h1><%= usersLastMonthCount %></h1>
             </div>
             <!--products in stock-->
             <div class="card">
                 <h5>Products in stock</h5>
-                <h1>59</h1>
+                <h1><%= totalQuantity %></h1>
             </div>
             <!--total sales-->
             <div class="card">
                 <h5>Total sales</h5>
-                <h1>365</h1>
+                <h1><%= totalOrdersCount %></h1>
             </div>
             <!--sales one month -->
             <div class="card">
                 <h5>sales 1month</h5>
-                <h1>+56</h1>
+                <h1><%= lastMonthOrders %></h1>
             </div>
             <!--revenue-->
             <div class="card">
                 <h5>Revenue</h5>
-                <h1>$165</h1>
-            </div>
-            <!--visits-->
-            <div class="card">
-                <h5>visits</h5>
-                <h1>39</h1>
-            </div>
-            <!--returns-->
-            <div class="card">
-                <h5>returns</h5>
-                <h1>3</h1>
+                <h1>$<%= totalPrice %></h1>
             </div>
         </div>
         <!--charts part-->

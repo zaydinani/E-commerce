@@ -22,7 +22,7 @@
         <div class="form-controle">
             <h1>sign up</h1>
             <!--! form-->
-            <form action="/sign-up" method="post">
+            <form action=<%= admin ? '/dash/signUp' : "/sign-up" %> method="post">
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                 <div>
                     <div class="form">
@@ -41,7 +41,7 @@
                         <input type="password" id="form" class="form__input" autocomplete="off" placeholder=" " name="confirmPassword" required>
                         <label for="password" class="form__label">confirm password</label>
                     </div>
-                    <button type="submit">submit</button>
+                    <button type="submit"><%=admin? 'admin register' : 'register'%></button>
                 </div>
                 <% if ( errorMessage ) { %>
                     <h2 id="error"><%= errorMessage %></h2>
