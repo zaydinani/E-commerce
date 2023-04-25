@@ -39,13 +39,26 @@ exports.getDashboard = (req, res, next) => {
             }
         }
     ]);
+    const totalBudgetPromise = productModel.aggregate([
+        {
+            $group: {
+                _id: null,
+                totalBudget: {
+                    $sum: {
+                    $multiply: ['$quantity', '$priceBought']
+                    }
+                }
+            }
+        }
+    ]);
     Promise.all([
         totalCountPromise, 
         lastMonthCountPromise, 
         totalQuantityPromise, 
         totalOrdersPromise, 
         lastMonthOrdersPromise,
-        totalPricePromise
+        totalPricePromise,
+        totalBudgetPromise
     ])
     .then(
         ([
@@ -54,10 +67,13 @@ exports.getDashboard = (req, res, next) => {
         totalQuantityResult, 
         totalOrdersCount, 
         lastMonthOrdersCount, 
-        totalPriceResult
+        totalPriceResult,
+        totalBudgetCount
         ]) => {
         const totalQuantity = totalQuantityResult[0].totalQuantity
         const totalPrice = totalPriceResult[0].totalPrice;
+        const totalBudget = totalBudgetCount[0].totalBudget;
+
         res.render('./admin/dashboard-main', {
           pageTitle: 'dashboard',
           path: '/dash',
@@ -67,6 +83,7 @@ exports.getDashboard = (req, res, next) => {
           totalOrdersCount,
           lastMonthOrders: lastMonthOrdersCount,
           totalPrice,
+          totalBudget
         });
     })
     .catch(error => {
