@@ -84,10 +84,7 @@ footer .newsletter p {
   color: #adadad;
   font-style: italic;
 }
-footer .newsletter form {
-  /*input*/
-  /*submit button */
-}
+
 footer .newsletter form input {
   border: none;
   background-color: transparent;

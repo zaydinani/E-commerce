@@ -14,25 +14,31 @@ exports.getDashboard = (req, res, next) => {
     const totalCountPromise = userModel.countDocuments({});
     const lastMonthCountPromise = userModel.countDocuments({ createdAt: { $gte: oneMonthAgo } });
     const totalQuantityPromise = productModel.aggregate([
-      {
-        $group: {
-          _id: null,
-          totalQuantity: { $sum: '$quantity'}
+        {
+            $group: {
+                _id: null,
+                totalQuantity: { $sum: '$quantity'}
+            }
         }
-      }
     ])
     const totalOrdersPromise = orderModel.countDocuments({});
     const lastMonthOrdersPromise = orderModel.countDocuments({ createdAt: { $gte: oneMonthAgo } });
     const totalPricePromise = orderModel.aggregate([
-      { $unwind: '$products' },
-      {
-        $group: {
-          _id: null,
-          totalPrice: { $sum: { $multiply: ['$products.quantity', '$products.product.priceSold'] } }
+        { $unwind: '$products' },
+        {
+            $group: {
+                _id: null,
+                totalPrice: {
+                    $sum: {
+                        $subtract: [
+                            { $multiply: ['$products.quantity', '$products.product.priceSold'] },
+                            { $multiply: ['$products.quantity', '$products.product.priceBought'] }
+                        ]
+                    }
+                }
+            }
         }
-      }
     ]);
-  
     Promise.all([
         totalCountPromise, 
         lastMonthCountPromise, 
@@ -40,8 +46,16 @@ exports.getDashboard = (req, res, next) => {
         totalOrdersPromise, 
         lastMonthOrdersPromise,
         totalPricePromise
-      ])
-      .then(([allUsersCount, usersLastMonthCount, totalQuantityResult, totalOrdersCount, lastMonthOrdersCount, totalPriceResult]) => {
+    ])
+    .then(
+        ([
+        allUsersCount, 
+        usersLastMonthCount, 
+        totalQuantityResult, 
+        totalOrdersCount, 
+        lastMonthOrdersCount, 
+        totalPriceResult
+        ]) => {
         const totalQuantity = totalQuantityResult[0].totalQuantity
         const totalPrice = totalPriceResult[0].totalPrice;
         res.render('./admin/dashboard-main', {
@@ -52,13 +66,13 @@ exports.getDashboard = (req, res, next) => {
           totalQuantity,
           totalOrdersCount,
           lastMonthOrders: lastMonthOrdersCount,
-          totalPrice
+          totalPrice,
         });
-      })
-      .catch(error => {
+    })
+    .catch(error => {
         console.log(error);
-      });
-  };
+    });
+};
 
 exports.getAdminDashboard = (req, res, next) => {
     res.render('./admin/dashboard-admins', {

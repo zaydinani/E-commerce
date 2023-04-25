@@ -4,6 +4,7 @@ const adminController = require('../controllers/admin');
 const isAdmin = require('../middleware/isAdmin');
 
 router = express.Router();
+
 //!GET requests
 //?dashboard routes
 router.get('/dash',isAdmin , adminController.getDashboard);
