@@ -111,7 +111,9 @@ body {
 }
 .cards-container .products {
   padding: 1rem 0;
-  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 .cards-container .products h1 {
   margin-bottom: 2rem;
@@ -127,6 +129,7 @@ body {
   align-items: center;
   flex-wrap: wrap;
   gap: 2rem;
+  flex-direction: column;
 }
 .cards-container .products .product .product-card {
   width: 150px;
@@ -151,7 +154,23 @@ body {
   transition: 0.5s ease-in-out;
 }
 
-
+.charts{
+  width: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+.charts div{
+  width: 70%;
+  margin: auto;
+}
+.chart-header{
+  margin: 2rem;
+  font-family: "Roboto", sans-serif;
+  font-weight: 200;
+  letter-spacing: 2px;
+  color: black;
+}
 @media screen and (max-width: 545px) {
   .money-container {
     flex-direction: column;

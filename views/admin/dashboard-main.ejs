@@ -54,46 +54,48 @@
         </div>
         <!--charts part-->
         <div class="charts">
-            <canvas id="myChart"></canvas>
-        </div>
-        <!--best selling products-->
-        <div class="products">
-            <h1>best selling products</h1>
-            <div class="product">
-                <a style="text-decoration: none;" href="../product-page.ejs">
-                    <div class="product-card">
-                        <img src="/pictures/wood monitor 2.png" alt="">
-                        <p>Wood Monitor Stand</p>
-                        <p>5 sold</p>
-                    </div>
-                </a>
-                <!--add new product-->
-                <div class="actions">
-                    <ul>
-                        <li><a href="">add new product</a></li>
-                    </ul>
-                </div>
+            <div>
+                <h2 class="chart-header">users sign up each month</h2>
+                <canvas id="myChartUsers"></canvas>
+            </div>
+            <div>
+                <h2 class="chart-header">profit each month</h2>
+                <canvas id="myChartProfit"></canvas>
+            </div>
+            <div>
+                <h2 class="chart-header">orders chart count each month</h2>
+                <canvas id="myChartOrders"></canvas>
+            </div>
+            <div style="width: 50%;">
+                <h2 class="chart-header">best selling products</h2>
+                <canvas id="myChartSales"></canvas>
             </div>
         </div>
         <!--products low on stock -->
+        <h1>Products Low on Stock</h1>
         <div class="products">
-            <h1>products low on stock</h1>
-            <div class="product">
-                <a style="text-decoration: none;" href="../product-page.ejs">
+            <% if (lowStockProducts.length > 0) { %>
+              <% lowStockProducts.forEach((product) => { %>
+                <div class="product">
+                  <a style="text-decoration: none;" href="/product/<%= product._id %>">
                     <div class="product-card">
-                        <img src="/pictures/wood monitor 2.png" alt="">
-                        <p>Wood Monitor Stand</p>
-                        <p>> 5</p>
+                      <img src="<%= product.mainImagesPath[0] %>" alt="">
+                      <p><%= product.name %></p>
+                      <p><%= product.quantity %></p>
                     </div>
-                </a>
-                <!--contact seller button-->
-                <div class="actions">
+                  </a>
+                  <div class="actions">
                     <ul>
-                        <li><a href="">contact seller</a></li>
+                      <li><a href="">Contact Seller</a></li>
                     </ul>
+                  </div>
                 </div>
-            </div>
+              <% }); %>
+            <% } else { %>
+                <h1>no products that are low on stock</h1>
+            <% } %>
         </div>
+
     </div>
 
 

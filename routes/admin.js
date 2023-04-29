@@ -1,34 +1,46 @@
-const express = require('express');
+const express = require("express");
 
-const adminController = require('../controllers/admin');
-const isAdmin = require('../middleware/isAdmin');
+const adminController = require("../controllers/admin");
+const isAdmin = require("../middleware/isAdmin");
 
 router = express.Router();
 
 //!GET requests
 //?dashboard routes
-router.get('/dash',isAdmin , adminController.getDashboard);
-router.get('/dash/admin',isAdmin, adminController.getAdminDashboard);
-router.get('/dash/customers',isAdmin, adminController.getCustomersDashboard);
-router.get('/dash/products',isAdmin, adminController.getProductsDashboard);
-router.get('/dash/orders',isAdmin, adminController.getOrdersDashboard);
-router.get('/dash/sellers',isAdmin, adminController.getSellersDashboard);
+router.get("/dash", isAdmin, adminController.getDashboard);
+router.get("/dash/admin", isAdmin, adminController.getAdminDashboard);
+router.get("/dash/customers", isAdmin, adminController.getCustomersDashboard);
+router.get("/dash/products", isAdmin, adminController.getProductsDashboard);
+router.get("/dash/orders", isAdmin, adminController.getOrdersDashboard);
+router.get("/dash/sellers", isAdmin, adminController.getSellersDashboard);
+
+//? GET user information route
+router.get("/admin/profile", isAdmin, adminController.getProfile);
 
 //? GET admin authentication and registration routes
-router.get('/dash/signUp',isAdmin, adminController.getSignUp);
-router.get('/dash/signIn', adminController.getSignIn);
+router.get("/dash/signUp", isAdmin, adminController.getSignUp);
+router.get("/dash/signIn", adminController.getSignIn);
 
 //!POST requests
 //? POST admin authentication and registration routes
-router.post('/dash/signUp',isAdmin, adminController.postSignUp);
-router.post('/dash/signIn', adminController.postSignIn);
-//? GET user information route
-router.get('/admin/profile', isAdmin, adminController.getProfile);
+router.post("/dash/signUp", isAdmin, adminController.postSignUp);
+router.post("/dash/signIn", adminController.postSignIn);
 //? POST update admin information route
-router.post('/admin/info', isAdmin, adminController.postUpdateAdminInfo)
+router.post("/admin/info", isAdmin, adminController.postUpdateAdminInfo);
 //? POST user delete account route
-router.post('/admin/delete/account', isAdmin, adminController.postDeleteAccount);
+router.post(
+  "/admin/delete/account",
+  isAdmin,
+  adminController.postDeleteAccount
+);
 
-
-
+//! GET request routes to send data as json
+//? Route for retrieving user data as JSON
+router.get("/users", isAdmin, adminController.getUsers);
+//? Route for retrieving orders data as JSON
+router.get("/orders", isAdmin, adminController.getOrders);
+//? Route for retrieving best selling product data as JSON
+router.get("/best/selling", isAdmin, adminController.getBestSales);
+//? Route for retrieving profit each month data as JSON
+router.get("/profit", isAdmin, adminController.getProfit);
 module.exports = router;
