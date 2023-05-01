@@ -1,3 +1,4 @@
+//!------------------ getting users signed up this month ----------
 // Fetch the data from the server
 fetch("/users")
   .then((response) => response.json())
@@ -53,7 +54,7 @@ fetch("/users")
   })
   .catch((error) => console.error(error));
 
-//!---------------------------------------------------------------
+//!-----------------------getting orders----------------------------------------
 
 // Fetch the data from the server
 fetch("/orders")
@@ -110,7 +111,7 @@ fetch("/orders")
   })
   .catch((error) => console.error(error));
 
-//!---------------------------------------------------------------
+//!-----------------getting best selling products----------------------------------------------
 
 // Fetch the data from the server
 fetch("/best/selling")

@@ -158,10 +158,12 @@ body {
   width: 100%;
   margin: auto;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  height: 70%;
+  flex-wrap: wrap;
 }
 .charts div{
-  width: 70%;
+  width: 50%;
   margin: auto;
 }
 .chart-header{
