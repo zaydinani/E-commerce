@@ -204,12 +204,31 @@ exports.getAdminDashboard = (req, res, next) => {
 };
 
 exports.getCustomersDashboard = (req, res, next) => {
-  res.render("./admin/dash-customers", {
-    pageTitle: "dashboard-customers",
-    path: "/dash/customers",
-  });
+  userModel
+    .aggregate([
+      {
+        $lookup: {
+          from: "orders",
+          localField: "_id",
+          foreignField: "user.userId",
+          as: "orders",
+        },
+      },
+      {
+        $addFields: {
+          orderCount: { $size: "$orders" },
+        },
+      },
+    ])
+    .then((users) => {
+      res.render("./admin/dash-customers", {
+        pageTitle: "dashboard-customers",
+        path: "/dash/customers",
+        users: users,
+      });
+    })
+    .catch((err) => console.error(err));
 };
-
 exports.getProductsDashboard = (req, res, next) => {
   res.render("./admin/dashboard-products", {
     pageTitle: "dashboard-products",
@@ -408,5 +427,19 @@ exports.postDeleteAccount = (req, res, next) => {
     })
     .catch((err) => {
       console.log(err);
+    });
+};
+
+exports.postDeleteUserAccounts = (req, res, next) => {
+  const userId = req.params.id;
+  console.log(`user id:${userId} deleted`);
+  userModel
+    .findByIdAndDelete(userId)
+    .then(() => {
+      res.redirect("/dash/customers");
+    })
+    .catch((err) => {
+      console.error(err);
+      res.redirect("/dash/customers");
     });
 };

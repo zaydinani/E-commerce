@@ -27,6 +27,12 @@ router.post("/dash/signUp", isAdmin, adminController.postSignUp);
 router.post("/dash/signIn", adminController.postSignIn);
 //? POST update admin information route
 router.post("/admin/info", isAdmin, adminController.postUpdateAdminInfo);
+//? POST delete user from dashboard route
+router.post(
+  "/user/delete/:id",
+  isAdmin,
+  adminController.postDeleteUserAccounts
+);
 //? POST user delete account route
 router.post(
   "/admin/delete/account",

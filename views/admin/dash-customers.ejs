@@ -7,27 +7,47 @@
     <!--include side bar here-->
     <%- include('./dashboard-sidemenu') %>
     <!--customers table-->
-    <div class="table-customers">
-        <h1>customers</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>name</th>
-                    <th>email</th>
-                    <th>city</th>
-                    <th>purchases</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>zayd inani</td>
-                    <td>zaydinani@protonmail.com</td>
-                    <td>tangier</td>
-                    <td>5</td>
-                </tr>
-            </tbody>
-        </table>
+
+  <!-- Responsive table starts here -->
+  <!-- For correct display on small screens you must add 'data-title' to each 'td' in your table -->
+  <h1 class="title">users</h1>
+  <div class="table-responsive-vertical shadow-z-1">
+    <!-- Table starts here -->
+    <table id="table" class="table table-hover table-mc-light-blue">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>email</th>
+                <th>city</th>
+                <th>purchases</th>
+                <th>delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% users.forEach(function(user) { %>
+              <tr>
+                
+                <td data-title="ID"><%= user.name %></td>
+                <td data-title="Email"><%= user.email %></td>
+                <td data-title="City">
+                  <% if (user.address) { %>
+                    <%= user.address.city %>
+                  <% } %>
+                </td>
+                <td data-title="Order Count"><%= user.orderCount %></td>
+                <td>
+                    <form action="/user/delete/<%= user._id %>" method="post">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <button class="delete" type="submit">delete</button>
+                    </form>
+                </td>
+              </tr>
+            <% }); %>
+          </tbody>
+      </table>
     </div>
+    
+
 
     
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
