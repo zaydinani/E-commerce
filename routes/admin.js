@@ -13,6 +13,9 @@ router.get("/dash/customers", isAdmin, adminController.getCustomersDashboard);
 router.get("/dash/products", isAdmin, adminController.getProductsDashboard);
 router.get("/dash/orders", isAdmin, adminController.getOrdersDashboard);
 router.get("/dash/sellers", isAdmin, adminController.getSellersDashboard);
+router.get("/dash/add-product", isAdmin, adminController.getAddProduct);
+router.get("/dash/add-seller", isAdmin, adminController.getAddSeller);
+router.get("/dash/edit-seller/:id", isAdmin, adminController.getEditSeller);
 
 //? GET user information route
 router.get("/admin/profile", isAdmin, adminController.getProfile);
@@ -27,17 +30,29 @@ router.post("/dash/signUp", isAdmin, adminController.postSignUp);
 router.post("/dash/signIn", adminController.postSignIn);
 //? POST update admin information route
 router.post("/admin/info", isAdmin, adminController.postUpdateAdminInfo);
+
 //? POST delete user from dashboard route
 router.post(
   "/user/delete/:id",
   isAdmin,
   adminController.postDeleteUserAccounts
 );
+//? POST delete seller from dashboard route
+router.post("/seller/delete/:id", isAdmin, adminController.postDeleteSellers);
 //? POST user delete account route
 router.post(
   "/admin/delete/account",
   isAdmin,
   adminController.postDeleteAccount
+);
+
+//? POST add seller information route
+router.post("/admin/add-seller", isAdmin, adminController.postAddSellerInfo);
+//? POST edit seller information route
+router.post(
+  "/admin/edit-seller/:sellerId",
+  isAdmin,
+  adminController.postEditSeller
 );
 
 //! GET request routes to send data as json

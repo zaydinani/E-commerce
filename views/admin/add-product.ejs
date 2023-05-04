@@ -1,0 +1,66 @@
+<%- include('../include/header.ejs') %>
+    <link rel="stylesheet" href="/css/add-product.css">
+    <title></title>
+</head>
+<body>
+    <div class="container">
+        <img src="/pictures/undraw_add_post_re_174w.svg" alt="">
+        <div class="form-control">
+            <h1>add product</h1>
+            <form action="" method="post">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <div>
+                    <div class="form">
+                        <input type="text" name="name" id="form" class="form__input" autocomplete="off" placeholder=" ">
+                        <label for="name" class="form__label">name</label>
+                    </div>
+                    <div class="form">
+                        <input type="text" name="material" id="form" class="form__input" autocomplete="off" placeholder=" ">
+                        <label for="material" class="form__label">material</label>
+                    </div>
+                    <div class="form">
+                        <input type="text" name="color" id="color" class="form__input" autocomplete="off" placeholder=" ">
+                        <label for="color" class="form__label">color</label>
+                    </div>
+                    <div class="form">
+                        <label for="category">Choose a category:</label>
+                        <select style="padding: 0 0 0 1rem;" class="form__input" name="category" id="category">
+                            <option value="">Volvo</option>
+                            <option value="">Saab</option>
+                        </select>
+                    </div>
+                    <div class="form">
+                        <input type="number" name="price" id="price" class="form__input" autocomplete="off" placeholder=" ">
+                        <label for="price" class="form__label">price bought</label>
+                    </div>
+                    <div class="form">
+                        <input type="number" name="price" id="price" class="form__input" autocomplete="off" placeholder=" ">
+                        <label for="price" class="form__label">price sold</label>
+                    </div>
+                    <div class="form text">
+                        <textarea class="form__input" id="description" name="description"></textarea>
+                        <label for="color" class="form__description">description</label>
+                    </div>
+                    <div class="images">
+                        <h2>primary pictures</h2>
+                        <p>choose 3 pictures</p>
+                        <input type="file" id="myFileInput">
+                        <input type="file" id="myFileInput">
+                        <input type="file" id="myFileInput">
+                    </div>
+                    <div class="images">
+                        <h2>secondary pictures</h2>
+                        <p>choose 3 pictures</p>
+                        <input type="file" id="myFileInput">
+                        <input type="file" id="myFileInput">
+                        <input type="file" id="myFileInput">
+                    </div>
+
+                    <button type="submit">submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script defer src="javascript/javascript.js"></script>
+</body>
+</html>

@@ -1,0 +1,182 @@
+:root {
+  --main: #14213d;
+  --secondary: #134074;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: flex-start;
+}
+.container img {
+  margin-top: 4rem;
+  width: 35%;
+  position: fixed;
+}
+.container .form-control {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+}
+.container .form-control h1 {
+  font-family: "Roboto Slab", serif;
+  font-size: 40px;
+  font-weight: 300;
+  letter-spacing: 2px;
+  text-align: center;
+  z-index: 100;
+  margin: 2rem 0;
+}
+.container .form-control form button {
+  background-color: black;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 5rem;
+  width: 80%;
+  height: 2rem;
+  cursor: pointer;
+  transition: all 0.5s;
+  z-index: 100;
+}
+.container .form-control form button:hover {
+  background-color: #f69368;
+  border-color: #f69368;
+}
+.container .form-control form div {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+}
+.container .form-control form .form, .container .form-control form .images {
+  position: relative;
+  min-width: 20rem;
+  height: 3rem;
+  margin-bottom: 1rem;
+}
+.container .form-control form .form__input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  height: 90%;
+  border: 1px solid black;
+  font-family: inherit;
+  font-size: inherit;
+  color: black;
+  outline: none;
+  padding: 1rem;
+}
+.container .form-control form .form__input:hover {
+  border-color: #f69368;
+}
+.container .form-control form .form__input:focus {
+  border-color: #f69368;
+}
+.container .form-control form .form__label {
+  position: absolute;
+  left: 1rem;
+  top: 0.8rem;
+  padding: 0 0.5rem;
+  color: black;
+  cursor: text;
+  transition: top 200ms ease-in, left 200ms ease-in, font-size 200ms ease-in;
+  background-color: white;
+  font-style: italic;
+}
+.container .form-control form .form__input:not(:-moz-placeholder-shown).form__input:not(:focus) ~ .form__label {
+  top: -0.5rem;
+  font-size: 0.8rem;
+  left: 0.8rem;
+}
+.container .form-control form .form__input:focus ~ .form__label,
+.container .form-control form .form__input:not(:placeholder-shown).form__input:not(:focus) ~ .form__label {
+  top: -0.5rem;
+  font-size: 0.8rem;
+  left: 0.8rem;
+}
+.container .form-control form .images {
+  border: 1px solid black;
+  height: -moz-fit-content;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  background-color: white;
+}
+.container .form-control form .images h2 {
+  margin: 1rem 0;
+  font-family: "Roboto Slab", serif;
+  font-size: 28px;
+  font-weight: 300;
+  letter-spacing: 2px;
+  text-align: center;
+}
+.container .form-control form .images p {
+  margin-bottom: 2rem;
+  font-family: "Roboto Slab", serif;
+  font-weight: 300;
+  letter-spacing: 2px;
+  text-align: center;
+}
+.container .form-control form .images input[type=file] {
+  font-size: 10px;
+  padding: 10px;
+  background-color: #eee;
+  border: none;
+  border-radius: 5px;
+  margin: 0 0 0.5rem;
+}
+.container .form-control form .images:hover {
+  border: 1px solid #f69368;
+}
+.container .form-control form .text {
+  height: 10rem;
+}
+.container .form-control form .text textarea {
+  height: 10rem;
+  resize: none;
+}
+.container .form-control form .text textarea:hover {
+  border-color: #f69368;
+}
+.container .form-control form .text textarea:focus {
+  border-color: #f69368;
+}
+.container .form-control form .text .form__description {
+  position: absolute;
+  left: 1rem;
+  top: 0.8rem;
+  padding: 0 0.5rem;
+  color: black;
+  cursor: text;
+  transition: top 200ms ease-in, left 200ms ease-in, font-size 200ms ease-in;
+  background-color: white;
+  font-style: italic;
+}
+.container .form-control form .text textarea:not(:-moz-placeholder-shown) textarea:not(:focus) ~ .form__description {
+  top: -0.5rem;
+  font-size: 0.8rem;
+  left: 0.8rem;
+}
+.container .form-control form .text textarea:focus ~ .form__description,
+.container .form-control form .text textarea:not(:placeholder-shown) textarea:not(:focus) ~ .form__description {
+  top: -0.5rem;
+  font-size: 0.8rem;
+  left: 0.8rem;
+}/*# sourceMappingURL=style.css.map */

@@ -1,0 +1,44 @@
+<%- include('../include/header.ejs') %>
+    <link rel="stylesheet" href="/css/add-seller.css">
+    <title></title>
+</head>
+<body>
+    <div class="container">
+        <img src="/pictures/undraw_add_post_re_174w.svg" alt="">
+        <div class="form-control">
+            <h1><%= seller ? 'Edit seller' : 'Add seller' %></h1>
+            <form action="<%= seller ? '/admin/edit-seller/' + seller._id : '/admin/add-seller' %>" method="post">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <div>
+                    <div class="form">
+                        <input type="text" name="name" id="form" class="form__input" autocomplete="off" placeholder=" " value="<%= seller ? seller.name : '' %>" required>
+                        <label for="name" class="form__label">name</label>
+                    </div>
+                    <div class="form">
+                        <input type="email" name="email" id="form" class="form__input" autocomplete="off" placeholder=" " value="<%= seller ? seller.email : '' %>" required>
+                        <label for="email" class="form__label">email</label>
+                    </div>
+                    <div class="form">
+                        <input type="number" name="phone" id="form" class="form__input" autocomplete="off" placeholder=" " value="<%= seller ? seller.phone : '' %>" required>
+                        <label for="phone" class="form__label">phone number</label>
+                    </div>
+                    <div class="form">
+                        <input type="text" name="product_1" id="form" class="form__input" autocomplete="off" placeholder=" " value="<%= seller && seller.products[0] ? seller.products[0].name : '' %>" required>
+                        <label for="product" class="form__label">product 1</label>
+                    </div>
+                    <div class="form">
+                        <input type="text" name="product_2" id="form" class="form__input" autocomplete="off" placeholder=" " value="<%= seller && seller.products[1] ? seller.products[1].name : '' %>">
+                        <label for="product" class="form__label">product 2 (optional)</label>
+                    </div>
+                    <div class="form">
+                        <input type="text" name="product_3" id="form" class="form__input" autocomplete="off" placeholder=" " value="<%= seller && seller.products[2] ? seller.products[2].name : '' %>">
+                        <label for="product" class="form__label">product 3 (optional)</label>
+                    </div>
+                    <button type="submit"><%= seller ? 'save changes' : 'Submit' %></button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script defer src="javascript/javascript.js"></script>
+</body>
+</html>

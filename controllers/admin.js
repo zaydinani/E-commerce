@@ -3,6 +3,8 @@ const productModel = require("../models/products");
 const orderModel = require("../models/order");
 const subscribersModel = require("../models/subscribers");
 const adminModel = require("../models/admin");
+const sellersModel = require("../models/sellers");
+
 const NodeMailer = require("../classes/nodemailer");
 const bcrypt = require("bcryptjs");
 
@@ -196,6 +198,7 @@ exports.getDashboard = (req, res, next) => {
     });
 };
 
+//? GET adminDashboard
 exports.getAdminDashboard = (req, res, next) => {
   res.render("./admin/dashboard-admins", {
     pageTitle: "dashboard-admins",
@@ -203,6 +206,7 @@ exports.getAdminDashboard = (req, res, next) => {
   });
 };
 
+//? GET customersDashboard
 exports.getCustomersDashboard = (req, res, next) => {
   userModel
     .aggregate([
@@ -229,6 +233,8 @@ exports.getCustomersDashboard = (req, res, next) => {
     })
     .catch((err) => console.error(err));
 };
+
+//? GET ordersDashboard
 exports.getProductsDashboard = (req, res, next) => {
   res.render("./admin/dashboard-products", {
     pageTitle: "dashboard-products",
@@ -236,18 +242,62 @@ exports.getProductsDashboard = (req, res, next) => {
   });
 };
 
+//? GET add products
+exports.getAddProduct = (req, res, next) => {
+  res.render("./admin/add-product", {
+    pageTitle: "dashboard-addProducts",
+    path: "/dash/add-products",
+  });
+};
+//? GET add seller
+exports.getAddSeller = (req, res, next) => {
+  res.render("./admin/add-seller", {
+    pageTitle: "dashboard-addSeller",
+    path: "/dash/add-seller",
+    seller: false,
+  });
+};
+
+//? GET edit seller
+exports.getEditSeller = (req, res, next) => {
+  const sellerId = req.params.id;
+  console.log(sellerId);
+  sellersModel
+    .findById(sellerId)
+    .then((seller) => {
+      res.render("./admin/add-seller", {
+        pageTitle: "dashboard-editSeller",
+        path: "/dash/edit-seller",
+        seller: seller,
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+//? GET ordersDashboard
 exports.getOrdersDashboard = (req, res, next) => {
   res.render("./admin/dashboard-orders", {
     pageTitle: "dashboard-orders",
     path: "/dash/orders",
   });
 };
+
+//? GET sellersDashboard
 exports.getSellersDashboard = (req, res, next) => {
-  res.render("./admin/dashboard-sellers", {
-    pageTitle: "dashboard-sellers",
-    path: "/dash/seller",
-  });
+  sellersModel
+    .find({})
+    .then((sellers) => {
+      res.render("./admin/dashboard-sellers", {
+        pageTitle: "dashboard-sellers",
+        path: "/dash/seller",
+        sellers: sellers,
+      });
+    })
+    .catch((err) => console.error(err));
 };
+
 //? GET sign up
 exports.getSignUp = (req, res, next) => {
   let message = req.flash("error");
@@ -414,7 +464,7 @@ exports.postUpdateAdminInfo = (req, res, next) => {
     });
 };
 
-//? POST user delete account
+//? POST admin delete he's account
 exports.postDeleteAccount = (req, res, next) => {
   accountId = req.session.admin;
   adminModel
@@ -429,7 +479,7 @@ exports.postDeleteAccount = (req, res, next) => {
       console.log(err);
     });
 };
-
+//? POST admin delete users accounts from dashboard
 exports.postDeleteUserAccounts = (req, res, next) => {
   const userId = req.params.id;
   console.log(`user id:${userId} deleted`);
@@ -441,5 +491,84 @@ exports.postDeleteUserAccounts = (req, res, next) => {
     .catch((err) => {
       console.error(err);
       res.redirect("/dash/customers");
+    });
+};
+
+//? POST admin delete sellers from dashboard
+exports.postDeleteSellers = (req, res, next) => {
+  const sellerId = req.params.id;
+  console.log(`seller id:${sellerId} deleted`);
+  sellersModel
+    .findByIdAndDelete(sellerId)
+    .then(() => {
+      res.redirect("/dash/sellers");
+    })
+    .catch((err) => {
+      console.error(err);
+      res.redirect("/dash/sellers");
+    });
+};
+
+//? POST add sellers information from dashboard
+exports.postAddSellerInfo = (req, res, next) => {
+  const name = req.body.name;
+  const email = req.body.email;
+  const phone = req.body.phone;
+  const product1 = {
+    name: req.body.product_1,
+  };
+  const product2 = {
+    name: req.body.product_2,
+  };
+  const product3 = {
+    name: req.body.product_3,
+  };
+  const products = [product1, product2, product3];
+  console.log(name, email, phone, product1, product2, product3);
+
+  const seller = new sellersModel({
+    name: name,
+    email: email,
+    phone: phone,
+    products: products,
+  });
+  seller
+    .save()
+    .then((result) => {
+      res.redirect("/dash/sellers");
+      console.log("seller added successfully");
+    })
+    .catch((err) => {
+      console.error(err);
+      res.redirect("back");
+    });
+};
+
+//? POST edit sellers information from dashboard
+exports.postEditSeller = (req, res, next) => {
+  const sellerId = req.params.sellerId;
+  console.log(sellerId);
+  const name = req.body.name;
+  const email = req.body.email;
+  const phone = req.body.phone;
+  const product1 = {
+    name: req.body.product_1,
+  };
+  const product2 = {
+    name: req.body.product_2,
+  };
+  const product3 = {
+    name: req.body.product_3,
+  };
+  const products = [product1, product2, product3];
+  console.log(name, email, phone, product1, product2, product3);
+  sellersModel
+    .findByIdAndUpdate(sellerId, { name, email, phone, products })
+    .then(() => {
+      res.redirect("/dash/sellers");
+      console.log("sellers updated successfully");
+    })
+    .catch((error) => {
+      console.log(error);
     });
 };

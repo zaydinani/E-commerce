@@ -7,37 +7,60 @@
     <!--include dash sidebar here-->
     <%- include('./dashboard-sidemenu') %>
     <!--seller table-->
-    <div class="table-customers">
-        <h1>sellers</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>name</th>
-                    <th>products</th>
-                    <th>email</th>
-                    <th>phone</th>
-                    <th>delete</th>
-                    <th>update</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!--seller info-->
-                <tr>
-                    <td>zayd inani</td>
-                    <td>t-shirts</td>
-                    <td>zaydinani@protonmail.com</td>
-                    <td>0615975762</td>
-                    <!--actions buttons-->
-                    <td><form class="action" action=""><button>delete</button></form></td>
-                    <td><form class="action" action=""><button>update</button></form></td>
-                </tr>
-            </tbody>
-        </table>
-        <!--add seller-->
-        <form class="add-seller" action="">
-            <button>add seller</button>
-        </form>
+    <!--customers table-->
+
+  <!-- Responsive table starts here -->
+  <!-- For correct display on small screens you must add 'data-title' to each 'td' in your table -->
+    <div class="add">
+        <h1 class="title">sellers</h1>
+        <a class="seller" href="/dash/add-seller">add new seller</a>
     </div>
+  <div class="table-responsive-vertical shadow-z-1">
+    <!-- Table starts here -->
+    <table id="table" class="table table-hover table-mc-light-blue">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>products</th>
+                <th>email</th>
+                <th>phone</th>
+                <th>update</th>
+                <th>delete</th>
+            </tr>
+        </thead>
+            <tbody>
+                <% sellers.forEach(function(seller) { %>
+                    <tr>
+                        <td data-title="Name"><%= seller.name %></td>
+                        <td data-title="products">
+                            <% if (seller.products.length > 0) { %>
+                              <%= seller.products.map(product => product.name).join(', ') %>
+                            <% } else { %>
+                              No products available
+                            <% } %>
+                          </td>
+                        <td data-title="Email"><%= seller.email %></td>
+                        <td data-title="phone number"><%= seller.phone %></td>
+                        <td data-title="edit">
+                            <form action="/dash/edit-seller/<%= seller._id %>" method="get">
+                                <button class="delete" type="submit">Edit</button>
+                            </form>
+                        </td>
+                        <td data-title="delete">
+                            <form action="/seller/delete/<%= seller._id %>" method="post">
+                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                <button class="delete" type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+      </table>
+    </div>
+    
+
+
+
 
     
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
