@@ -7,60 +7,89 @@
         <img src="/pictures/undraw_add_post_re_174w.svg" alt="">
         <div class="form-control">
             <h1>add product</h1>
-            <form action="" method="post">
+            
+            <form action= <%= product._id ? "/edit/product/" + product._id: "/add/product" %> method="post" enctype="multipart/form-data">
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                 <div>
                     <div class="form">
-                        <input type="text" name="name" id="form" class="form__input" autocomplete="off" placeholder=" ">
+                        <input type="text" name="name" class="form__input" autocomplete="off" value=" <%= product.name || '' %>" required>
                         <label for="name" class="form__label">name</label>
                     </div>
                     <div class="form">
-                        <input type="text" name="material" id="form" class="form__input" autocomplete="off" placeholder=" ">
+                        <input type="text" name="material" class="form__input" autocomplete="off"  value=" <%= product.material || '' %>" required>
                         <label for="material" class="form__label">material</label>
                     </div>
                     <div class="form">
-                        <input type="text" name="color" id="color" class="form__input" autocomplete="off" placeholder=" ">
+                        <input type="text" name="color" class="form__input" autocomplete="off"  value=" <%= product.color || '' %>" required>
                         <label for="color" class="form__label">color</label>
                     </div>
                     <div class="form">
-                        <label for="category">Choose a category:</label>
-                        <select style="padding: 0 0 0 1rem;" class="form__input" name="category" id="category">
-                            <option value="">Volvo</option>
-                            <option value="">Saab</option>
+                        <select style="padding: 0 0 0 1rem;" class="form__input option" name="category">
+                          <option value="" disabled <%= !product.category ? 'selected' : '' %>>Choose a category</option>
+                          <% categories.forEach((category) => { %>
+                            <option class="option" value="<%= category._id %>" <%= (product.category && product.category.toString() === category._id.toString()) ? 'selected' : '' %>><%= category.name %></option>
+                            <% }); %>
                         </select>
                     </div>
+                      
+                      <div class="form">
+                        <select style="padding: 0 0 0 1rem;" class="form__input option" name="seller">
+                          <option value="" disabled <%= !product.sellerId ? 'selected' : '' %>>Choose a seller</option>
+                          <% sellers.forEach((seller) => { %>
+                            <option class="option" value="<%= seller._id %>" <%= (product.sellerId && product.sellerId.toString() === seller._id.toString()) ? 'selected' : '' %>><%= seller.name %></option>
+                          <% }); %>
+                        </select>
+                      </div>
                     <div class="form">
-                        <input type="number" name="price" id="price" class="form__input" autocomplete="off" placeholder=" ">
+                        <input type="number" name="priceBought" class="form__input" autocomplete="off" placeholder=" " value="<%= product.priceBought || '' %>" required>
                         <label for="price" class="form__label">price bought</label>
                     </div>
                     <div class="form">
-                        <input type="number" name="price" id="price" class="form__input" autocomplete="off" placeholder=" ">
+                        <input type="number" name="priceSold" class="form__input" autocomplete="off" placeholder=" " value="<%= product.priceSold || '' %>" required>
                         <label for="price" class="form__label">price sold</label>
                     </div>
+                    <div class="form">
+                        <input type="number" name="quantity" class="form__input" autocomplete="off" placeholder=" " value="<%= product.quantity || '' %>" required>
+                        <label for="price" class="form__label">quantity</label>
+                    </div>
                     <div class="form text">
-                        <textarea class="form__input" id="description" name="description"></textarea>
+                        <textarea class="form__input" name="description" required><%= product.description || '' %></textarea>
                         <label for="color" class="form__description">description</label>
                     </div>
                     <div class="images">
                         <h2>primary pictures</h2>
                         <p>choose 3 pictures</p>
-                        <input type="file" id="myFileInput">
-                        <input type="file" id="myFileInput">
-                        <input type="file" id="myFileInput">
+                        <input name="primaryImages" type="file" multiple>
                     </div>
                     <div class="images">
                         <h2>secondary pictures</h2>
                         <p>choose 3 pictures</p>
-                        <input type="file" id="myFileInput">
-                        <input type="file" id="myFileInput">
-                        <input type="file" id="myFileInput">
+                        <input name="secondaryImages" type="file" multiple>
                     </div>
+                    <button type="submit"><%= product._id ? "edit product" : "add product" %></button>
 
-                    <button type="submit">submit</button>
                 </div>
             </form>
         </div>
     </div>
-    <script defer src="javascript/javascript.js"></script>
+
+<!--! delete account model -->
+<div id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>add new category</p>
+        <form action="/add/category" method="post">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+            <div class="addCategory">
+                <label for="name" class="form__label">category name</label>
+                <input type="text" name="category" class="form__input" autocomplete="off" placeholder=" ">
+            </div>            
+            <button class="delete" style="background-color: green;">submit</button>
+        </form>
+    </div>
+</div>
+<script src="/javascript/add-product.js"></script>
 </body>
 </html>

@@ -16,7 +16,7 @@
         <% if (products.length > 0) { %>
             <% for (let product of products) { %>
                 <div class="cart-products">
-                    <img src="<%= product.productId.mainImagesPath[0] %>" alt="">
+                    <img src="/<%= product.productId.mainImagesPath[0] %>" alt="">
                     <div class="product-info">
                         <h4><%= product.productId.name %></h4>
                         <h4>material: <%= product.productId.material %></h4>

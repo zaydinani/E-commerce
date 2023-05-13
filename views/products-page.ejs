@@ -22,7 +22,7 @@
             <div class="swiper-wrapper">
                 <% for (let products of prods) { %>
                     <div class="swiper-slide">
-                        <img src="<%= products.secondaryImagesPath[0] %>" alt="">
+                        <img src="/<%= products.secondaryImagesPath[0] %>" alt="">
                     </div>
                 <% } %>
                 </div>
@@ -38,7 +38,7 @@
                 <% for (let products of prods) { %>
                     <a style="text-decoration: none;" href="/product/<%= products._id %>">
                         <div class="card">
-                            <img src="<%= products.mainImagesPath[0] %>" alt="">
+                            <img src="/<%= products.mainImagesPath[0] %>" alt="">
                             <p><%= products.name %></p>
                             <p>$<%= products.priceSold %></p>
                         </div>

@@ -14,6 +14,8 @@ router.get("/dash/products", isAdmin, adminController.getProductsDashboard);
 router.get("/dash/orders", isAdmin, adminController.getOrdersDashboard);
 router.get("/dash/sellers", isAdmin, adminController.getSellersDashboard);
 router.get("/dash/add-product", isAdmin, adminController.getAddProduct);
+router.get("/dash/edit-product/:id", isAdmin, adminController.getEditProduct);
+
 router.get("/dash/add-seller", isAdmin, adminController.getAddSeller);
 router.get("/dash/edit-seller/:id", isAdmin, adminController.getEditSeller);
 
@@ -54,6 +56,15 @@ router.post(
   isAdmin,
   adminController.postEditSeller
 );
+//? POST delete product from dashboard route
+router.post("/product/delete/:id", isAdmin, adminController.postDeleteProduct);
+
+//? POST add product from dashboard route
+router.post("/add/product", isAdmin, adminController.postAddProduct);
+//? POST edit product from dashboard route
+router.post("/edit/product/:id", isAdmin, adminController.postEditProduct);
+//? POST add category from dashboard add product route
+router.post("/add/category", isAdmin, adminController.postAddCategory);
 
 //! GET request routes to send data as json
 //? Route for retrieving user data as JSON

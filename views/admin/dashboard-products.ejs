@@ -27,53 +27,54 @@
                     <button>search</button>
             </form>
             <!--add new product-->
-            <form action="">
-                <button>add new product</button>
-            </form> 
+            <a class="add" href="/dash/add-product">add new product</a>
         </div>
         <!--products container-->
         <div class="product">
             <!--product card-->
+            <% products.forEach(function(product) { %>
             <div class="product-card">
-                <a style="text-decoration: none;" href="/product">
-                    <img src="/pictures/wood monitor 2.png" alt="">
-                    <p>Wood Monitor Stand</p>
+                <a style="text-decoration: none;" href="/product/<%= product._id %>">
+                    <img src="/<%= product.mainImagesPath[0] %>" alt="">
+                    <h3><%= product.name %></h3>
                     <div style="display: flex; flex-wrap: wrap; justify-content: space-between;" class="info">
                         <div style="display: flex; justify-content: space-between; width: 100%;">
                             <p>category:</p>
-                            <p>monitor</p>
+                            <p><%= product.category.name %></p>
                         </div>
                         <div style="display: flex; justify-content: space-between; width: 100%;">
                             <p>sold:</p>
-                            <p>5</p>
+                            <p><%= product.sold %></p>
                         </div>
                         <div style="display: flex; justify-content: space-between; width: 100%;">
                             <p>stock:</p>
-                            <p>12</p>
+                            <p><%= product.quantity %></p>
                         </div>
                         <div style="display: flex; justify-content: space-between; width: 100%;">
                             <p>price bought:</p>
-                            <p>$110</p>
+                            <p>$<%= product.priceBought %></p>
                         </div>
                         <div style="display: flex; justify-content: space-between; width: 100%;">
                             <p>price sell:</p>
-                            <p>$210</p>
+                            <p>$<%= product.priceSold %></p>
                         </div>
                         <div style="display: flex; justify-content: space-between; width: 100%;">
                             <p>profit each:</p>
-                            <p>$100</p>
+                            <p>$<%= product.priceSold - product.priceBought %></p>
+                        </div>
+                        <div class="buttons">
+                            <!--delete button-->
+                            <form  action="/product/delete/<%= product._id %>" method="post">
+                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                <button type="submit">delete product</button>
+                            </form>
+                            <!--edit button-->
                         </div>
                     </div>
+                    <a class="edit" style="color: #f69368;" href="/dash/edit-product/<%= product._id %>">edit product</a>
                 </a>
-                <!--delete button-->
-                <form action="">
-                    <button>delete product</button>
-                </form>
-                <!--edit button-->
-                <form action="">
-                    <button>update product</button>
-                </form>
             </div>
+            <% }) %>
         </div>
     </div>
 

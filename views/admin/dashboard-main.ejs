@@ -70,7 +70,7 @@
                 <canvas id="myChartOrders"></canvas>
             </div>
             <!--best selling products-->
-            <div style="width: 50%;">
+            <div class="pie">
                 <h2 class="chart-header">best selling products</h2>
                 <canvas id="myChartSales"></canvas>
             </div>
@@ -83,7 +83,7 @@
                 <div class="product">
                   <a style="text-decoration: none;" href="/product/<%= product._id %>">
                     <div class="product-card">
-                      <img src="<%= product.mainImagesPath[0] %>" alt="">
+                      <img src="/<%= product.mainImagesPath[0] %>" alt="">
                       <p><%= product.name %></p>
                       <p><%= product.quantity %></p>
                     </div>

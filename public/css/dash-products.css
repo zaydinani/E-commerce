@@ -32,22 +32,29 @@ body {
   gap: 2rem;
 }
 .products .product .product-card {
-  width: 150px;
+  width: 250px;
   cursor: pointer;
   margin-bottom: 1rem;
 }
-.products .product .product-card p {
+.products .product .product-card h3 {
   text-decoration: none;
   font-family: "Roboto", sans-serif;
   font-weight: 200;
   letter-spacing: 2px;
-  font-size: 12px;
+  color: black;
+}
+.products .product .product-card a {
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+  font-weight: 200;
+  letter-spacing: 2px;
   color: black;
 }
 .products .product .product-card .info {
   margin-top: 0.2rem;
   padding: 0.5rem;
   border: 1px solid #f69368;
+  height: 12rem;
 }
 .products .product .product-card img {
   width: 150px;
@@ -56,7 +63,7 @@ body {
 .products .product form button {
   background: none;
   border: none;
-  color: #f69368;
+  color: red;
   cursor: pointer;
 }
 .products .product form button:hover {
@@ -76,13 +83,32 @@ body {
   width: 70%;
   background: red;
 }
+/**/
+.buttons{
+  width: 100%;
+
+}
+.edit{
+  background: none;
+  border: none;
+  color: #f69368;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 1rem;
+}
+.edit:hover {
+  color: red;
+  transition: 0.5s ease-in-out;
+}
+
+/**/
 .products .actions {
   display: flex;
   justify-content: space-evenly;
   flex-direction: column;
   margin-bottom: 2rem;
 }
-.products .actions form button {
+.products .actions a {
   text-decoration: none;
   font-family: "Roboto", sans-serif;
   font-weight: 200;
@@ -92,6 +118,8 @@ body {
   background-color: #f69368;
   padding: 1rem;
   transition: 0.5s ease-in-out;
+  width: 15rem;
+  margin: auto;
 }
 .products .actions form button li {
   list-style-type: none;
@@ -101,7 +129,7 @@ body {
   text-decoration: none;
   text-transform: uppercase;
 }
-.products .actions form button:hover {
+.products .actions a:hover {
   border-radius: 15px;
   color: white;
 }

@@ -161,10 +161,13 @@ body {
   flex-direction: row;
   height: 70%;
   flex-wrap: wrap;
+
 }
+
 .charts div{
   width: 50%;
   margin: auto;
+
 }
 .chart-header{
   margin: 2rem;
@@ -173,8 +176,36 @@ body {
   letter-spacing: 2px;
   color: black;
 }
+#myChartSales{
+  width: 100%;
+  height: 50%;
+  height: auto;
+}
 @media screen and (max-width: 545px) {
   .money-container {
     flex-direction: column;
+    height: fit-content;
+    flex-wrap: none;
   }
-}/*# sourceMappingURL=dash-main.css.map */
+}
+@media screen and (max-width: 1000px) {
+  .charts{
+    flex-direction: column;
+    flex-wrap: nowrap;
+    margin-bottom: 10rem;
+  }
+  .charts div{
+    width: 100%;
+  }
+  .pie{
+    width: 50%;
+  }
+}
+@media screen and (max-width: 450px) {
+
+  .charts{
+    height: fit-content;
+
+  }
+}
+/*# sourceMappingURL=dash-main.css.map */

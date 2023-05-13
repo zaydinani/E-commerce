@@ -4,7 +4,7 @@ const orderModel = require("../models/order");
 const subscribersModel = require("../models/subscribers");
 const adminModel = require("../models/admin");
 const sellersModel = require("../models/sellers");
-
+const categoryModel = require("../models/categories");
 const NodeMailer = require("../classes/nodemailer");
 const bcrypt = require("bcryptjs");
 
@@ -25,6 +25,7 @@ exports.getUsers = (req, res, next) => {
       res.status(500).json({ message: "An error occurred" });
     });
 };
+
 //? retrieving profit data as JSON
 exports.getProfit = (req, res, next) => {
   orderModel
@@ -63,6 +64,7 @@ exports.getProfit = (req, res, next) => {
       res.status(500).json({ message: "An error occurred" });
     });
 };
+
 //? retrieving orders data as JSON
 exports.getOrders = (req, res, next) => {
   orderModel
@@ -236,19 +238,55 @@ exports.getCustomersDashboard = (req, res, next) => {
 
 //? GET ordersDashboard
 exports.getProductsDashboard = (req, res, next) => {
-  res.render("./admin/dashboard-products", {
-    pageTitle: "dashboard-products",
-    path: "/dash/products",
-  });
+  productModel
+    .find()
+    .populate("category")
+    .then((products) => {
+      res.render("./admin/dashboard-products", {
+        pageTitle: "dashboard-products",
+        path: "/dash/products",
+        products: products,
+      });
+    })
+    .catch((err) => console.error(err));
 };
 
 //? GET add products
 exports.getAddProduct = (req, res, next) => {
-  res.render("./admin/add-product", {
-    pageTitle: "dashboard-addProducts",
-    path: "/dash/add-products",
-  });
+  Promise.all([categoryModel.find(), sellersModel.find()])
+    .then(([categories, sellers]) => {
+      res.render("./admin/add-product", {
+        pageTitle: "dashboard-addProducts",
+        path: "/dash/add-products",
+        categories,
+        sellers,
+        product: [],
+      });
+    })
+    .catch((err) => console.error(err));
 };
+
+//? GET edit products routes
+exports.getEditProduct = (req, res, next) => {
+  const productId = req.params.id;
+  console.log(productId);
+  Promise.all([
+    categoryModel.find(),
+    sellersModel.find(),
+    productModel.findOne({ _id: productId }),
+  ])
+    .then(([categories, sellers, product]) => {
+      res.render("./admin/add-product", {
+        pageTitle: "dashboard-addProducts",
+        path: "/dash/add-products",
+        categories,
+        sellers,
+        product,
+      });
+    })
+    .catch((err) => console.error(err));
+};
+
 //? GET add seller
 exports.getAddSeller = (req, res, next) => {
   res.render("./admin/add-seller", {
@@ -313,6 +351,7 @@ exports.getSignUp = (req, res, next) => {
     admin: true,
   });
 };
+
 //? GET sign in
 exports.getSignIn = (req, res, next) => {
   let message = req.flash("error");
@@ -329,6 +368,7 @@ exports.getSignIn = (req, res, next) => {
   });
 };
 //* must be fixed
+
 //? GET admin profile
 exports.getProfile = (req, res, next) => {
   let message = req.flash("success");
@@ -356,6 +396,7 @@ exports.getProfile = (req, res, next) => {
 };
 
 //!POST REQUESTS
+
 //? POST admin sign up function
 exports.postSignUp = (req, res, next) => {
   const name = req.body.name;
@@ -405,6 +446,7 @@ exports.postSignUp = (req, res, next) => {
       console.log(err);
     });
 };
+
 //? POST admin sign in function
 exports.postSignIn = (req, res, next) => {
   const email = req.body.email;
@@ -479,6 +521,7 @@ exports.postDeleteAccount = (req, res, next) => {
       console.log(err);
     });
 };
+
 //? POST admin delete users accounts from dashboard
 exports.postDeleteUserAccounts = (req, res, next) => {
   const userId = req.params.id;
@@ -570,5 +613,98 @@ exports.postEditSeller = (req, res, next) => {
     })
     .catch((error) => {
       console.log(error);
+    });
+};
+
+//? POST admin delete products from dashboard
+exports.postDeleteProduct = (req, res, next) => {
+  const productId = req.params.id;
+  console.log(`product id:${productId} deleted`);
+  productModel
+    .findByIdAndDelete(productId)
+    .then(() => {
+      res.redirect("back");
+    })
+    .catch((err) => {
+      console.error(err);
+      res.redirect("back");
+    });
+};
+
+//? POST admin add products from dashboard
+exports.postAddProduct = (req, res, next) => {
+  const product = new productModel({
+    name: req.body.name,
+    material: req.body.material,
+    mainImagesPath: req.files.primaryImages.map((file) => file.path),
+    secondaryImagesPath: req.files.secondaryImages.map((file) => file.path),
+    description: req.body.description,
+    category: req.body.category,
+    priceBought: req.body.priceBought,
+    priceSold: req.body.priceSold,
+    quantity: req.body.quantity,
+    sold: 0,
+    color: req.body.color,
+    sellerId: req.body.seller,
+  });
+  console.log(req.body, req.file);
+  console.log("adding");
+  product
+    .save()
+    .then((result) => {
+      console.log(result);
+      res.redirect("/dash/products");
+    })
+    .catch((err) => {
+      console.log(err);
+      next(err);
+    });
+};
+
+//? POST admin edit products from dashboard
+exports.postEditProduct = (req, res, next) => {
+  const productId = req.params.id;
+  const updatedProduct = {
+    name: req.body.name,
+    material: req.body.material,
+    description: req.body.description,
+    category: req.body.category,
+    priceBought: req.body.priceBought,
+    priceSold: req.body.priceSold,
+    quantity: req.body.quantity,
+    color: req.body.color,
+    sellerId: req.body.seller,
+    mainImagesPath: req.files.primaryImages.map((file) => file.path),
+    secondaryImagesPath: req.files.secondaryImages.map((file) => file.path),
+  };
+  console.log(productId);
+  productModel
+    .findOneAndUpdate({ _id: productId }, updatedProduct, {
+      new: true,
+      runValidators: true,
+    })
+    .then((product) => {
+      console.log(`Updated product: ${product}`);
+      res.redirect("/dash/products");
+    })
+    .catch((err) => console.error(err));
+};
+
+//? POST admin add category from dashboard add product
+exports.postAddCategory = (req, res, next) => {
+  const newCategory = req.body.category;
+  console.log(newCategory);
+  const category = new categoryModel({
+    name: newCategory,
+  });
+  category
+    .save()
+    .then((result) => {
+      console.log(result);
+      res.redirect("/dash/products");
+    })
+    .catch((err) => {
+      console.log(err);
+      next(err);
     });
 };
