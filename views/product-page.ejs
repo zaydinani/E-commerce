@@ -22,7 +22,9 @@
             <!--! information and action button-->
             <div>
                 <h1><%= prod.name %></h1>
+                <h1> material: <%= prod.material %></h1>
                 <h3>$<%= prod.priceSold %></h3>
+                <div style="width: 2.5rem; background-color: <%= prod.color %>;" class="color"></div>
                 <% if (prod.quantity === 0) { %>
                     <p>this product is out of stock</p>
 

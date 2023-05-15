@@ -7,6 +7,7 @@ const sellersModel = require("../models/sellers");
 const categoryModel = require("../models/categories");
 const NodeMailer = require("../classes/nodemailer");
 const bcrypt = require("bcryptjs");
+const fs = require("fs");
 
 //!GET REQUESTS
 //* fetching data and send it as json routes
@@ -236,7 +237,7 @@ exports.getCustomersDashboard = (req, res, next) => {
     .catch((err) => console.error(err));
 };
 
-//? GET ordersDashboard
+//? GET products page Dashboard
 exports.getProductsDashboard = (req, res, next) => {
   productModel
     .find()
@@ -617,12 +618,24 @@ exports.postEditSeller = (req, res, next) => {
 };
 
 //? POST admin delete products from dashboard
+// POST admin delete products from dashboard
 exports.postDeleteProduct = (req, res, next) => {
   const productId = req.params.id;
   console.log(`product id:${productId} deleted`);
   productModel
     .findByIdAndDelete(productId)
-    .then(() => {
+    .then((product) => {
+      // Delete the product images from the server's file system
+      if (product.mainImagesPath && product.mainImagesPath.length) {
+        product.mainImagesPath.forEach((imagePath) => {
+          fs.unlinkSync(imagePath);
+        });
+      }
+      if (product.secondaryImagesPath && product.secondaryImagesPath.length) {
+        product.secondaryImagesPath.forEach((imagePath) => {
+          fs.unlinkSync(imagePath);
+        });
+      }
       res.redirect("back");
     })
     .catch((err) => {
@@ -636,8 +649,13 @@ exports.postAddProduct = (req, res, next) => {
   const product = new productModel({
     name: req.body.name,
     material: req.body.material,
-    mainImagesPath: req.files.primaryImages.map((file) => file.path),
-    secondaryImagesPath: req.files.secondaryImages.map((file) => file.path),
+    mainImagesPath: req.files.primaryImages
+      ? req.files.primaryImages.map((file) => file.path)
+      : [],
+    secondaryImagesPath: req.files.secondaryImages
+      ? req.files.secondaryImages.map((file) => file.path)
+      : [],
+
     description: req.body.description,
     category: req.body.category,
     priceBought: req.body.priceBought,
@@ -674,9 +692,17 @@ exports.postEditProduct = (req, res, next) => {
     quantity: req.body.quantity,
     color: req.body.color,
     sellerId: req.body.seller,
-    mainImagesPath: req.files.primaryImages.map((file) => file.path),
-    secondaryImagesPath: req.files.secondaryImages.map((file) => file.path),
   };
+  if (req.files.primaryImages && req.files.primaryImages.length > 0) {
+    updatedProduct.mainImagesPath = req.files.primaryImages.map(
+      (file) => file.path
+    );
+  }
+  if (req.files.secondaryImages && req.files.secondaryImages.length > 0) {
+    updatedProduct.secondaryImagesPath = req.files.secondaryImages.map(
+      (file) => file.path
+    );
+  }
   console.log(productId);
   productModel
     .findOneAndUpdate({ _id: productId }, updatedProduct, {
