@@ -1,6 +1,6 @@
-const userModel = require("../models/user");
-const productModel = require("../models/products");
 const orderModel = require("../models/order");
+const productModel = require("../models/products");
+const userModel = require("../models/user");
 const subscribersModel = require("../models/subscribers");
 const adminModel = require("../models/admin");
 const sellersModel = require("../models/sellers");
@@ -102,100 +102,107 @@ exports.getBestSales = (req, res, next) => {
 
 //?dashboard main page
 exports.getDashboard = (req, res, next) => {
-  const oneMonthAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
-  const totalCountPromise = userModel.countDocuments({});
-  const lastMonthCountPromise = userModel.countDocuments({
-    createdAt: { $gte: oneMonthAgo },
-  });
-  const totalQuantityPromise = productModel.aggregate([
-    {
-      $group: {
-        _id: null,
-        totalQuantity: { $sum: "$quantity" },
-      },
-    },
-  ]);
-  const totalOrdersPromise = orderModel.countDocuments({});
-  const lastMonthOrdersPromise = orderModel.countDocuments({
-    createdAt: { $gte: oneMonthAgo },
-  });
-  const totalPricePromise = orderModel.aggregate([
-    { $unwind: "$products" },
-    {
-      $group: {
-        _id: null,
-        totalPrice: {
-          $sum: {
-            $subtract: [
-              {
-                $multiply: [
-                  "$products.quantity",
-                  "$products.product.priceSold",
-                ],
-              },
-              {
-                $multiply: [
-                  "$products.quantity",
-                  "$products.product.priceBought",
-                ],
-              },
-            ],
+  const adminId = req.session.admin;
+  console.log(adminId);
+  adminModel
+    .findById(adminId)
+    .then((admin) => {
+      const adminName = admin.name;
+      const oneMonthAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+      const totalCountPromise = userModel.countDocuments({});
+      const lastMonthCountPromise = userModel.countDocuments({
+        createdAt: { $gte: oneMonthAgo },
+      });
+      const totalQuantityPromise = productModel.aggregate([
+        {
+          $group: {
+            _id: null,
+            totalQuantity: { $sum: "$quantity" },
           },
         },
-      },
-    },
-  ]);
-  const totalBudgetPromise = productModel.aggregate([
-    {
-      $group: {
-        _id: null,
-        totalBudget: {
-          $sum: {
-            $multiply: ["$quantity", "$priceBought"],
+      ]);
+      const totalOrdersPromise = orderModel.countDocuments({});
+      const lastMonthOrdersPromise = orderModel.countDocuments({
+        createdAt: { $gte: oneMonthAgo },
+      });
+      const totalPricePromise = orderModel.aggregate([
+        { $unwind: "$products" },
+        {
+          $group: {
+            _id: null,
+            totalPrice: {
+              $sum: {
+                $subtract: [
+                  {
+                    $multiply: [
+                      "$products.quantity",
+                      "$products.product.priceSold",
+                    ],
+                  },
+                  {
+                    $multiply: [
+                      "$products.quantity",
+                      "$products.product.priceBought",
+                    ],
+                  },
+                ],
+              },
+            },
           },
         },
-      },
-    },
-  ]);
-  const lowStockPromise = productModel.find({ quantity: { $lt: 5 } });
-  Promise.all([
-    totalCountPromise,
-    lastMonthCountPromise,
-    totalQuantityPromise,
-    totalOrdersPromise,
-    lastMonthOrdersPromise,
-    totalPricePromise,
-    totalBudgetPromise,
-    lowStockPromise,
-  ])
-    .then(
-      ([
-        allUsersCount,
-        usersLastMonthCount,
-        totalQuantityResult,
-        totalOrdersCount,
-        lastMonthOrdersCount,
-        totalPriceResult,
-        totalBudgetCount,
-        lowStockProducts,
-      ]) => {
-        const totalQuantity = totalQuantityResult[0].totalQuantity;
-        const totalPrice = totalPriceResult[0].totalPrice;
-        const totalBudget = totalBudgetCount[0].totalBudget;
-        res.render("./admin/dashboard-main", {
-          pageTitle: "dashboard",
-          path: "/dash",
+      ]);
+      const totalBudgetPromise = productModel.aggregate([
+        {
+          $group: {
+            _id: null,
+            totalBudget: {
+              $sum: {
+                $multiply: ["$quantity", "$priceBought"],
+              },
+            },
+          },
+        },
+      ]);
+      const lowStockPromise = productModel.find({ quantity: { $lt: 5 } });
+      Promise.all([
+        totalCountPromise,
+        lastMonthCountPromise,
+        totalQuantityPromise,
+        totalOrdersPromise,
+        lastMonthOrdersPromise,
+        totalPricePromise,
+        totalBudgetPromise,
+        lowStockPromise,
+      ]).then(
+        ([
           allUsersCount,
           usersLastMonthCount,
-          totalQuantity,
+          totalQuantityResult,
           totalOrdersCount,
-          lastMonthOrders: lastMonthOrdersCount,
-          totalPrice,
-          totalBudget,
+          lastMonthOrdersCount,
+          totalPriceResult,
+          totalBudgetCount,
           lowStockProducts,
-        });
-      }
-    )
+        ]) => {
+          const totalQuantity = totalQuantityResult[0].totalQuantity;
+          const totalPrice = totalPriceResult[0].totalPrice;
+          const totalBudget = totalBudgetCount[0].totalBudget;
+          res.render("./admin/dashboard-main", {
+            pageTitle: "dashboard",
+            path: "/dash",
+            allUsersCount,
+            usersLastMonthCount,
+            totalQuantity,
+            totalOrdersCount,
+            lastMonthOrders: lastMonthOrdersCount,
+            totalPrice,
+            totalBudget,
+            lowStockProducts,
+            adminName: adminName,
+          });
+        }
+      );
+    })
     .catch((error) => {
       console.log(error);
     });
@@ -203,51 +210,87 @@ exports.getDashboard = (req, res, next) => {
 
 //? GET adminDashboard
 exports.getAdminDashboard = (req, res, next) => {
-  res.render("./admin/dashboard-admins", {
-    pageTitle: "dashboard-admins",
-    path: "/dash/admin",
-  });
+  const adminId = req.session.admin;
+  console.log(adminId);
+  adminModel
+    .findById(adminId)
+    .then((admin) => {
+      const adminName = admin.name;
+
+      adminModel
+        .find()
+        .then((admins) => {
+          res.render("./admin/dashboard-admins", {
+            pageTitle: "dashboard-admins",
+            path: "/dash/admin",
+            adminName: adminName,
+            admins: admins,
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
 
 //? GET customersDashboard
 exports.getCustomersDashboard = (req, res, next) => {
-  userModel
-    .aggregate([
-      {
-        $lookup: {
-          from: "orders",
-          localField: "_id",
-          foreignField: "user.userId",
-          as: "orders",
-        },
-      },
-      {
-        $addFields: {
-          orderCount: { $size: "$orders" },
-        },
-      },
-    ])
-    .then((users) => {
-      res.render("./admin/dash-customers", {
-        pageTitle: "dashboard-customers",
-        path: "/dash/customers",
-        users: users,
-      });
+  const adminId = req.session.admin;
+  console.log(adminId);
+  adminModel
+    .findById(adminId)
+    .then((admin) => {
+      const adminName = admin.name;
+      userModel
+        .aggregate([
+          {
+            $lookup: {
+              from: "orders",
+              localField: "_id",
+              foreignField: "user.userId",
+              as: "orders",
+            },
+          },
+          {
+            $addFields: {
+              orderCount: { $size: "$orders" },
+            },
+          },
+        ])
+        .then((users) => {
+          res.render("./admin/dash-customers", {
+            pageTitle: "dashboard-customers",
+            path: "/dash/customers",
+            users: users,
+            adminName: adminName,
+          });
+        });
     })
     .catch((err) => console.error(err));
 };
 
 //? GET products page Dashboard
 exports.getProductsDashboard = (req, res, next) => {
-  productModel
-    .find()
-    .populate("category")
-    .then((products) => {
-      res.render("./admin/dashboard-products", {
-        pageTitle: "dashboard-products",
-        path: "/dash/products",
-        products: products,
-      });
+  const adminId = req.session.admin;
+  console.log(adminId);
+  adminModel
+    .findById(adminId)
+    .then((admin) => {
+      const adminName = admin.name;
+      productModel
+        .find()
+        .populate("category")
+        .then((products) => {
+          res.render("./admin/dashboard-products", {
+            pageTitle: "dashboard-products",
+            path: "/dash/products",
+            products: products,
+            adminName: adminName,
+          });
+        });
     })
     .catch((err) => console.error(err));
 };
@@ -316,22 +359,56 @@ exports.getEditSeller = (req, res, next) => {
 };
 
 //? GET ordersDashboard
-exports.getOrdersDashboard = (req, res, next) => {
-  res.render("./admin/dashboard-orders", {
-    pageTitle: "dashboard-orders",
-    path: "/dash/orders",
+const calculateTotalPrice = (order) => {
+  let totalPrice = 0;
+  order.products.forEach((product) => {
+    totalPrice += product.quantity * product.product.priceSold;
   });
+  return totalPrice.toFixed(2);
+};
+
+exports.getOrdersDashboard = (req, res, next) => {
+  const adminId = req.session.admin;
+  console.log(adminId);
+  adminModel
+    .findById(adminId)
+    .then((admin) => {
+      const adminName = admin.name;
+      orderModel
+        .find()
+        .sort({ createdAt: -1 })
+        .populate("user", "name email")
+        .then((orders) => {
+          res.render("./admin/dashboard-orders", {
+            pageTitle: "dashboard-orders",
+            path: "/dash/orders",
+            orders: orders,
+            adminName: adminName,
+
+            calculateTotalPrice: calculateTotalPrice,
+          });
+        });
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 };
 
 //? GET sellersDashboard
 exports.getSellersDashboard = (req, res, next) => {
-  sellersModel
-    .find({})
-    .then((sellers) => {
-      res.render("./admin/dashboard-sellers", {
-        pageTitle: "dashboard-sellers",
-        path: "/dash/seller",
-        sellers: sellers,
+  const adminId = req.session.admin;
+  console.log(adminId);
+  adminModel
+    .findById(adminId)
+    .then((admin) => {
+      const adminName = admin.name;
+      sellersModel.find({}).then((sellers) => {
+        res.render("./admin/dashboard-sellers", {
+          pageTitle: "dashboard-sellers",
+          path: "/dash/seller",
+          sellers: sellers,
+          adminName: adminName,
+        });
       });
     })
     .catch((err) => console.error(err));
@@ -732,5 +809,35 @@ exports.postAddCategory = (req, res, next) => {
     .catch((err) => {
       console.log(err);
       next(err);
+    });
+};
+
+//? POST admin delete order from dashboard orders
+exports.postDeleteOrder = (req, res, next) => {
+  const orderId = req.params.id;
+  console.log(orderId);
+  orderModel
+    .findByIdAndDelete(orderId)
+    .then(() => {
+      res.redirect("back");
+      console.log(`order id:${orderId} deleted`);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+//? POST admin delete order from dashboard orders
+exports.postDeleteAdmin = (req, res, next) => {
+  const adminId = req.params.id;
+  console.log(adminId);
+  adminModel
+    .findByIdAndDelete(adminId)
+    .then(() => {
+      res.redirect("back");
+      console.log(`order id:${adminId} deleted`);
+    })
+    .catch((err) => {
+      console.log(err);
     });
 };

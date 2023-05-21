@@ -65,7 +65,10 @@ router.post("/add/product", isAdmin, adminController.postAddProduct);
 router.post("/edit/product/:id", isAdmin, adminController.postEditProduct);
 //? POST add category from dashboard add product route
 router.post("/add/category", isAdmin, adminController.postAddCategory);
-
+//? POST delete order from dashboard route
+router.post("/order/delete/:id", isAdmin, adminController.postDeleteOrder);
+//? POST delete admin account from dashboard route
+router.post("/admin/delete/:id", isAdmin, adminController.postDeleteAdmin);
 //! GET request routes to send data as json
 //? Route for retrieving user data as JSON
 router.get("/users", isAdmin, adminController.getUsers);

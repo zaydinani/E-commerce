@@ -5,7 +5,7 @@
 </head>
 <body>
     <!--include side bar -->
-    <%- include('../admin/dashboard-sidemenu') %>
+    <%- include('../admin/dashboard-sidemenu', { adminName: adminName }) %>
     <!--container-->
     <div class="cards-container">
         <!--budget container-->
@@ -76,7 +76,7 @@
             </div>
         </div>
         <!--products low on stock -->
-        <h1>Products Low on Stock</h1>
+        <h1  style="margin-top: 10rem;">Products Low on Stock</h1>
         <div class="products">
             <% if (lowStockProducts.length > 0) { %>
               <% lowStockProducts.forEach((product) => { %>

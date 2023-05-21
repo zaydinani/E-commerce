@@ -50,7 +50,7 @@ app.use("/images", express.static(path.join(__dirname, "images")));
 //using flash
 app.use(flash());
 
-//using multer -------------------------------
+//using multer
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "images");
@@ -77,8 +77,6 @@ app.use(
     { name: "secondaryImages", maxCount: 3 },
   ])
 );
-
-//--------------------------------------------
 
 //using csrf
 app.use(csrfProtection);

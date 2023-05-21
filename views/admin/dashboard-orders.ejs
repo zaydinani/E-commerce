@@ -8,26 +8,43 @@
     <!--orders table-->
     <div class="table-orders">
         <h1>orders</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>products</th>
-                    <th>quantity</th>
-                    <th>order date</th>
-                    <th>price / MAD</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>t-shirt</td>
-                    <td>2</td>
-                    <td>28/02/2022</td>
-                    <td>535</td>
-                </tr>
-            </tbody>
-        </table>
     </div>
-
+    <div class="table-responsive-vertical shadow-z-1">
+        <!-- Table starts here -->
+        <table id="table" class="table table-hover table-mc-light-blue">
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>User Email</th>
+              <th>Products</th>
+              <th>Order Date</th>
+              <th>total price</th>
+              <th>delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% orders.forEach((order) => { %>
+              <tr>
+                <td data-title="Order ID"><%= order._id %></td>
+                <td data-title="User Email"><%= order.user.email %></td>
+                <td data-title="Products">
+                  <% order.products.forEach((item) => { %>
+                    <%= item.product.name %> (Quantity: <%= item.quantity %>)<br>
+                  <% }) %>
+                </td>
+                <td data-title="date of order"><%= order.createdAt.toLocaleString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', hour12: false }) %></td>
+                <td data-title="total price">$ <%= calculateTotalPrice(order) %></td> <!-- Display total price -->
+                <td data-title="delete">
+                  <form action="/order/delete/<%= order._id %>" method="post">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <button class="delete" type="submit">Delete</button>
+                  </form>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
     
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/a5df376e05.js" crossorigin="anonymous"></script>
