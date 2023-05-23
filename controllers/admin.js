@@ -184,9 +184,14 @@ exports.getDashboard = (req, res, next) => {
           totalBudgetCount,
           lowStockProducts,
         ]) => {
-          const totalQuantity = totalQuantityResult[0].totalQuantity;
-          const totalPrice = totalPriceResult[0].totalPrice;
-          const totalBudget = totalBudgetCount[0].totalBudget;
+          const totalQuantity =
+            totalQuantityResult.length > 0
+              ? totalQuantityResult[0].totalQuantity
+              : 0;
+          const totalPrice =
+            totalPriceResult.length > 0 ? totalPriceResult[0].totalPrice : 0;
+          const totalBudget =
+            totalBudgetCount.length > 0 ? totalBudgetCount[0].totalBudget : 0;
           res.render("./admin/dashboard-main", {
             pageTitle: "dashboard",
             path: "/dash",
@@ -297,6 +302,12 @@ exports.getProductsDashboard = (req, res, next) => {
 
 //? GET add products
 exports.getAddProduct = (req, res, next) => {
+  let message = req.flash("error");
+  if (message.length > 0) {
+    message = message[0];
+  } else {
+    message = null;
+  }
   Promise.all([categoryModel.find(), sellersModel.find()])
     .then(([categories, sellers]) => {
       res.render("./admin/add-product", {
@@ -305,6 +316,7 @@ exports.getAddProduct = (req, res, next) => {
         categories,
         sellers,
         product: [],
+        errorMessage: message,
       });
     })
     .catch((err) => console.error(err));
@@ -312,6 +324,12 @@ exports.getAddProduct = (req, res, next) => {
 
 //? GET edit products routes
 exports.getEditProduct = (req, res, next) => {
+  let message = req.flash("error");
+  if (message.length > 0) {
+    message = message[0];
+  } else {
+    message = null;
+  }
   const productId = req.params.id;
   console.log(productId);
   Promise.all([
@@ -326,6 +344,7 @@ exports.getEditProduct = (req, res, next) => {
         categories,
         sellers,
         product,
+        errorMessage: message,
       });
     })
     .catch((err) => console.error(err));
@@ -744,6 +763,14 @@ exports.postAddProduct = (req, res, next) => {
   });
   console.log(req.body, req.file);
   console.log("adding");
+  // Check if pictures are added
+  if (
+    product.mainImagesPath.length === 0 &&
+    product.secondaryImagesPath.length === 0
+  ) {
+    req.flash("error", "Please add pictures for the product.");
+    return res.redirect("/dash/add-product");
+  }
   product
     .save()
     .then((result) => {

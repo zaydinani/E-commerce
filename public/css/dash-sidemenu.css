@@ -10,7 +10,11 @@ body {
   margin: 0;
   padding: 0;
 }
-
+.output{
+  width: 3rem;
+  margin: 0 auto;
+  margin-bottom: 1rem;
+}
 aside {
   background-color: #f9f9f9;
   position: fixed;

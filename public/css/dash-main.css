@@ -11,7 +11,10 @@ body {
   padding: 0;
   display: flex;
 }
-
+.nav-logo{
+  width: 50%;
+  margin-bottom: 1rem;
+}
 .cards-container {
   margin-left: 15vw;
   text-align: center;
@@ -30,9 +33,13 @@ body {
   align-items: center;
   margin: 0 auto;
   margin-bottom: 2rem;
-  border-radius: 15px;
-  border: 1px solid #adadad;
-  background-color: rgba(0, 0, 0, 0.028);
+  transition: 0.3s ease-in-out;
+  box-shadow: 0px 0px 13px 2px rgba(0,0,0,0.2);
+}
+.cards-container .money-container:hover {
+  border-radius: 10px;
+  scale: 1.01;
+  box-shadow: 0px 0px 28px 6px rgba(0,0,0,0.2);
 }
 .cards-container .money-container .profit {
   color: #3CB371;
@@ -72,7 +79,6 @@ body {
   gap: 2rem;
 }
 .cards-container .cards .card {
-  background-color: #adadad;
   width: 10rem;
   height: 5rem;
   display: flex;
@@ -80,8 +86,10 @@ body {
   align-items: flex-start;
   justify-content: space-between;
   padding: 0.5rem;
-  transition: 0.5s ease-in-out;
+  transition: 0.3s ease-in-out;
   cursor: pointer;
+  box-shadow: 0px 0px 13px 2px rgba(0,0,0,0.2);
+
 }
 .cards-container .cards .card h5 {
   margin-bottom: 0.7rem;
@@ -99,8 +107,9 @@ body {
   font-size: normal;
 }
 .cards-container .cards .card:hover {
-  background-color: #f69368;
   border-radius: 10px;
+  scale: 1.1;
+  box-shadow: 0px 0px 28px 6px rgba(0,0,0,0.2);
 }
 .cards-container .charts {
   width: 100%;

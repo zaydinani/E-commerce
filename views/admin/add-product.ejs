@@ -7,20 +7,22 @@
         <img src="/pictures/undraw_add_post_re_174w.svg" alt="">
         <div class="form-control">
             <h1>add product</h1>
-            
+            <% if ( errorMessage ) { %>
+                <h2 id="error"><%= errorMessage %></h2>
+            <% } %>
             <form action= <%= product._id ? "/edit/product/" + product._id: "/add/product" %> method="post" enctype="multipart/form-data">
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                 <div>
                     <div class="form">
-                        <input type="text" name="name" class="form__input" autocomplete="off" value=" <%= product.name || '' %>" required>
+                        <input type="text" name="name" class="form__input" autocomplete="off" value="<%= product.name || '' %>" required>
                         <label for="name" class="form__label">name</label>
                     </div>
                     <div class="form">
-                        <input type="text" name="material" class="form__input" autocomplete="off"  value=" <%= product.material || '' %>" required>
+                        <input type="text" name="material" class="form__input" autocomplete="off"  value="<%= product.material || '' %>" required>
                         <label for="material" class="form__label">material</label>
                     </div>
                     <div class="form">
-                        <input type="text" name="color" class="form__input" autocomplete="off"  value=" <%= product.color || '' %>" required>
+                        <input type="text" name="color" class="form__input" autocomplete="off"  value="<%= product.color || '' %>" required>
                         <label for="color" class="form__label">color</label>
                     </div>
                     <div class="form">
@@ -41,19 +43,19 @@
                         </select>
                       </div>
                     <div class="form">
-                        <input type="number" name="priceBought" class="form__input" autocomplete="off" placeholder=" " value="<%= product.priceBought || '' %>" required>
+                        <input type="number" name="priceBought" class="form__input" autocomplete="off" placeholder=" " value="<%=product.priceBought || '' %>" required>
                         <label for="price" class="form__label">price bought</label>
                     </div>
                     <div class="form">
-                        <input type="number" name="priceSold" class="form__input" autocomplete="off" placeholder=" " value="<%= product.priceSold || '' %>" required>
+                        <input type="number" name="priceSold" class="form__input" autocomplete="off" placeholder=" " value="<%=product.priceSold || '' %>" required>
                         <label for="price" class="form__label">price sold</label>
                     </div>
                     <div class="form">
-                        <input type="number" name="quantity" class="form__input" autocomplete="off" placeholder=" " value="<%= product.quantity || '' %>" required>
+                        <input type="number" name="quantity" class="form__input" autocomplete="off" placeholder=" " value="<%=product.quantity || '' %>" required>
                         <label for="price" class="form__label">quantity</label>
                     </div>
                     <div class="form text">
-                        <textarea class="form__input" name="description" required><%= product.description || '' %></textarea>
+                        <textarea class="form__input" name="description" required><%=product.description || '' %></textarea>
                         <label for="color" class="form__description">description</label>
                     </div>
                     <div class="images">
