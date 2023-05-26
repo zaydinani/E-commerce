@@ -1,0 +1,53 @@
+<%- include('../include/header.ejs') %>
+
+    <link rel="stylesheet" href="/css/dash-customers.css">
+    <title></title>
+</head>
+<body>
+    <!--include side bar here-->
+    <%- include('./dashboard-sidemenu') %>
+    <!--customers table-->
+
+  <!-- Responsive table starts here -->
+  <!-- For correct display on small screens you must add 'data-title' to each 'td' in your table -->
+  <h1 class="title">subscribers</h1>
+  <div class="table-responsive-vertical shadow-z-1">
+    <!-- Table starts here -->
+    <table id="table" class="table table-hover table-mc-light-blue">
+      <thead>
+        <tr>
+          <th>email</th>
+          <th>date</th>
+          <th>delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% subscribers.forEach((subscriber) => { %>
+          <tr>
+            <td data-title="email"><%= subscriber.email %></td>
+            <td data-title="date">
+              <% if (subscriber.createdAt) { %>
+                <%= subscriber.createdAt.toDateString() %>
+              <% } else { %>
+                N/A
+              <% } %>
+            </td>
+            <td>
+              <form action="/subscriber/delete/<%= subscriber._id %>" method="post">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <button class="delete" type="submit">delete</button>
+              </form>
+            </td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+    </div>
+    
+
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/a5df376e05.js" crossorigin="anonymous"></script>
+</body>
+</html>

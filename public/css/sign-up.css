@@ -10,9 +10,10 @@ body {
   margin: 0;
   padding: 0;
 }
+
 #error{
   color : red;
-  padding: 1rem 0;
+  padding: 1rem ;
   margin-top: 1rem;
   border: 1px solid red;
   text-align: center;
@@ -174,9 +175,6 @@ body {
   font-size: 0.8rem;
   left: 0.8rem;
 }
-
-
-
 
 @media screen and (max-width: 800px) {
   .container {

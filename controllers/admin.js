@@ -277,6 +277,33 @@ exports.getCustomersDashboard = (req, res, next) => {
     .catch((err) => console.error(err));
 };
 
+//? GET subscribers Dashboard
+exports.getSubscribersDashboard = (req, res, next) => {
+  const adminId = req.session.admin;
+  console.log(adminId);
+  adminModel
+    .findById(adminId)
+    .then((admin) => {
+      const adminName = admin.name;
+      subscribersModel
+        .find()
+        .then((subscribers) => {
+          res.render("./admin/dash-subscribers", {
+            pageTitle: "dashboard-subscribers",
+            path: "/dash/subscribers",
+            adminName: adminName,
+            subscribers: subscribers,
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
 //? GET products page Dashboard
 exports.getProductsDashboard = (req, res, next) => {
   const adminId = req.session.admin;
@@ -501,6 +528,15 @@ exports.postSignUp = (req, res, next) => {
   const password = req.body.password;
   const confirmPassword = req.body.confirmPassword;
   console.log(name, email, password, confirmPassword);
+  // Password pattern: at least one capital letter, at least one number, minimum length of 8 characters
+  const passwordPattern = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+  if (!passwordPattern.test(password)) {
+    req.flash(
+      "error",
+      "Password must contain at least one capital letter, one number, and be at least 8 characters long"
+    );
+    return res.redirect("/sign-up");
+  }
   adminModel
     .findOne({ email: email })
     .then((userDoc) => {
@@ -863,6 +899,21 @@ exports.postDeleteAdmin = (req, res, next) => {
     .then(() => {
       res.redirect("back");
       console.log(`order id:${adminId} deleted`);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+//? POST admin delete subscriber from dashboard subscribers
+exports.postDeleteSubscriber = (req, res, next) => {
+  const subscriberId = req.params.id;
+  console.log(subscriberId);
+  subscribersModel
+    .findByIdAndDelete(subscriberId)
+    .then(() => {
+      res.redirect("back");
+      console.log(`order id:${subscriberId} deleted`);
     })
     .catch((err) => {
       console.log(err);
