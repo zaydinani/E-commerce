@@ -17,7 +17,19 @@ body {
   padding: 16px;
   border: none;
 }
-
+.wishlist{
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  width: 100%;
+  font-weight: 400;
+}
+.wishlist i {
+  font-size: 24px;
+  margin-left: 1rem;
+}
 .dropdown {
   position: relative;
   display: inline-block;

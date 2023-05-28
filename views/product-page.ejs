@@ -22,22 +22,40 @@
             <!--! information and action button-->
             <div>
                 <h1><%= prod.name %></h1>
-                <h1> material: <%= prod.material %></h1>
+                <h1>material: <%= prod.material %></h1>
                 <h3>$<%= prod.priceSold %></h3>
-                <div style="width: 2.5rem; background-color: <%= prod.color %>;" class="color"></div>
+                <div style="width: 2.5rem; background-color: <%= prod.color %>" class="color"></div>
                 <% if (prod.quantity === 0) { %>
-                    <p>this product is out of stock</p>
-
+                  <p>This product is out of stock</p>
                 <% } else if (isLoggedIn) { %>
+                  <% const productIdsInWishlist = wishlistProducts.map(item => item.productId.toString()); %>
+                  <% console.log("wishlistProducts:", wishlistProducts); %>
+                  <% console.log("productIdsInWishlist:", productIdsInWishlist); %>
+                  <% if (productIdsInWishlist.includes(prod._id.toString())) { %>
                     <form action="/add-to-cart" method="post">
-                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                        <input type="hidden" name="productId" value="<%= prod._id %>">
-                        <button type="submit">add to cart</button>
+                      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                      <input type="hidden" name="productId" value="<%= prod._id %>">
+                      <button type="submit">Add to Cart</button>
                     </form>
+                    <p style="margin-top: 1rem;">This product is already in your wishlist</p>
+                  <% } else { %>
+                    <form action="/add-to-cart" method="post">
+                      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                      <input type="hidden" name="productId" value="<%= prod._id %>">
+                      <button type="submit">Add to Cart</button>
+                    </form>
+                    <form style="margin-top: 1rem;" action="/add-to-wishlist/<%= prod._id %>" method="post">
+                      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                      <button type="submit">Add to Wishlist</button>
+                    </form>
+                  <% } %>
                 <% } else { %>
-                    <p>you need to <a href="/sign-in">sign in</a> or <a href="/sign-up">sign up</a> to add product to cart</p>
+                  <p>You need to <a href="/sign-in">sign in</a> or <a href="/sign-up">sign up</a> to add the product to your cart</p>
                 <% } %>
-            </div>
+              </div>
+              
+              
+              
         </div>
         <!--! description-->
         <div class="descrition">

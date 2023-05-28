@@ -83,17 +83,49 @@ exports.getProduct = (req, res, next) => {
         .find({ category: category, _id: { $ne: productId } })
         .limit(3)
         .then((similarProduct) => {
-          res.render("product-page", {
-            pageTitle: "product",
-            path: "/product",
-            prod: product,
-            similarProds: similarProduct,
-          });
+          const isLoggedIn = req.session.isLoggedIn || false;
+          let wishlistProducts = [];
+          if (isLoggedIn) {
+            userModel
+              .findById(req.session.user)
+              .then((user) => {
+                console.log("user:", user);
+                if (user && user.wishlist) {
+                  wishlistProducts = user.wishlist;
+                }
+                const productIdsInWishlist = wishlistProducts.map((item) =>
+                  item.productId.toString()
+                );
+                console.log("wishlistProducts:", wishlistProducts);
+                console.log("productIdsInWishlist:", productIdsInWishlist);
+                res.render("product-page", {
+                  pageTitle: "product",
+                  path: "/product",
+                  prod: product,
+                  similarProds: similarProduct,
+                  isLoggedIn: isLoggedIn,
+                  wishlistProducts: wishlistProducts,
+                  productIdsInWishlist: productIdsInWishlist,
+                });
+              })
+              .catch((err) => console.error(err));
+          } else {
+            res.render("product-page", {
+              pageTitle: "product",
+              path: "/product",
+              prod: product,
+              similarProds: similarProduct,
+              isLoggedIn: isLoggedIn,
+              wishlistProducts: wishlistProducts,
+              productIdsInWishlist: [],
+            });
+          }
         })
         .catch((err) => console.error(err));
     })
     .catch((err) => console.error(err));
 };
+
 //? GET fetch products in cart page
 exports.getCart = (req, res, next) => {
   let message = req.flash("error");
@@ -166,10 +198,25 @@ exports.getFaq = (req, res, next) => {
 };
 //? GET wishlist
 exports.getWishlist = (req, res, next) => {
-  res.render("wishlist", {
-    pageTitle: "wishlist",
-    path: "/wishlist",
-  });
+  const userId = req.session.user;
+  userModel
+    .findById(userId)
+    .populate("wishlist.productId") // Populate the productId field with the actual product document
+    .exec()
+    .then((user) => {
+      if (!user) {
+        console.log("User not found");
+      }
+      const wishlistProducts = user.wishlist;
+      res.render("wishlist", {
+        pageTitle: "Wishlist",
+        path: "/wishlist",
+        wishlistProducts: wishlistProducts,
+      });
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 };
 //! POST ROUTES
 //? POST subscribe to newsletter
@@ -306,4 +353,35 @@ exports.getContactForm = (req, res, next) => {
   console.log("email from contact us successfully sent");
   req.flash("success", "your email have been sent successfully");
   return res.redirect("back");
+};
+
+//? POST add products to wishlist
+exports.postAddToWishlist = (req, res, next) => {
+  const productId = req.params.id;
+
+  productModel
+    .findById(productId)
+    .then((product) => {
+      return req.user.addToWishlist(productId);
+    })
+    .then(() => {
+      res.redirect("/wishlist");
+    })
+    .catch((err) => {
+      console.error(err);
+      res.redirect("back");
+    });
+};
+//? POST remove product from wishlist
+exports.postRemoveFromWishlist = (req, res, next) => {
+  const productId = req.params.id;
+  req.user
+    .removeFromWishlist(productId)
+    .then(() => {
+      res.redirect("/wishlist"); // Redirect to wishlist after successful removal
+    })
+    .catch((err) => {
+      console.error(err);
+      res.redirect("/wishlist"); // Redirect to wishlist even if an error occurs
+    });
 };

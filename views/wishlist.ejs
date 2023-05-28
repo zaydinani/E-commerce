@@ -1,31 +1,42 @@
     <%- include('include/header.ejs') %>
     <link rel="stylesheet" href="/css/wishlist.css">
-    <title>sign up</title>
+    <title>wishlist</title>
 </head>
 <body>
     <!--! include header here--> 
     <%- include('include/nav-bar') %>
     <!--! container-->
-    <div class="wishlist">
+    <div class="wishlist-page">
         <h1>wishlist</h1>
         <!--! products container-->
         <div class="products">
-            <!--! product cards-->
-            <a style="text-decoration: none;" href="./product-page.ejs">
-                <div class="card">
-                    <img src="/pictures/wood monitor 2.png" alt="">
-                    <p>Wood Monitor Stand</p>
-                    <p>$250</p>
-                    <div>
-                        <form action="">
-                            <button>remove</button>
-                            <button>add to cart</button>
-                        </form>
-                    </div>
-                </div>
-            </a>
+            <% if (wishlistProducts.length === 0) { %>
+                <h2>No products in your wishlist.</h2>
+            <% } else { %>
+          <!--! product cards-->
+          <% wishlistProducts.forEach((product) => { %>
+          <a style="text-decoration: none;"href="/product/<%= product.productId._id %>">
+            <div class="card">
+              <img src="<%= product.productId.mainImagesPath[0] %>" alt="">
+              <p><%= product.productId.name %></p>
+              <p><%= product.productId.price %></p>
+              <div>
+                <form action="/add-to-cart" method="post">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <input type="hidden" name="productId" value="<%= product.productId._id %>">
+                    <button type="submit">add to cart</button>
+                </form>
+                <form action="/wishlist/remove/<%= product._id %>" method="POST"> <!-- Update the form action -->
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <button type="submit">Remove from Wishlist</button> <!-- Change the button text -->
+                </form>
+              </div>
+            </div>
+          </a>
+          <% }); %>
+        <% } %>
         </div>
-    </div>
+      </div>
 
     <!--! include blue section here--> 
     <%- include('include/blue-section') %>

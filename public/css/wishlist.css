@@ -13,12 +13,14 @@ body {
 
 
 /* container*/
-.wishlist {
+.wishlist-page {
   padding: 5rem 2rem;
   text-align: center;
+  display: flex;
+  flex-direction: column;
   /* products container*/
 }
-.wishlist h1 {
+.wishlist-page h1 {
   margin-bottom: 2rem;
   padding-bottom: 1rem;
   text-decoration: none;
@@ -28,7 +30,7 @@ body {
   font-size: 44px;
   border-bottom: 1px solid #adadad;
 }
-.wishlist .products {
+.wishlist-page .products {
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -37,12 +39,12 @@ body {
   /* product cards*/
   /* form */
 }
-.wishlist .products .card {
+.wishlist-page .products .card {
   width: 200px;
   cursor: pointer;
   margin-bottom: 1rem;
 }
-.wishlist .products .card p {
+.wishlist-page .products .card p {
   margin-bottom: 5px;
   text-decoration: none;
   font-family: "Roboto", sans-serif;
@@ -51,11 +53,11 @@ body {
   font-size: 14px;
   color: #adadad;
 }
-.wishlist .products .card img {
+.wishlist-page .products .card img {
   width: 200px;
   margin-bottom: 15px;
 }
-.wishlist .products .card form {
+.wishlist-page .products .card form {
   display: flex;
   justify-content: space-around;
   align-items: flex-start;
@@ -64,7 +66,7 @@ body {
   height: 3rem;
   padding-top: 2px;
 }
-.wishlist .products .card form button {
+.wishlist-page .products .card form button {
   color: #f69368;
   text-decoration: none;
   font-family: "Roboto", sans-serif;
@@ -77,15 +79,15 @@ body {
   letter-spacing: normal;
   cursor: pointer;
 }
-.wishlist .products .card:hover p {
+.wishlist-page .products .card:hover p {
   color: black;
   transition: 0.5s ease-in-out;
 }
-.wishlist .products form button:hover {
+.wishlist-page .products form button:hover {
   color: red;
   transition: 0.5s ease-in-out;
 }
-.wishlist .products form button:after {
+.wishlist-page .products form button:after {
   content: "";
   display: block;
   margin: auto;
@@ -94,7 +96,7 @@ body {
   background: #f69368;
   transition: width 0.5s ease, background-color 0.5s ease;
 }
-.wishlist .products form button:hover:after {
+.wishlist-page .products form button:hover:after {
   width: 70%;
   background: #f69368;
 }
