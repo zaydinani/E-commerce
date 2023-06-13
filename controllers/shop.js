@@ -20,6 +20,7 @@ exports.getHome = (req, res, next) => {
     })
     .catch((err) => console.error(err));
 };
+
 //? GET fetch all products
 exports.getProducts = (req, res, next) => {
   productModel
@@ -218,6 +219,33 @@ exports.getWishlist = (req, res, next) => {
       console.error(err);
     });
 };
+//? GET user orders pages routes
+const calculateTotalPrice = (order) => {
+  let totalPrice = 0;
+  order.products.forEach((product) => {
+    totalPrice += product.quantity * product.product.priceSold;
+  });
+  return totalPrice.toFixed(2);
+};
+exports.getUsersOrder = (req, res, next) => {
+  const userId = req.session.user;
+  console.log(userId);
+  orderModel
+    .find({ userId: userId.userId })
+    .sort({ createdAt: -1 })
+    .then((orders) => {
+      res.render("user-orders", {
+        pageTitle: "orders",
+        path: "/user-orders",
+        orders: orders,
+        calculateTotalPrice: calculateTotalPrice,
+      });
+      console.log(orders);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+};
 //! POST ROUTES
 //? POST subscribe to newsletter
 exports.postSubscribe = (req, res, next) => {
@@ -237,10 +265,22 @@ exports.postSubscribe = (req, res, next) => {
         let to = email;
         let subject = "subscribe to newsletter";
         let htmlContent = `
-                <body style="background-color: black;">
-                    <h1 style="color: green;">welcome to grovemade newsletter</h1> 
-                    <p style="color: red;">we happy that you sign up with us</p>
-                </body>
+              <html lang="en">
+              <head>
+                  <meta charset="UTF-8">
+                  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                  <link rel="icon" type="image/x-icon" href="/pictures/grovemade logo.png">
+                  <link rel="preconnect" href="https://fonts.googleapis.com">
+                  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+                  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+                  <title>email</title>
+              </head>
+              <body style="font-family: 'Roboto', sans-serif; font-weight: 300; letter-spacing: 2px; text-align: center;">
+                  <h1>welcome to grovemade newsletter</h1>
+                  <h2>we happy that you sign up with us</h2>
+              </body>
             `;
         nodeMailer.sendMail(to, subject, htmlContent);
         console.log("email subscribed successfully");
@@ -315,10 +355,22 @@ exports.postCheckout = (req, res, next) => {
         let to = req.user.email;
         let subject = "purchase";
         let htmlContent = `
-                <body style="background-color: black;">
-                    <h1 style="color: green;">thank you for bying from grovemade</h1> 
-                    <h2 style="color: red;">your purchase id is: ${order._id}</h2>
-                </body>
+              <html lang="en">
+              <head>
+                  <meta charset="UTF-8">
+                  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                  <link rel="icon" type="image/x-icon" href="/pictures/grovemade logo.png">
+                  <link rel="preconnect" href="https://fonts.googleapis.com">
+                  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+                  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+                  <title>email</title>
+              </head>
+              <body style="font-family: 'Roboto', sans-serif; font-weight: 300; letter-spacing: 2px; text-align: center;">
+                  <h1>thank you for buying from grovemade</h1>
+                  <h2>your purchase id is: ${order._id}</h2>
+              </body>
             `;
         nodeMailer.sendMail(to, subject, htmlContent);
         console.log("email for purchase successfully sent");
@@ -344,9 +396,21 @@ exports.getContactForm = (req, res, next) => {
   let to = receivedEmail;
   let subject = bodySubject;
   let htmlContent = `
-        <body style="background-color: black;">
-            <h1 style="color: green;">this is an email sent from grovemade contact us page</h1> 
-            <h2 style="color: red;">${message}</h2>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="icon" type="image/x-icon" href="/pictures/grovemade logo.png">
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+            <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+            <title>email</title>
+        </head>
+        <body style="font-family: 'Roboto', sans-serif; font-weight: 300; letter-spacing: 2px; text-align: center;">
+          <h1>this is an email sent from grovemade contact us page</h1>
+            <h2>${message}</h2>
         </body>
     `;
   nodeMailer.sendMail(to, subject, htmlContent);
@@ -378,10 +442,10 @@ exports.postRemoveFromWishlist = (req, res, next) => {
   req.user
     .removeFromWishlist(productId)
     .then(() => {
-      res.redirect("/wishlist"); // Redirect to wishlist after successful removal
+      res.redirect("/wishlist");
     })
     .catch((err) => {
       console.error(err);
-      res.redirect("/wishlist"); // Redirect to wishlist even if an error occurs
+      res.redirect("/wishlist");
     });
 };

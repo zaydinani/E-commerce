@@ -30,6 +30,9 @@ body {
   font-size: 24px;
   margin-left: 1rem;
 }
+.wishlist a {
+  width: 100%;
+}
 .dropdown {
   position: relative;
   display: inline-block;

@@ -16,6 +16,7 @@ router.get("/faq", shopController.getFaq);
 router.get("/wishlist", isLoggedIn, shopController.getWishlist);
 router.get("/laptopStands", shopController.getLaptopStands);
 router.get("/deskPads", shopController.getDeskPads);
+router.get("/orders", shopController.getUsersOrder);
 router.get("/product/:productId", shopController.getProduct);
 
 //! POST ROUTES

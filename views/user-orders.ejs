@@ -1,0 +1,46 @@
+    <%- include('include/header.ejs') %>
+    <link rel="stylesheet" href="/css/dash-orders.css">
+    <title></title>
+</head>
+<body>
+    <!--include nav here-->
+    <%- include('include/nav-bar') %>
+
+    <!--orders table-->
+    <div class="table-orders" style="padding-top: 5rem; margin: 0;">
+        <h1 style="margin-bottom: 2rem; padding-bottom: 1rem; text-decoration: none; font-family: 'Roboto', sans-serif; font-weight: 200; letter-spacing: 2px; font-size: 44px; border-bottom: 1px solid #adadad;">orders</h1>
+    </div>
+    <div class="table-responsive-vertical shadow-z-1">
+        <!-- Table starts here -->
+        <table id="table" class="table table-hover table-mc-light-blue" style="  width: 100%;">
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>User Email</th>
+              <th>Products</th>
+              <th>Order Date</th>
+              <th>total price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% orders.forEach((order) => { %>
+              <tr>
+                <td data-title="Order ID"><%= order._id %></td>
+                <td data-title="User Email"><%= order.user.email %></td>
+                <td data-title="Products">
+                  <% order.products.forEach((item) => { %>
+                    <p><%= item.product.name %> (Quantity: <%= item.quantity %>)</p>
+                  <% }) %>
+                </td>
+                <td data-title="Date of Order"><%= new Date(order.createdAt).toLocaleString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', hour12: false }) %></td>
+                <td data-title="Total Price">$ <%= calculateTotalPrice(order) %></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/a5df376e05.js" crossorigin="anonymous"></script>
+</body>
+</html>
