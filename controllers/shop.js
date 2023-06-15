@@ -3,6 +3,9 @@ const subscribersModel = require("../models/subscribers");
 const userModel = require("../models/user");
 const orderModel = require("../models/order");
 const categoryModel = require("../models/categories");
+const PDFDocument = require("pdfkit");
+const fs = require("fs");
+const path = require("path");
 const NodeMailer = require("../classes/nodemailer");
 
 //! GET ROUTES
@@ -351,6 +354,49 @@ exports.postCheckout = (req, res, next) => {
           },
           products: Products,
         });
+        //pdf start
+        // Create a new PDF document
+        const pdfDoc = new PDFDocument();
+        // Add content to the PDF document
+        pdfDoc.fontSize(24).text("Receipt", {
+          underline: true,
+          align: "center",
+        });
+        pdfDoc.moveDown(0.5);
+        pdfDoc.fontSize(16).text("Order ID: " + order._id);
+        pdfDoc.moveDown(0.5);
+        pdfDoc.fontSize(16).text("User Email: " + req.user.email);
+        pdfDoc.moveDown(0.5);
+        // Write the content of the PDF document
+        pdfDoc
+          .fontSize(16)
+          .text("Thank you for your purchase MR: " + req.user.name);
+        pdfDoc.moveDown(0.5);
+        pdfDoc.text("hope to see you again");
+        pdfDoc.moveDown(1);
+        // Add the list of product names
+        pdfDoc.fontSize(16).text("Products:", { underline: true });
+        pdfDoc.moveDown(0.5);
+        order.products.forEach((item) => {
+          pdfDoc
+            .fontSize(14)
+            .text(
+              "- " + item.product.name + " (Quantity x " + item.quantity + ")"
+            );
+          pdfDoc.moveDown(1);
+        });
+        pdfDoc
+          .fontSize(16)
+          .text("Total Amount: $" + calculateTotalPrice(order));
+        pdfDoc.moveDown(0.5);
+        // Generate a unique filename for the PDF
+        const filename = `receipt-${Date.now()}.pdf`;
+        const pdfFilePath = path.join(__dirname, "..", "data", filename);
+        const pdfFileUrl = `http://localhost:3000/receipts/${filename}`;
+        // Pipe the PDF document to a file stream
+        pdfDoc.pipe(fs.createWriteStream(pdfFilePath));
+        // Finalize the PDF document
+        pdfDoc.end();
         let nodeMailer = new NodeMailer();
         let to = req.user.email;
         let subject = "purchase";
@@ -370,9 +416,16 @@ exports.postCheckout = (req, res, next) => {
               <body style="font-family: 'Roboto', sans-serif; font-weight: 300; letter-spacing: 2px; text-align: center;">
                   <h1>thank you for buying from grovemade</h1>
                   <h2>your purchase id is: ${order._id}</h2>
+                  <p>Please find the receipt attached.</p>
+                  <a href="${pdfFileUrl}">Download Receipt</a>
               </body>
             `;
-        nodeMailer.sendMail(to, subject, htmlContent);
+        nodeMailer.sendMail(to, subject, htmlContent, [
+          {
+            filename: "receipt.pdf",
+            path: pdfFilePath,
+          },
+        ]);
         console.log("email for purchase successfully sent");
         return order.save();
       });
@@ -385,6 +438,7 @@ exports.postCheckout = (req, res, next) => {
     })
     .catch((err) => console.log(err));
 };
+
 //? POST contact us form
 exports.getContactForm = (req, res, next) => {
   const name = req.body.name;
