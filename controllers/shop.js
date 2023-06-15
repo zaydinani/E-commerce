@@ -234,7 +234,7 @@ exports.getUsersOrder = (req, res, next) => {
   const userId = req.session.user;
   console.log(userId);
   orderModel
-    .find({ userId: userId.userId })
+    .find({ "user.userId": userId })
     .sort({ createdAt: -1 })
     .then((orders) => {
       res.render("user-orders", {
@@ -243,7 +243,6 @@ exports.getUsersOrder = (req, res, next) => {
         orders: orders,
         calculateTotalPrice: calculateTotalPrice,
       });
-      console.log(orders);
     })
     .catch((err) => {
       console.error(err);
