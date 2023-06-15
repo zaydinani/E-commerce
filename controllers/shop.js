@@ -330,6 +330,22 @@ exports.postCheckout = (req, res, next) => {
     req.flash("error", "your cart is empty add a product to checkout");
     return res.redirect("back");
   }
+
+  if (
+    !req.user.address ||
+    !req.user.address.city ||
+    !req.user.address.street ||
+    !req.user.address.building ||
+    !req.user.address.apartmentNumber
+  ) {
+    console.log("empty address fields");
+    req.flash(
+      "error",
+      "Please fill in your address information before checking out."
+    );
+    return res.redirect("back");
+  }
+
   req.user
     .populate("cart.items.productId")
     .then((user) => {
