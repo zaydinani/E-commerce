@@ -57,7 +57,7 @@ fetch("/users")
 //!-----------------------getting orders----------------------------------------
 
 // Fetch the data from the server
-fetch("/orders")
+fetch("/order")
   .then((response) => response.json())
   .then((data) => {
     // Do something with the data here

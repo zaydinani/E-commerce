@@ -92,7 +92,7 @@ router.post("/admin/delete/:id", isAdmin, adminController.postDeleteAdmin);
 //? Route for retrieving user data as JSON
 router.get("/users", isAdmin, adminController.getUsers);
 //? Route for retrieving orders data as JSON
-router.get("/orders", isAdmin, adminController.getOrders);
+router.get("/order", isAdmin, adminController.getOrders);
 //? Route for retrieving best selling product data as JSON
 router.get("/best/selling", isAdmin, adminController.getBestSales);
 //? Route for retrieving profit each month data as JSON

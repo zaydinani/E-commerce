@@ -86,14 +86,9 @@
                     <div class="product-card">
                       <img src="/<%= product.mainImagesPath[0] %>" alt="">
                       <p><%= product.name %></p>
-                      <p><%= product.quantity %></p>
+                      <p>in stock : <%= product.quantity %></p>
                     </div>
                   </a>
-                  <div class="actions">
-                    <ul>
-                      <li><a href="">Contact Seller</a></li>
-                    </ul>
-                  </div>
                 </div>
               <% }); %>
             <% } else { %>

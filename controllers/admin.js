@@ -1,5 +1,5 @@
-const orderModel = require("../models/order");
 const productModel = require("../models/products");
+const orderModel = require("../models/order");
 const userModel = require("../models/user");
 const subscribersModel = require("../models/subscribers");
 const adminModel = require("../models/admin");
@@ -73,10 +73,11 @@ exports.getOrders = (req, res, next) => {
     .lean()
     .exec()
     .then((orders) => {
+      console.log("Orders retrieved:", orders);
       res.json(orders);
     })
     .catch((error) => {
-      console.log(error);
+      console.log("Error retrieving orders:", error);
       res.status(500).json({ message: "An error occurred" });
     });
 };
