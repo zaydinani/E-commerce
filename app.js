@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("path");
+const fs = require("fs");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const session = require("express-session");
@@ -7,8 +8,13 @@ const mongodbStore = require("connect-mongodb-session")(session);
 const flash = require("connect-flash");
 const csrf = require("csurf");
 const multer = require("multer");
+const compression = require("compression");
+const morgan = require("morgan");
+require("dotenv").config();
+const mongodbUrl = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.x16taeu.mongodb.net/?retryWrites=true&w=majority`;
+/* connect to mongo locally 
 const mongodbUrl = "mongodb://127.0.0.1/grovemade";
-
+*/
 const app = express();
 
 // getting routes from routes file
@@ -49,6 +55,16 @@ app.use("/images", express.static(path.join(__dirname, "images")));
 
 //using flash
 app.use(flash());
+
+//using compression
+app.use(compression());
+
+//using morgan
+const accessLogStream = fs.createWriteStream(
+  path.join(__dirname, "access.log"),
+  { flags: "a" }
+);
+app.use(morgan("combined", { stream: accessLogStream }));
 
 //using multer
 const fileStorage = multer.diskStorage({
@@ -115,5 +131,5 @@ app.get("/receipts/:filename", (req, res) => {
   });
 });
 //choosing port and starting server
-const port = 3000;
+const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Server is running on port ${port}`));
