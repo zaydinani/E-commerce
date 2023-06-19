@@ -138,3 +138,4 @@
 ::1 - - [18/Jun/2023:01:06:05 +0000] "GET /cart HTTP/1.1" 200 - "http://localhost:3000/product/648e4f7cab7acbeef93a528b" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
 ::1 - - [18/Jun/2023:01:06:08 +0000] "POST /checkout HTTP/1.1" 302 64 "http://localhost:3000/cart" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
 ::1 - - [18/Jun/2023:01:06:08 +0000] "GET /thank-you HTTP/1.1" 200 - "http://localhost:3000/cart" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+::1 - - [19/Jun/2023:18:06:16 +0000] "GET / HTTP/1.1" 200 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
