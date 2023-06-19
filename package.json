@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js",
+    "start": "MONGO_USER=zaydinani MONGO_PASSWORD=LIW11hJaQTMrFCx2 NODEMAILER_EMAIL=solideye99@gmail.com NODEMAILER_PASSWORD=oavahsxvbvvrqzfw NODEMAILER_SERVICE=gmail PORT=3000 node app.js",
     "start-server": "node app.js",
     "dev": "nodemon app.js"
   },
