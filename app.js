@@ -58,14 +58,14 @@ app.use(flash());
 
 //using compression
 app.use(compression());
-
+/*
 //using morgan
 const accessLogStream = fs.createWriteStream(
   path.join(__dirname, "access.log"),
   { flags: "a" }
 );
 app.use(morgan("combined", { stream: accessLogStream }));
-
+*/
 //using multer
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
