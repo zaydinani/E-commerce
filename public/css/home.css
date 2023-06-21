@@ -473,14 +473,13 @@ footer .newsletter form button {
     letter-spacing: 2px;
     font-size: 10px;
   }
-  .second-section div {
-    margin: 1rem;
-  }
+
   .second-section div img {
     width: 100%;
   }
   .second-section div div h1 {
-    margin-bottom: 0;
+    margin-bottom: 1px0;
+    font-size: 20px;
   }
 }
 @media screen and (max-width: 365px) {

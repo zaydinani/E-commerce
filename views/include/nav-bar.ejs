@@ -12,6 +12,7 @@
         <nav class="mobile-nav" id="mobile-nav">
             <ul>
                 <% if ( isLoggedIn ) { %>
+                    <li><a href="/">home</a></li>
                     <li><a href="/cart">cart</a></li>
                     <li><a href="/profile">profile</a></li>
                     <form action="/sign-out" method="post">

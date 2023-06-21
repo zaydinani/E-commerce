@@ -369,6 +369,7 @@ exports.postCheckout = (req, res, next) => {
           },
           products: Products,
         });
+        /*
         //pdf start
         // Create a new PDF document
         const pdfDoc = new PDFDocument();
@@ -412,6 +413,7 @@ exports.postCheckout = (req, res, next) => {
         pdfDoc.pipe(fs.createWriteStream(pdfFilePath));
         // Finalize the PDF document
         pdfDoc.end();
+        */
         let nodeMailer = new NodeMailer();
         let to = req.user.email;
         let subject = "purchase";
