@@ -119,7 +119,7 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
-/*
+
 // serve the PDF file receipts in email to download
 app.get("/receipts/:filename", (req, res) => {
   const filename = req.params.filename;
@@ -131,7 +131,7 @@ app.get("/receipts/:filename", (req, res) => {
     }
   });
 });
-*/
+
 //choosing port and starting server
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Server is running on port ${port}`));
