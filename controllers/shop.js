@@ -434,9 +434,10 @@ exports.postCheckout = (req, res, next) => {
                   <h1>thank you for buying from grovemade</h1>
                   <h2>your purchase id is: ${order._id}</h2>
                   <p>Please find the receipt attached.</p>
-                  <a href="${pdfFileUrl}">Download Receipt</a>
               </body>
             `;
+        //<a href="${pdfFileUrl}">Download Receipt</a>
+
         nodeMailer.sendMail(to, subject, htmlContent, [
           {
             filename: "receipt.pdf",
