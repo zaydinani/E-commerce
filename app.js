@@ -12,9 +12,7 @@ const compression = require("compression");
 const morgan = require("morgan");
 require("dotenv").config();
 const mongodbUrl = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.x16taeu.mongodb.net/?retryWrites=true&w=majority`;
-/* connect to mongo locally 
-const mongodbUrl = "mongodb://127.0.0.1/grovemade";
-*/
+
 const app = express();
 
 // getting routes from routes file
@@ -58,14 +56,14 @@ app.use(flash());
 
 //using compression
 app.use(compression());
-/*
+
 //using morgan
 const accessLogStream = fs.createWriteStream(
   path.join(__dirname, "access.log"),
   { flags: "a" }
 );
 app.use(morgan("combined", { stream: accessLogStream }));
-*/
+
 //using multer
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {

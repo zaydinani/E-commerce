@@ -19,16 +19,10 @@
                     <img src="/<%= product.productId.mainImagesPath[0] %>" alt="">
                     <div class="product-info">
                         <h4><%= product.productId.name %></h4>
-                        <h4>material: <%= product.productId.material %></h4>
+                        <h4>material: <b><%= product.productId.material %></b></h4>
                         <div class="counter">
                             <h4>quantity:</h4>
-                            <span class="down" onclick="decreaseCount(event, this)">
-                                -
-                            </span>
-                            <input type="text" name="quantity" value="<%= product.quantity %>">
-                            <span class="up" onclick="increaseCount(event, this)">
-                                +
-                            </span>
+                            <h4><b><%= product.quantity %></b></h4>
                         </div>
                         <h4 class="shipping">ships by 2/27/2023</h4>
                     </div>

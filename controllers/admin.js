@@ -495,11 +495,17 @@ exports.getSignIn = (req, res, next) => {
 
 //? GET admin profile
 exports.getProfile = (req, res, next) => {
-  let message = req.flash("success");
-  if (message.length > 0) {
-    message = message[0];
+  let successMessage = req.flash("success");
+  if (successMessage.length > 0) {
+    successMessage = successMessage[0];
   } else {
-    message = null;
+    successMessage = null;
+  }
+  let errorMessage = req.flash("error");
+  if (errorMessage.length > 0) {
+    errorMessage = errorMessage[0];
+  } else {
+    errorMessage = null;
   }
   //? getting admin information
   accountId = req.session.admin;
@@ -511,7 +517,8 @@ exports.getProfile = (req, res, next) => {
       res.render("profile", {
         pageTitle: "profile",
         path: "/admin/profile",
-        successMessage: message,
+        successMessage: successMessage,
+        errorMessage: errorMessage,
         adminData: adminData,
         admin: true,
       });

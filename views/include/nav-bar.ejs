@@ -11,7 +11,18 @@
         </button>
         <nav class="mobile-nav" id="mobile-nav">
             <ul>
-                <% if ( isLoggedIn ) { %>
+                <% if ( isAdmin ) { %>
+                    <li><a href="/">home</a></li>
+                    <li><a href="/dash">dashboard</a></li>
+                    <li><a href="/admin/profile">profile</a></li>
+                    <form action="/sign-out" method="post">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                        <button type="submit">sign out</button>
+                    </form>
+                    <li><a href="/products">desk pads</a></li>
+                    <li><a href="/products">laptop stands</a></li>
+                <% } else if ( isLoggedIn ) { %>
                     <li><a href="/">home</a></li>
                     <li><a href="/cart">cart</a></li>
                     <li><a href="/profile">profile</a></li>
@@ -20,6 +31,8 @@
                         <i class="fa-solid fa-arrow-right-from-bracket"></i>
                         <button type="submit">sign out</button>
                     </form>
+                    <li><a href="/wishlist">wishlist</a></li>
+                    <li><a href="/orders">orders</a></li>
                     <li><a href="/products">desk pads</a></li>
                     <li><a href="/products">laptop stands</a></li>
                 <% } else { %>
