@@ -7,7 +7,7 @@ This website is an e-commerce platform that offers a seamless shopping experienc
 
 This website serves as a showcase for my portfolio and a platform to test and demonstrate my development skills. It is a clone website inspired by the elegant design of https://grovemade.com/. I was captivated by their design, and I embarked on the challenge of replicating it for my own website. It's important to note that this project is solely for personal development and skill enhancement, and I do not generate any revenue from it. Its primary purpose is to exhibit my abilities as a developer and showcase my passion for creating visually appealing and functional websites.
 
-## GettingStarted
+## Getting Started
 1. Open your terminal and navigate to the directory where you want to clone the repository.
 Run the following command to clone the repository:
 ```git clone https://github.com/zaydinani/E-commerce```
@@ -40,7 +40,20 @@ PORT=
 ![image](https://img.shields.io/badge/Chart.js-FF6384?style=for-the-badge&logo=chartdotjs&logoColor=white)
 ![image](https://img.shields.io/badge/Font_Awesome-339AF0?style=for-the-badge&logo=fontawesome&logoColor=white)
 
-
+* nodejs
+* expressjs
+* mongodb
+* mongoose
+* bcryptjs
+* connect-flash
+* connect-mongodb-sesion
+* csurf
+* ejs
+* multer
+* nodemailer
+* pdfkit
+* morgan
+* compression
 ## Contributing
 
 Contributions are welcome! If you would like to contribute to this project, please follow these steps:
